@@ -70,6 +70,7 @@ Player::Player(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : G
 	vTerminalVelocity = 6.f;
 	vAcceleration = 0.2f;
 	onGround = false;
+	prevJump = false;
 }
 
 void Player::update(const std::vector<Mesh>& meshes) {
@@ -128,7 +129,7 @@ void Player::update(const std::vector<Mesh>& meshes) {
 	//Vertical movement
 	if (onGround) {
 		//If the player jumps
-		if (jump) {
+		if (jump && !prevJump) {
 			vVelocity = vJumpAcceleration;
 		} else {
 			vVelocity = vAcceleration;
@@ -170,6 +171,8 @@ void Player::update(const std::vector<Mesh>& meshes) {
 			setPosition(getPosition().x, lockedy);
 		}
 	}
+
+	prevJump = jump;
 }
 
 void Player::draw(sf::RenderWindow& window) {

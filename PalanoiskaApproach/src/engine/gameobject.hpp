@@ -46,6 +46,7 @@ private:
 	float hMax;
 
 	bool onGround;
+	bool prevJump;
 	float vVelocity;
 	float vJumpAcceleration;
 	float vTerminalVelocity;
