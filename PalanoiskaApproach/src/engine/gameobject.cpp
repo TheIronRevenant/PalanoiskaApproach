@@ -3,6 +3,7 @@
 #include "physics/collision.hpp"
 #include "mesh.hpp"
 #include "gameobject.hpp"
+#include <iostream>
 
 /*
 Game Object Abstract Class
@@ -109,10 +110,18 @@ void Player::update(const std::vector<Mesh>& meshes) {
 		setPosition(nextPos.getPosition());
 	} else {
 		if (hVelocity > 0.f) {
-			hVelocity = std::clamp(hVelocity - (hAcceleration * 3), 0.f, 2.f);
+			hVelocity = 0.f;
+
+			//Lock position to the right
+			float lockedx = std::ceilf(getPosition().x / 16) * 16;
+			setPosition(lockedx, getPosition().y);
 		} else
 		if (hVelocity < 0.f) {
-			hVelocity = std::clamp(hVelocity + (hAcceleration * 3), -2.f, 0.f);
+			hVelocity = 0.f;
+
+			//Lock position to the left
+			float lockedx = std::floorf(getPosition().x / 16) * 16;
+			setPosition(lockedx, getPosition().y);
 		}
 	}
 
@@ -147,10 +156,18 @@ void Player::update(const std::vector<Mesh>& meshes) {
 		//If going upwards
 		if (vVelocity < 0.f) {
 			vVelocity = 0.f;
+
+			//Lock position to ceiling
+			float lockedy = std::floorf(getPosition().y / 16) * 16;
+			setPosition(getPosition().x, lockedy);
 		} else {
 			//If going downwards
 			vVelocity = 0.f;
 			onGround = true;
+
+			//Lock position to the ground
+			float lockedy = std::ceilf(getPosition().y / 16) * 16;
+			setPosition(getPosition().x, lockedy);
 		}
 	}
 }
