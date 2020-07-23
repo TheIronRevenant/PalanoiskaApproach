@@ -185,6 +185,7 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     <ClCompile Include="src\pugixml\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\scenes\TestScene.tmx" />
     <None Include="sfml-audio-2.dll" />
     <None Include="sfml-audio-d-2.dll" />
     <None Include="sfml-graphics-2.dll" />

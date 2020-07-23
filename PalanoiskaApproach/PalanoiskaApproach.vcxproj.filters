@@ -49,6 +49,7 @@
     <None Include="sfml-graphics-d-2.dll" />
     <None Include="sfml-system-d-2.dll" />
     <None Include="sfml-window-d-2.dll" />
+    <None Include="resources\scenes\TestScene.tmx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\game.hpp">
