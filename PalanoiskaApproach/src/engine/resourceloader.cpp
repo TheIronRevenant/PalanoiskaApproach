@@ -8,7 +8,7 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 
 	int spacing = 1;
 	int tilesize = 16;
-	int total = 1;
+	int total = 4;
 	std::string file = folder + "\\resources\\player.png";
 
 	/*
@@ -88,10 +88,17 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 
 			//If this is the player
 			if (id == 10) {
-				scene.addPlayer(Player(x, y, textures[0]));
+				PlayerAnimator animator(Animation{ std::vector<sf::Texture*>{ &textures[2], &textures[3] }  }, Animation{ std::vector<sf::Texture*>{ &textures[0], &textures[1] } });
+				scene.addPlayer(Player(x, y, animator));
 			} else {
-				scene.addStatic(StaticObject(x, y, textures[id]));
+				if (id > 10) {
+					scene.addStatic(StaticObject(x, y, textures[id - 10]));
+				} else {
+					scene.addStatic(StaticObject(x, y, textures[id + 3]));
+				}
 			}
 		}
 	}
+
+	scene.generateMeshes();
 }

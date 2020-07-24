@@ -36,12 +36,6 @@ int Game::init() {
 	//Init scene
 	loadScene(currentScene, textures, current_dir(), "TestScene.tmx");
 
-	//Generate tiles
-	for (unsigned int i = 0; i < textures.size(); i++) {
-		currentScene.addStatic(StaticObject(i, 2, textures[i]));
-	}
-	currentScene.generateMeshes();
-
 	while (window.isOpen()) {
 		//Update clock
 		sf::Time elapsedTime = clock.restart();

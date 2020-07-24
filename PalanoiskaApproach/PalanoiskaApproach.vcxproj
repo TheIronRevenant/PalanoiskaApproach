@@ -175,6 +175,7 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\animator.cpp" />
     <ClCompile Include="src\engine\game.cpp" />
     <ClCompile Include="src\engine\gameobject.cpp" />
     <ClCompile Include="src\engine\mesh.cpp" />
@@ -196,6 +197,7 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     <None Include="sfml-window-d-2.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\animator.hpp" />
     <ClInclude Include="src\engine\game.hpp" />
     <ClInclude Include="src\engine\gameobject.hpp" />
     <ClInclude Include="src\engine\mesh.hpp" />

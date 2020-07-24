@@ -60,7 +60,9 @@ StaticObject::StaticObject(unsigned int gridx, unsigned int gridy, sf::Texture& 
 /*
 Player Object Class
 */
-Player::Player(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : GameObject(gridx, gridy, texture) {
+Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator animator) : GameObject(gridx, gridy, *(animator.getCurrentFrame())) {
+	this->animator = animator;
+
 	hVelocity = 0.f;
 	hAcceleration = 0.2f;
 	hMax = 2.f;

@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "animator.hpp"
 
 //Forward declarations
 class Mesh;
@@ -36,11 +37,13 @@ public:
 class Player : public GameObject {
 public:
 	Player() {}
-	Player(unsigned int gridx, unsigned int gridy, sf::Texture& texture);
+	Player(unsigned int gridx, unsigned int gridy, PlayerAnimator animator);
 	void update() {} //Override the abstract functions
 	void update(const std::vector<Mesh>& meshes);
 	void draw(sf::RenderWindow& window);
 private:
+	PlayerAnimator animator;
+
 	float hVelocity;
 	float hAcceleration;
 	float hMax;
