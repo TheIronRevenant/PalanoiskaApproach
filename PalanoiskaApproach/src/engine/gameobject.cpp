@@ -175,6 +175,8 @@ void Player::update(const std::vector<Mesh>& meshes) {
 	}
 
 	prevJump = jump;
+
+	animator.update(hVelocity, sprite);
 }
 
 void Player::draw(sf::RenderWindow& window) {
