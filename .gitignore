@@ -86,3 +86,4 @@
 /.vs/PalanoiskaApproach/v15/ipch/AutoPCH/745b4a18f0b4ff59/SCENE.ipch
 /.vs/PalanoiskaApproach/v15/ipch/AutoPCH/258f916e7c6c43e4/ANIMATOR.ipch
 *.obj
+*.ipch

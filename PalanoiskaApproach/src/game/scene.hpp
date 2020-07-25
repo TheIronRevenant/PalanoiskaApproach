@@ -5,6 +5,7 @@
 #include "../engine/gameobject.hpp"
 #include "../engine/mesh.hpp"
 #include "../globals.hpp"
+#include "../player.hpp"
 
 //Forward declarations
 namespace sf {

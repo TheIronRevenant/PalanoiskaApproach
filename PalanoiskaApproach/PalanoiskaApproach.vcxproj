@@ -183,6 +183,7 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     <ClCompile Include="src\engine\resourceloader.cpp" />
     <ClCompile Include="src\game\scene.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\player.cpp" />
     <ClCompile Include="src\pugixml\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +206,7 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     <ClInclude Include="src\engine\resourceloader.hpp" />
     <ClInclude Include="src\game\scene.hpp" />
     <ClInclude Include="src\globals.hpp" />
+    <ClInclude Include="src\player.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\effects.png" />

@@ -2,6 +2,7 @@
 #include <pugixml.hpp>
 #include "resourceloader.hpp"
 #include "../game/scene.hpp"
+#include "../player.hpp"
 
 void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	textures.clear();
