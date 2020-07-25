@@ -108,7 +108,9 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 
 			//If this is the player
 			if (id == 10) {
-				PlayerAnimator animator(Animation{ std::vector<sf::Texture*>{ &textures[2], &textures[3] }, 10 }, Animation{ std::vector<sf::Texture*>{ &textures[0], &textures[1] }, 10 });
+				PlayerAnimator animator(
+					Animation{ std::vector<sf::Texture*>{ &textures[2], &textures[3] }, 10 }, 
+					Animation{ std::vector<sf::Texture*>{ &textures[0], &textures[1] }, 10 });
 				scene.addPlayer(Player(x, y, animator));
 			} else {
 				if (id > 10) {
