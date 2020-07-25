@@ -9,7 +9,7 @@
 Game Object Abstract Class
 */
 GameObject::GameObject(unsigned int gridx, unsigned int gridy, sf::Texture& texture) {
-	boundingBox = sf::RectangleShape(sf::Vector2f(Globals::TileSize, Globals::TileSize));
+	boundingBox = sf::RectangleShape(sf::Vector2f(texture.getSize()));
 	boundingBox.setPosition((float)gridx * Globals::TileSize, (float)gridy * Globals::TileSize);
 	boundingBox.setOutlineThickness(0.5f);
 	boundingBox.setOutlineColor(sf::Color::Red);
@@ -51,11 +51,6 @@ void GameObject::setPosition(float x, float y) {
 	boundingBox.setPosition(x, y);
 	sprite.setPosition(getPosition());
 }
-
-/*
-Static Object Class
-*/
-StaticObject::StaticObject(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : GameObject(gridx, gridy, texture) {}
 
 /*
 Player Object Class

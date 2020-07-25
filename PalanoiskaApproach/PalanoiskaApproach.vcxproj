@@ -207,6 +207,7 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     <ClInclude Include="src\globals.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\effects.png" />
     <Image Include="resources\player.png" />
     <Image Include="resources\tiles.png" />
   </ItemGroup>

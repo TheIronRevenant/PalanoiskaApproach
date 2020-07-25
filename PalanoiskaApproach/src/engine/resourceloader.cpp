@@ -47,6 +47,26 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 
 		textures.push_back(texture);
 	}
+
+	/*
+	Load effects
+	*/
+	total = 2;
+	file = folder + "\\resources\\effects.png";
+
+	for (int i = 0; i < total; i++) {
+		sf::Texture texture;
+		sf::IntRect rect;
+		rect.width = tilesize * 2;
+		rect.height = tilesize;
+		rect.left = ((tilesize * 2) + spacing) * i;
+
+		if (!texture.loadFromFile(file, rect)) {
+			//Texture failed to load
+		}
+
+		textures.push_back(texture);
+	}
 }
 
 void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string folder, std::string file) {

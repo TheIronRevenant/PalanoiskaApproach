@@ -30,7 +30,7 @@ protected:
 class StaticObject : public GameObject {
 public:
 	StaticObject() {}
-	StaticObject(unsigned int gridx, unsigned int gridy, sf::Texture& texture);
+	StaticObject(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : GameObject(gridx, gridy, texture) {};
 	void update() {} //Override the abstract function
 };
 
