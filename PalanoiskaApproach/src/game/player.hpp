@@ -9,13 +9,12 @@ class Scene;
 class Player : public GameObject {
 public:
 	Player() {}
-	Player(unsigned int gridx, unsigned int gridy, PlayerAnimator animator, std::vector<sf::Texture*> attackTextures);
+	Player(unsigned int gridx, unsigned int gridy, PlayerAnimator animator);
 	void update() {} //Override the abstract functions
 	void update(const std::vector<Mesh>& meshes);
 	void draw(sf::RenderWindow& window);
 private:
 	PlayerAnimator animator;
-	std::vector<sf::Texture*> attackTextures;
 
 	float hVelocity;
 	float hAcceleration;

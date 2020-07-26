@@ -10,10 +10,9 @@
 /*
 Player
 */
-Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator animator, std::vector<sf::Texture*> attackTextures) 
+Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator animator) 
 		: GameObject(gridx, gridy, *(animator.getCurrentFrame())) {
 	this->animator = animator;
-	this->attackTextures = attackTextures;
 
 	hVelocity = 0.f;
 	hAcceleration = 0.2f;
