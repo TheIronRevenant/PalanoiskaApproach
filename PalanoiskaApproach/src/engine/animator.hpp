@@ -34,7 +34,7 @@ public:
 	AttackAnimator(Animation animation);
 	void update(sf::Sprite& sprite);
 	sf::Texture* getCurrentFrame();
-//private:
+private:
 	Animation animation;
 };
 

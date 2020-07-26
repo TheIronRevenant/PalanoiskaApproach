@@ -140,6 +140,13 @@ void Player::update(const std::vector<Mesh>& meshes, Scene& parentScene) {
 
 	//Attack
 	if (attack) {
+		/*
+		Add cooldown on attacking
+		Add left attack animation
+		Animate attacks
+		Add timer for attacks
+		*/
+
 		PlayerAttack a = attacks["slash"];
 		bool rightFacing;
 		if (animator.getState() == AnimationStates::right) {

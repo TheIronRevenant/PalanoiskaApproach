@@ -15,7 +15,7 @@ public:
 	void create(float x, float y, bool rightFacing);
 	void update();
 	void draw(sf::RenderWindow& window);
-//private:
+private:
 	AttackAnimator animator;
 };
 
