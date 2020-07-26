@@ -11,7 +11,7 @@ Scene::Scene(int gridw, int gridh) {
 }
 
 void Scene::update(sf::RenderWindow& window, sf::View& view) {
-	player.update(meshes);
+	player.update(meshes, *this);
 
 	sf::Vector2f pos = player.getPosition();
 	sf::Vector2f size = player.getSize();
@@ -42,10 +42,6 @@ void Scene::draw(sf::RenderWindow& window) {
 	}
 }
 
-void Scene::addPlayer(const Player& player) {
-	this->player = player;
-}
-
 void Scene::addStatic(const StaticObject& staticobject) {
 	if ((staticobject.getPosition().x / 16) > gridWidth || (staticobject.getPosition().y / 16) > gridHeight) {
 		std::cout << "Object at " << staticobject.getPosition().x << " " << staticobject.getPosition().y << " is out of scene bounds, not added" << std::endl;
@@ -56,6 +52,10 @@ void Scene::addStatic(const StaticObject& staticobject) {
 	staticTextures.display();
 
 	staticObjects.emplace_back(staticobject);
+}
+
+void Scene::addPlayer(const Player& player) {
+	this->player = player;
 }
 
 void Scene::addPlayerAttack(const PlayerAttack& attack) {

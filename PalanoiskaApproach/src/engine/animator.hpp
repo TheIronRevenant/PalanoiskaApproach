@@ -28,4 +28,14 @@ private:
 	AnimationStates currentAnimation;
 };
 
+class AttackAnimator {
+public:
+	AttackAnimator() {}
+	AttackAnimator(Animation animation);
+	void update(sf::Sprite& sprite);
+	sf::Texture* getCurrentFrame();
+//private:
+	Animation animation;
+};
+
 #endif

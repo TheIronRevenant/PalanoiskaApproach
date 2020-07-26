@@ -3,6 +3,7 @@
 #include "resourceloader.hpp"
 #include "../game/scene.hpp"
 #include "../game/player.hpp"
+#include "../game/playerattack.hpp"
 
 void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	textures.clear();
@@ -112,7 +113,11 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 				PlayerAnimator animator(
 					Animation{ std::vector<sf::Texture*>{ &textures[2], &textures[3] }, 10 }, 
 					Animation{ std::vector<sf::Texture*>{ &textures[0], &textures[1] }, 10 });
-				scene.addPlayer(Player(x, y, animator));
+				Player p(x, y, animator);
+				PlayerAttack slash( Animation{ std::vector<sf::Texture*>{ &textures[13], &textures[14] }, 10 });
+				p.addAttack("slash", slash);
+
+				scene.addPlayer(p);
 			} else {
 				if (id > 10) {
 					scene.addStatic(StaticObject(x, y, textures[id - 10]));

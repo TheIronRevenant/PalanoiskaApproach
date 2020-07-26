@@ -5,6 +5,7 @@
 #include "../engine/mesh.hpp"
 #include "../engine/physics/collision.hpp"
 #include "scene.hpp"
+#include "playerattack.hpp"
 #include <iostream>
 
 /*
@@ -26,7 +27,7 @@ Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator animator)
 	prevJump = false;
 }
 
-void Player::update(const std::vector<Mesh>& meshes) {
+void Player::update(const std::vector<Mesh>& meshes, Scene& parentScene) {
 	//Movement
 	bool moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
 	bool moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
@@ -137,6 +138,20 @@ void Player::update(const std::vector<Mesh>& meshes) {
 
 	prevJump = jump;
 
+	//Attack
+	if (attack) {
+		PlayerAttack a = attacks["slash"];
+		bool rightFacing;
+		if (animator.getState() == AnimationStates::right) {
+			rightFacing = true;
+		} else {
+			rightFacing = false;
+		}
+
+		a.create(getPosition().x, getPosition().y, rightFacing);
+		parentScene.addPlayerAttack(a);
+	}
+
 	animator.update(hVelocity, sprite);
 }
 
@@ -148,30 +163,6 @@ void Player::draw(sf::RenderWindow& window) {
 	}
 }
 
-/*
-Player Attack
-*/
-
-PlayerAttack::PlayerAttack(float x, float y, sf::Texture& texture) {
-	boundingBox = sf::RectangleShape(sf::Vector2f(texture.getSize()));
-	boundingBox.setPosition(x, y);
-	boundingBox.setOutlineThickness(0.5f);
-	boundingBox.setOutlineColor(sf::Color::Red);
-	boundingBox.setFillColor(sf::Color::Transparent);
-
-	sprite = sf::Sprite();
-	sprite.setPosition(getPosition());
-	sprite.setTexture(texture);
-}
-
-void PlayerAttack::update() {
-
-}
-
-void PlayerAttack::draw(sf::RenderWindow& window) {
-	window.draw(sprite);
-
-	if (Globals::Debugging) {
-		window.draw(boundingBox);
-	}
+void Player::addAttack(std::string name, PlayerAttack& attack) {
+	attacks[name] = attack;
 }

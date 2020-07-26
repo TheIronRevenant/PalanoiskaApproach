@@ -181,6 +181,7 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     <ClCompile Include="src\engine\mesh.cpp" />
     <ClCompile Include="src\engine\physics\collision.cpp" />
     <ClCompile Include="src\engine\resourceloader.cpp" />
+    <ClCompile Include="src\game\playerattack.cpp" />
     <ClCompile Include="src\game\scene.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\game\player.cpp" />
@@ -204,6 +205,7 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     <ClInclude Include="src\engine\mesh.hpp" />
     <ClInclude Include="src\engine\physics\collision.hpp" />
     <ClInclude Include="src\engine\resourceloader.hpp" />
+    <ClInclude Include="src\game\playerattack.hpp" />
     <ClInclude Include="src\game\scene.hpp" />
     <ClInclude Include="src\globals.hpp" />
     <ClInclude Include="src\game\player.hpp" />

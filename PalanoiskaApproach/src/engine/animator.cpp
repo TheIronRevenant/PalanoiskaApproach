@@ -1,5 +1,9 @@
 #include "animator.hpp"
 
+/*
+Player Animator
+*/
+
 PlayerAnimator::PlayerAnimator(Animation left, Animation right) {
 	leftAnimation = left;
 	rightAnimation = right;
@@ -69,4 +73,20 @@ void PlayerAnimator::swapAnimation(AnimationStates state) {
 		rightAnimation.frame = 0;
 		rightAnimation.timer = 0;
 	}
+}
+
+/*
+Attack Animator
+*/
+
+AttackAnimator::AttackAnimator(Animation animation) {
+	this->animation = animation;
+}
+
+void AttackAnimator::update(sf::Sprite& sprite) {
+
+}
+
+sf::Texture* AttackAnimator::getCurrentFrame() {
+	return animation.frames[animation.frame];
 }
