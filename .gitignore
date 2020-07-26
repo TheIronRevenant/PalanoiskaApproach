@@ -87,3 +87,10 @@
 /.vs/PalanoiskaApproach/v15/ipch/AutoPCH/258f916e7c6c43e4/ANIMATOR.ipch
 *.obj
 *.ipch
+*.pdb
+*.idb
+/.vs/PalanoiskaApproach/v16/Browse.VC.opendb
+/.vs/PalanoiskaApproach/v16/Browse.VC.db-wal
+/.vs/PalanoiskaApproach/v16/Browse.VC.db-shm
+/.vs/PalanoiskaApproach/v16/Browse.VC.db
+/.vs/PalanoiskaApproach/v16/.suo
