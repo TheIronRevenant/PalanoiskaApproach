@@ -2,7 +2,7 @@
 #include <pugixml.hpp>
 #include "resourceloader.hpp"
 #include "../game/scene.hpp"
-#include "../player.hpp"
+#include "../game/player.hpp"
 
 void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	textures.clear();
@@ -112,7 +112,7 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 				PlayerAnimator animator(
 					Animation{ std::vector<sf::Texture*>{ &textures[2], &textures[3] }, 10 }, 
 					Animation{ std::vector<sf::Texture*>{ &textures[0], &textures[1] }, 10 });
-				scene.addPlayer(Player(x, y, animator));
+				scene.addPlayer(Player(x, y, animator, std::vector<sf::Texture*>{ &textures[13], &textures[14] }));
 			} else {
 				if (id > 10) {
 					scene.addStatic(StaticObject(x, y, textures[id - 10]));

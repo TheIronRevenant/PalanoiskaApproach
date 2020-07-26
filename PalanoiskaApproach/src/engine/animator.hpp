@@ -20,6 +20,7 @@ public:
 	PlayerAnimator(Animation left, Animation right);
 	void update(const float hVelocity, sf::Sprite& sprite);
 	sf::Texture* getCurrentFrame();
+	AnimationStates getState() { return currentAnimation; }
 private:
 	void swapAnimation(AnimationStates state);
 	Animation leftAnimation;

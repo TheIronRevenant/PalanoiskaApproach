@@ -19,6 +19,10 @@ void Scene::update(sf::RenderWindow& window, sf::View& view) {
 	float vy = pos.y + (size.y / 2);
 	view.setCenter(vx, vy);
 	//View is updated at the end of Game::update
+
+	for (PlayerAttack p : playerAttacks) {
+		p.update();
+	}
 }
 
 void Scene::draw(sf::RenderWindow& window) {
@@ -26,6 +30,10 @@ void Scene::draw(sf::RenderWindow& window) {
 	window.draw(sf::Sprite(staticTextures.getTexture()));
 
 	player.draw(window);
+
+	for (PlayerAttack p : playerAttacks) {
+		p.draw(window);
+	}
 
 	if (Globals::Debugging) {
 		for (unsigned int i = 0; i < meshes.size(); i++) {
@@ -48,6 +56,10 @@ void Scene::addStatic(const StaticObject& staticobject) {
 	staticTextures.display();
 
 	staticObjects.emplace_back(staticobject);
+}
+
+void Scene::addPlayerAttack(const PlayerAttack& attack) {
+	playerAttacks.emplace_back(attack);
 }
 
 //Redraws texture for when copying scene

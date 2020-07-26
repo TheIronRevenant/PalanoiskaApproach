@@ -42,7 +42,7 @@
     <ClCompile Include="src\engine\animator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\player.cpp">
+    <ClCompile Include="src\game\player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -82,7 +82,7 @@
     <ClInclude Include="src\engine\animator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\player.hpp">
+    <ClInclude Include="src\game\player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

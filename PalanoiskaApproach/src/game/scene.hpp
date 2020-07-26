@@ -5,7 +5,7 @@
 #include "../engine/gameobject.hpp"
 #include "../engine/mesh.hpp"
 #include "../globals.hpp"
-#include "../player.hpp"
+#include "player.hpp"
 
 //Forward declarations
 namespace sf {
@@ -24,6 +24,7 @@ public:
 		this->player = other.player;
 		this->gridWidth = other.gridWidth;
 		this->gridHeight = other.gridHeight;
+		this->playerAttacks = other.playerAttacks;
 		//Redraws it rather than copying it
 		this->staticTextures.create(this->gridWidth * Globals::TileSize, this->gridHeight * Globals::TileSize);
 		redrawTexture();
@@ -33,10 +34,12 @@ public:
 	void draw(sf::RenderWindow& window);
 	void addStatic(const StaticObject& staticobject);
 	void addPlayer(const Player& player);
+	void addPlayerAttack(const PlayerAttack& attack);
 	void generateMeshes();
 private:
 	void redrawTexture();
 	std::vector<StaticObject> staticObjects;
+	std::vector<PlayerAttack> playerAttacks;
 	sf::RenderTexture staticTextures;
 	std::vector<Mesh> meshes;
 	Player player;
