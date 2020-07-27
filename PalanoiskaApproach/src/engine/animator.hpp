@@ -17,14 +17,13 @@ struct Animation {
 class PlayerAnimator {
 public:
 	PlayerAnimator() { currentAnimation = AnimationStates::right; }
-	PlayerAnimator(Animation left, Animation right);
+	PlayerAnimator(Animation walk);
 	void update(const float hVelocity, sf::Sprite& sprite);
 	sf::Texture* getCurrentFrame();
 	AnimationStates getState() { return currentAnimation; }
 private:
-	void swapAnimation(AnimationStates state);
-	Animation leftAnimation;
-	Animation rightAnimation;
+	void swapAnimation(AnimationStates state, sf::Sprite& sprite);
+	Animation walkAnimation;
 	AnimationStates currentAnimation;
 };
 

@@ -5,6 +5,9 @@
 /*
 Game Object Abstract Class
 */
+
+#pragma warning(disable : 26812 ) //Disable warning about sfml
+
 GameObject::GameObject(unsigned int gridx, unsigned int gridy, sf::Texture& texture) {
 	boundingBox = sf::RectangleShape(sf::Vector2f(texture.getSize()));
 	boundingBox.setPosition((float)gridx * Globals::TileSize, (float)gridy * Globals::TileSize);
@@ -16,6 +19,8 @@ GameObject::GameObject(unsigned int gridx, unsigned int gridy, sf::Texture& text
 	sprite.setPosition(getPosition());
 	sprite.setTexture(texture);
 }
+
+#pragma warning(default : 26812 )
 
 void GameObject::draw(sf::RenderWindow& window) const {
 	window.draw(sprite);

@@ -4,74 +4,63 @@
 Player Animator
 */
 
-PlayerAnimator::PlayerAnimator(Animation left, Animation right) {
-	leftAnimation = left;
-	rightAnimation = right;
-	swapAnimation(AnimationStates::right); //Defaults to the right
+PlayerAnimator::PlayerAnimator(Animation walk) {
+	walkAnimation = walk;
 }
 
 void PlayerAnimator::update(const float hVelocity, sf::Sprite& sprite) {
 	//Checks current direction and changes direction
 	if (hVelocity > 0.f) {
 		if (currentAnimation != AnimationStates::right) {
-			swapAnimation(AnimationStates::right);
+			swapAnimation(AnimationStates::right, sprite);
 		}
 	} else
 	if (hVelocity < 0.f) {
 		if (currentAnimation != AnimationStates::left) {
-			swapAnimation(AnimationStates::left);
+			swapAnimation(AnimationStates::left, sprite);
 		}
 	}
 
 	//Dont animate if the player is still
 	if (hVelocity != 0.f) {
-		if (currentAnimation == AnimationStates::left) {
-			//Add to and reset the timer
-			leftAnimation.timer++;
-			if (leftAnimation.timer >= leftAnimation.speed) {
-				leftAnimation.timer = 0;
-				//Update frame
-				leftAnimation.frame++;
-				if (leftAnimation.frame >= leftAnimation.frames.size()) {
-					leftAnimation.frame = 0;
-				}
-				//Set texture
-				sprite.setTexture(*(leftAnimation.frames[leftAnimation.frame]));
+		//Add to and reset the timer
+		walkAnimation.timer++;
+		if (walkAnimation.timer >= walkAnimation.speed) {
+			walkAnimation.timer = 0;
+			//Update frame
+			walkAnimation.frame++;
+			if (walkAnimation.frame >= walkAnimation.frames.size()) {
+				walkAnimation.frame = 0;
 			}
+			//Set texture
+			sprite.setTexture(*(walkAnimation.frames[walkAnimation.frame]));
 		}
-		else {
-			//Same as above but for rightAnimation
-			rightAnimation.timer++;
-			if (rightAnimation.timer >= rightAnimation.speed) {
-				rightAnimation.timer = 0;
-				rightAnimation.frame++;
-				if (rightAnimation.frame >= rightAnimation.frames.size()) {
-					rightAnimation.frame = 0;
-				}
-				sprite.setTexture(*(rightAnimation.frames[rightAnimation.frame]));
-			}
-		}
+	} else {
+		//Set to resting frame
+		walkAnimation.timer = 0;
+		walkAnimation.frame = 0;
+		sprite.setTexture(*(walkAnimation.frames[walkAnimation.frame]));
 	}
 }
 
 //Returns current animation frame, used for constructing GameObject base class
 sf::Texture* PlayerAnimator::getCurrentFrame() {
-	if (currentAnimation == AnimationStates::left) {
-		return leftAnimation.frames[leftAnimation.frame];
-	} else {
-		return rightAnimation.frames[rightAnimation.frame];
-	}
+	return walkAnimation.frames[walkAnimation.frame];
 }
 
-void PlayerAnimator::swapAnimation(AnimationStates state) {
+void PlayerAnimator::swapAnimation(AnimationStates state, sf::Sprite& sprite) {
 	currentAnimation = state;
 
-	if (state == AnimationStates::left) {
-		leftAnimation.frame = 0;
-		leftAnimation.timer = 0;
-	} else {
-		rightAnimation.frame = 0;
-		rightAnimation.timer = 0;
+	walkAnimation.timer = 0;
+	walkAnimation.frame = 0;
+
+	if (currentAnimation == AnimationStates::left) {
+		sf::Vector2u size = sprite.getTexture()->getSize();
+		sprite.setTextureRect(sf::IntRect((int)size.x, 0, -(int)size.x, (int)size.y));
+	}
+	else {
+		sf::Vector2u size = sprite.getTexture()->getSize();
+		sprite.setTextureRect(sf::IntRect(0, 0, (int)size.x, (int)size.y));
 	}
 }
 
