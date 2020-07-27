@@ -16,6 +16,7 @@ public:
 	void update();
 	void draw(sf::RenderWindow& window);
 	bool isTerminated() const { return terminated; }
+	AttackAnimator getAnimator() const { return animator; }
 private:
 	bool terminated;
 	AttackAnimator animator;

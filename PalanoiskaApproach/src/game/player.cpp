@@ -25,6 +25,7 @@ Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator animator)
 	vAcceleration = 0.2f;
 	onGround = false;
 	prevJump = false;
+	prevAttack = false;
 }
 
 void Player::update(const std::vector<Mesh>& meshes, Scene& parentScene) {
@@ -35,22 +36,29 @@ void Player::update(const std::vector<Mesh>& meshes, Scene& parentScene) {
 	bool attack = sf::Keyboard::isKeyPressed(sf::Keyboard::Z);
 
 	//Horizontal movement
-	if (moveLeft ^ moveRight) {
-		if (moveRight) {
-			hVelocity = std::clamp(hVelocity + hAcceleration, -2.f, 2.f);
+	if (!attacking) {
+		if (moveLeft ^ moveRight) {
+			if (moveRight) {
+				hVelocity = std::clamp(hVelocity + hAcceleration, -2.f, 2.f);
+			}
+			else {
+				hVelocity = std::clamp(hVelocity - hAcceleration, -2.f, 2.f);
+			}
 		}
 		else {
-			hVelocity = std::clamp(hVelocity - hAcceleration, -2.f, 2.f);
+			if (hVelocity > 0.f) {
+				hVelocity = std::clamp(hVelocity - hAcceleration, 0.f, 2.f);
+			}
+			else
+				if (hVelocity < 0.f) {
+					hVelocity = std::clamp(hVelocity + hAcceleration, -2.f, 0.f);
+				}
 		}
 	}
 	else {
-		if (hVelocity > 0.f) {
-			hVelocity = std::clamp(hVelocity - hAcceleration, 0.f, 2.f);
+		if (onGround) {
+			hVelocity = 0.f;
 		}
-		else
-			if (hVelocity < 0.f) {
-				hVelocity = std::clamp(hVelocity + hAcceleration, -2.f, 0.f);
-			}
 	}
 
 	//Next horizontal position
@@ -76,14 +84,13 @@ void Player::update(const std::vector<Mesh>& meshes, Scene& parentScene) {
 			float lockedx = std::ceilf(getPosition().x / 16) * 16;
 			setPosition(lockedx, getPosition().y);
 		}
-		else
-			if (hVelocity < 0.f) {
-				hVelocity = 0.f;
+		else if (hVelocity < 0.f) {
+			hVelocity = 0.f;
 
-				//Lock position to the left
-				float lockedx = std::floorf(getPosition().x / 16) * 16;
-				setPosition(lockedx, getPosition().y);
-			}
+			//Lock position to the left
+			float lockedx = std::floorf(getPosition().x / 16) * 16;
+			setPosition(lockedx, getPosition().y);
+		}
 	}
 
 	//Vertical movement
@@ -139,22 +146,35 @@ void Player::update(const std::vector<Mesh>& meshes, Scene& parentScene) {
 	prevJump = jump;
 
 	//Attack
-	if (attack) {
-		/*
-		Add cooldown on attacking
-		*/
+	if (!attacking) {
+		if (attack && !prevAttack) {
+			attacking = true;
+			attackTimer = 0;
 
-		PlayerAttack a = attacks["slash"];
-		bool rightFacing;
-		if (animator.getState() == AnimationStates::right) {
-			rightFacing = true;
-		} else {
-			rightFacing = false;
+			PlayerAttack a = attacks["slash"];
+
+			attackSpeed = a.getAnimator().getSpeed() * a.getAnimator().getFrameCount();
+
+			bool rightFacing;
+			if (animator.getState() == AnimationStates::right) {
+				rightFacing = true;
+			}
+			else {
+				rightFacing = false;
+			}
+
+			a.create(getPosition().x, getPosition().y, rightFacing);
+			parentScene.addPlayerAttack(a);
 		}
-
-		a.create(getPosition().x, getPosition().y, rightFacing);
-		parentScene.addPlayerAttack(a);
+	} 
+	else {
+		attackTimer++;
+		if (attackTimer >= attackSpeed) {
+			attacking = false;
+		}
 	}
+
+	prevAttack = attack;
 
 	animator.update(hVelocity, sprite);
 }
