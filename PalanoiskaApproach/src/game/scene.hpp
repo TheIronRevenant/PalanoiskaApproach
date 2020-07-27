@@ -8,6 +8,8 @@
 #include "player.hpp"
 #include "playerattack.hpp"
 
+#pragma warning(disable : 26812;)
+
 //Forward declarations
 namespace sf {
 	class RenderWindow;
@@ -16,7 +18,7 @@ namespace sf {
 
 class Scene {
 public:
-	Scene() {}
+	Scene() { gridWidth = 0; gridHeight = 0; }
 	Scene(int gridw, int gridh);
 	//= is removed because of RenderTexture
 	Scene& operator=(const Scene& other) {
@@ -47,5 +49,7 @@ private:
 	int gridWidth;
 	int gridHeight;
 };
+
+#pragma warning(default : 26812;)
 
 #endif

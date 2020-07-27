@@ -11,7 +11,8 @@ class Scene;
 
 class Player : public GameObject {
 public:
-	Player() {}
+	Player() { hAcceleration = 0.f; hMax = 0.f; hVelocity = 0.f; 
+		onGround = true; prevJump = false; vAcceleration = 0.f; vJumpAcceleration = 0.f; vTerminalVelocity = 0.f; vVelocity = 0.f; }
 	Player(unsigned int gridx, unsigned int gridy, PlayerAnimator animator);
 	void update() {} //Override the abstract functions
 	void update(const std::vector<Mesh>& meshes, Scene& parentScene);
