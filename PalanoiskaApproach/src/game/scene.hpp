@@ -8,7 +8,7 @@
 #include "player.hpp"
 #include "playerattack.hpp"
 
-#pragma warning(disable : 26812;)
+#pragma warning(disable : 26812;) //Disable warning about sfml
 
 //Forward declarations
 namespace sf {
