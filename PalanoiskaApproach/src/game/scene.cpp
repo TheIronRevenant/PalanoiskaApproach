@@ -1,4 +1,5 @@
 #include <utility>
+#include <algorithm>
 #include <SFML/Graphics.hpp>
 #include "scene.hpp"
 #include <iostream>
@@ -10,7 +11,7 @@ Scene::Scene(int gridw, int gridh) {
 	staticTextures.clear(sf::Color::Transparent);
 }
 
-void Scene::update(sf::RenderWindow& window, sf::View& view) {
+void Scene::update(sf::View& view) {
 	player.update(meshes, *this);
 
 	sf::Vector2f pos = player.getPosition();
@@ -20,8 +21,18 @@ void Scene::update(sf::RenderWindow& window, sf::View& view) {
 	view.setCenter(vx, vy);
 	//View is updated at the end of Game::update
 
-	for (PlayerAttack p : playerAttacks) {
+	for (PlayerAttack& p : playerAttacks) {
 		p.update();
+	}
+
+	//Checks if the attack is finished
+	if (playerAttacks.size() != 0) {
+		playerAttacks.erase(
+			std::remove_if(
+				playerAttacks.begin(), 
+				playerAttacks.end(), 
+				[](PlayerAttack const& p) { return p.isTerminated(); }), 
+			playerAttacks.end());
 	}
 }
 
@@ -31,7 +42,7 @@ void Scene::draw(sf::RenderWindow& window) {
 
 	player.draw(window);
 
-	for (PlayerAttack p : playerAttacks) {
+	for (PlayerAttack& p : playerAttacks) {
 		p.draw(window);
 	}
 

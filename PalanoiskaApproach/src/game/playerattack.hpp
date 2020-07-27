@@ -10,12 +10,14 @@ namespace sf {
 
 class PlayerAttack : public GameObject {
 public:
-	PlayerAttack() {}
+	PlayerAttack() { terminated = false; }
 	PlayerAttack(AttackAnimator animator);
 	void create(float x, float y, bool rightFacing);
 	void update();
 	void draw(sf::RenderWindow& window);
+	bool isTerminated() const { return terminated; }
 private:
+	bool terminated;
 	AttackAnimator animator;
 };
 

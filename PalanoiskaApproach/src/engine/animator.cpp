@@ -83,8 +83,17 @@ AttackAnimator::AttackAnimator(Animation animation) {
 	this->animation = animation;
 }
 
-void AttackAnimator::update(sf::Sprite& sprite) {
-
+void AttackAnimator::update(sf::Sprite& sprite, bool& terminated) {
+	animation.timer++;
+	if (animation.timer >= animation.speed) {
+		animation.timer = 0;
+		animation.frame++;
+		if (animation.frame >= animation.frames.size()) {
+			terminated = true;
+		} else {
+			sprite.setTexture(*(getCurrentFrame()));
+		}
+	}
 }
 
 sf::Texture* AttackAnimator::getCurrentFrame() {

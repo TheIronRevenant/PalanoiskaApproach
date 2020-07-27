@@ -78,7 +78,7 @@ int Game::init() {
 }
 
 void Game::update() {
-	currentScene.update(window, view);
+	currentScene.update(view);
 
 	window.setView(view);
 }

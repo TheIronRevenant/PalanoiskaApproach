@@ -8,10 +8,10 @@
 enum class AnimationStates { left, right };
 
 struct Animation {
-	std::vector<sf::Texture*> frames;
-	int speed = 0;
+	std::vector<sf::Texture*> frames; //Frames
+	int speed = 0; //How many updates till next frame
 	int timer = 0; //Counts updates till next frame
-	unsigned int frame = 0;
+	unsigned int frame = 0; //Current Frame
 };
 
 class PlayerAnimator {
@@ -32,7 +32,7 @@ class AttackAnimator {
 public:
 	AttackAnimator() {}
 	AttackAnimator(Animation animation);
-	void update(sf::Sprite& sprite);
+	void update(sf::Sprite& sprite, bool& terminated);
 	sf::Texture* getCurrentFrame();
 private:
 	Animation animation;

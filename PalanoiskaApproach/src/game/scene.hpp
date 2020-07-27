@@ -8,7 +8,7 @@
 #include "player.hpp"
 #include "playerattack.hpp"
 
-#pragma warning(disable : 26812;) //Disable warning about sfml
+#pragma warning(disable : 26812 ) //Disable warning about sfml
 
 //Forward declarations
 namespace sf {
@@ -33,7 +33,7 @@ public:
 		redrawTexture();
 		return *this;
 	}
-	void update(sf::RenderWindow& window, sf::View& view);
+	void update(sf::View& view);
 	void draw(sf::RenderWindow& window);
 	void addStatic(const StaticObject& staticobject);
 	void addPlayer(const Player& player);
@@ -50,6 +50,6 @@ private:
 	int gridHeight;
 };
 
-#pragma warning(default : 26812;)
+#pragma warning(default : 26812 )
 
 #endif
