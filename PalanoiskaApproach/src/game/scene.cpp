@@ -34,8 +34,6 @@ void Scene::update(sf::View& view) {
 				[](PlayerAttack const& p) { return p.isTerminated(); }), 
 			playerAttacks.end());
 	}
-
-	std::cout << playerAttacks.size() << std::endl;
 }
 
 void Scene::draw(sf::RenderWindow& window) {
