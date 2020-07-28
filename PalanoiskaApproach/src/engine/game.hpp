@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "../game/scene.hpp"
+#include "settings.hpp"
 
 class Game {
 public:
@@ -18,6 +19,7 @@ private:
 	std::vector<sf::Texture> textures;
 	sf::View view;
 	Scene currentScene;
+	GameSettings::WindowSettings windowSettings;
 };
 
 #endif

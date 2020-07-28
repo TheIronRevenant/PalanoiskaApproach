@@ -205,6 +205,7 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     <ClInclude Include="src\engine\mesh.hpp" />
     <ClInclude Include="src\engine\physics\collision.hpp" />
     <ClInclude Include="src\engine\resourceloader.hpp" />
+    <ClInclude Include="src\engine\settings.hpp" />
     <ClInclude Include="src\game\playerattack.hpp" />
     <ClInclude Include="src\game\scene.hpp" />
     <ClInclude Include="src\globals.hpp" />

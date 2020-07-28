@@ -18,10 +18,14 @@ std::string current_dir() {
 
 int Game::init() {
 	//Init window
-	window.create(sf::VideoMode(Globals::WindowWidth, Globals::WindowHeight), "Palanoiska Approach");
+	int screenwidth = sf::VideoMode::getDesktopMode().width;
+	int screenheight = sf::VideoMode::getDesktopMode().height;
+	windowSettings.screenw = screenwidth / 2;
+	windowSettings.screenh = screenheight / 2;
+	window.create(sf::VideoMode(windowSettings.screenw, windowSettings.screenh), "Palanoiska Approach");
 
 	//Init view
-	view.setSize(Globals::WindowWidth / 2, Globals::WindowHeight / 2);
+	view.setSize(windowSettings.resw * 36, windowSettings.resh * 36);
 	view.setCenter(0, 0);
 	window.setView(view);
 
