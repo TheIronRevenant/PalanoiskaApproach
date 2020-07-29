@@ -83,15 +83,30 @@ int Game::init() {
 }
 
 void Game::update() {
-	currentScene.update(view);
+	switch (gameState) {
+	case GameState::MainMenu:
+		view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
 
-	window.setView(view);
+		window.setView(view);
+		break;
+	case GameState::InGame:
+		currentScene.update(view);
+
+		window.setView(view);
+		break;
+	}
 }
 
 void Game::draw() {
 	window.clear(sf::Color(109, 194, 202));
 
-	currentScene.draw(window);
+	switch (gameState) {
+	case GameState::MainMenu:
+		break;
+	case GameState::InGame:
+		currentScene.draw(window);
+		break;
+	}
 
 	window.display();
 }

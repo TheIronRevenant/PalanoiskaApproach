@@ -6,9 +6,11 @@
 #include "../game/scene.hpp"
 #include "settings.hpp"
 
+enum class GameState { MainMenu, InGame };
+
 class Game {
 public:
-	Game() { event = sf::Event(); }
+	Game() { event = sf::Event(); gameState = GameState::MainMenu; }
 	~Game() { window.~RenderWindow(); }
 	int init();
 	void update();
@@ -21,6 +23,7 @@ private:
 	sf::View view;
 	Scene currentScene;
 	GameSettings::WindowSettings windowSettings;
+	GameState gameState;
 };
 
 #endif
