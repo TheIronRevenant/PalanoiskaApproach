@@ -14,9 +14,11 @@ public:
 	void draw(sf::RenderWindow& window);
 	void addMainMenu(UIElement&& element);
 	void addInGame(UIElement&& element);
+	void addPaused(UIElement&& element);
 private:
 	std::vector<UIElement> mainMenu;
 	std::vector<UIElement> inGame;
+	std::vector<UIElement> paused;
 	GameState* gameState;
 };
 

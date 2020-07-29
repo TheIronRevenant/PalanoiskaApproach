@@ -36,15 +36,19 @@ int Game::init() {
 
 	//Load resources
 	loadTextures(textures, current_dir());
-	loadUI(uiTextures, current_dir());
+	loadUI(uiTextures, current_dir() + "\\resources\\ui\\");
 
 	//Init scene
 	loadScene(currentScene, textures, current_dir(), "TestScene.tmx");
 
 	//Init ui
 	uiManager = UIManager(&gameState);
+	//Main menu
 	uiManager.addMainMenu(UIElement(0, 0, []() { }, uiTextures[0]));
-	uiManager.addMainMenu(UIElement(0, 200, [this]() { gameState = GameState::InGame; }, uiTextures[1]));
+	uiManager.addMainMenu(UIElement(0, 150, [this]() { gameState = GameState::InGame; }, uiTextures[1]));
+	//Paused menu
+	uiManager.addPaused(UIElement(0, 0, [this]() { gameState = GameState::InGame; }, uiTextures[3]));
+	uiManager.addPaused(UIElement(0, 100, [this]() { gameState = GameState::MainMenu; }, uiTextures[2]));
 
 	while (window.isOpen()) {
 		//Update clock
@@ -68,6 +72,20 @@ int Game::init() {
 							std::cout << "Debugging enabled" << std::endl;
 						} else {
 							std::cout << "Debugging disabled" << std::endl;
+						}
+					}
+
+					if (event.key.code == sf::Keyboard::Escape) {
+						switch (gameState) {
+						case GameState::MainMenu:
+							window.close();
+							break;
+						case GameState::InGame:
+							gameState = GameState::Paused;
+							break;
+						case GameState::Paused:
+							gameState = GameState::InGame;
+							break;
 						}
 					}
 				}
@@ -108,6 +126,11 @@ void Game::update() {
 
 		window.setView(view);
 		break;
+	case GameState::Paused:
+		view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
+
+		window.setView(view);
+		break;
 	}
 }
 
@@ -119,6 +142,8 @@ void Game::draw() {
 		break;
 	case GameState::InGame:
 		currentScene.draw(window);
+		break;
+	case GameState::Paused:
 		break;
 	}
 

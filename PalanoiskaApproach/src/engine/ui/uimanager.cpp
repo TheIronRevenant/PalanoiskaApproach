@@ -20,6 +20,13 @@ void UIManager::recieveClick(float x, float y) {
 			}
 		}
 		break;
+	case GameState::Paused:
+		for (UIElement& e : paused) {
+			if (e.getRect().contains(x, y)) {
+				e.onClick();
+			}
+		}
+		break;
 	}
 }
 
@@ -35,6 +42,11 @@ void UIManager::draw(sf::RenderWindow& window) {
 			e.draw(window);
 		}
 		break;
+	case GameState::Paused:
+		for (UIElement& e : paused) {
+			e.draw(window);
+		}
+		break;
 	}
 }
 
@@ -44,4 +56,8 @@ void UIManager::addMainMenu(UIElement&& element) {
 
 void UIManager::addInGame(UIElement&& element) {
 	inGame.emplace_back(element);
+}
+
+void UIManager::addPaused(UIElement&& element) {
+	paused.emplace_back(element);
 }

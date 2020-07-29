@@ -72,7 +72,10 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 }
 
 void loadUI(std::vector<sf::Texture>& textures, std::string folder) {
-	std::string files[2] = { "\\resources\\ui\\title.png", "\\resources\\ui\\play.png" };
+	std::string files[4] = { "title.png",
+		"play.png",
+		"mainmenu.png",
+		"resume.png" };
 
 	for (std::string& s : files) {
 		std::string file = folder + s;
