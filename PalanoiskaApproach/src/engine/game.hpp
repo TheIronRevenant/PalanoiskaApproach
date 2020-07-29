@@ -15,6 +15,7 @@ public:
 	int init();
 	void update();
 	void draw();
+	void changeScene(std::string name);
 private:
 	sf::RenderWindow window;
 	sf::Event event;

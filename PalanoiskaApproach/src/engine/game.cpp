@@ -42,13 +42,13 @@ int Game::init() {
 	loadUI(uiTextures, current_dir() + "\\resources\\ui\\");
 
 	//Init scene
-	loadScene(currentScene, textures, current_dir(), "TestScene.tmx");
+	changeScene("TestScene.tmx");
 
 	//Init ui
 	uiManager = UIManager(&gameState);
 	//Main menu
 	uiManager.addMainMenu(UIElement(0, 0, []() { }, uiTextures[0]));
-	uiManager.addMainMenu(UIElement(0, 150, [this]() { gameState = GameState::InGame; }, uiTextures[1]));
+	uiManager.addMainMenu(UIElement(0, 150, [this]() { gameState = GameState::InGame; changeScene("TestScene.tmx"); }, uiTextures[1]));
 	//Paused menu
 	uiManager.addPaused(UIElement(0, 0, [this]() { gameState = GameState::InGame; }, uiTextures[3]));
 	uiManager.addPaused(UIElement(0, 100, [this]() { gameState = GameState::MainMenu; }, uiTextures[2]));
@@ -149,4 +149,8 @@ void Game::draw() {
 	uiManager.draw(window);
 
 	window.display();
+}
+
+void Game::changeScene(std::string name) {
+	loadScene(currentScene, textures, current_dir() + "\\resources\\scenes\\", name);
 }

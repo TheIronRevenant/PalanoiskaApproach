@@ -91,7 +91,7 @@ void loadUI(std::vector<sf::Texture>& textures, std::string folder) {
 
 void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string folder, std::string file) {
 	//String to wchar_t
-	std::string sceneFile = folder + "\\resources\\scenes\\" + file;
+	std::string sceneFile = folder + file;
 	std::wstring wideFile = std::wstring(sceneFile.begin(), sceneFile.end());
 	const wchar_t* wcharFile = wideFile.c_str();
 
