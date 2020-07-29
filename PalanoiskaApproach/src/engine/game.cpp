@@ -24,10 +24,13 @@ int Game::init() {
 	windowSettings.screenh = screenheight / 2;
 	window.create(sf::VideoMode(windowSettings.screenw, windowSettings.screenh), "Palanoiska Approach");
 
-	//Init view
-	view.setSize(windowSettings.resw * 36, windowSettings.resh * 36);
-	view.setCenter(0, 0);
-	window.setView(view);
+	//Init views
+	uiView.setSize(window.getSize().x / 2, window.getSize().y / 2);
+	uiView.setCenter(uiView.getSize().x / 2, uiView.getSize().y / 2);
+
+	gameView.setSize(windowSettings.resw * 36, windowSettings.resh * 36);
+	gameView.setCenter(0, 0);
+	window.setView(gameView);
 
 	//Init clock
 	sf::Clock clock;
@@ -117,19 +120,15 @@ int Game::init() {
 void Game::update() {
 	switch (gameState) {
 	case GameState::MainMenu:
-		view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
-
-		window.setView(view);
+		window.setView(uiView);
 		break;
 	case GameState::InGame:
-		currentScene.update(view);
+		currentScene.update(gameView);
 
-		window.setView(view);
+		window.setView(gameView);
 		break;
 	case GameState::Paused:
-		view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
-
-		window.setView(view);
+		window.setView(uiView);
 		break;
 	}
 }
