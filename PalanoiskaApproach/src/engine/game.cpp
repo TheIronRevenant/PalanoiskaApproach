@@ -36,6 +36,7 @@ int Game::init() {
 
 	//Load resources
 	loadTextures(textures, current_dir());
+	loadUI(uiTextures, current_dir());
 
 	//Init scene
 	loadScene(currentScene, textures, current_dir(), "TestScene.tmx");

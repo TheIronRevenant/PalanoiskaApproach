@@ -91,6 +91,7 @@ xcopy /y $(ProjectDir)sfml-graphics-d-2.dll $(OutDir)
 xcopy /y $(ProjectDir)sfml-system-d-2.dll $(OutDir)
 xcopy /y $(ProjectDir)sfml-window-d-2.dll $(OutDir)
 xcopy /y $(ProjectDir)resources\*.png $(OutDir)resources\
+xcopy /y $(ProjectDir)resources\ui\*.png $(OutDir)resources\ui\
 xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -215,6 +216,8 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     <Image Include="resources\effects.png" />
     <Image Include="resources\player.png" />
     <Image Include="resources\tiles.png" />
+    <Image Include="resources\ui\play.png" />
+    <Image Include="resources\ui\title.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
