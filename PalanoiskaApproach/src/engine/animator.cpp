@@ -6,6 +6,7 @@ Player Animator
 
 PlayerAnimator::PlayerAnimator(Animation walk) {
 	walkAnimation = walk;
+	currentAnimation = AnimationStates::right;
 }
 
 void PlayerAnimator::update(const float hVelocity, sf::Sprite& sprite) {
