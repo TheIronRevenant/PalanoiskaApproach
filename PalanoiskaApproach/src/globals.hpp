@@ -6,4 +6,6 @@ namespace Globals {
 	extern bool Debugging;
 };
 
+enum class GameState { MainMenu, InGame };
+
 #endif

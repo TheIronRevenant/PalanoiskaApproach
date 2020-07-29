@@ -4,9 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "../game/scene.hpp"
+#include "ui/uimanager.hpp"
 #include "settings.hpp"
-
-enum class GameState { MainMenu, InGame };
+#include "../globals.hpp"
 
 class Game {
 public:
@@ -24,6 +24,7 @@ private:
 	Scene currentScene;
 	GameSettings::WindowSettings windowSettings;
 	GameState gameState;
+	UIManager uiManager;
 };
 
 #endif

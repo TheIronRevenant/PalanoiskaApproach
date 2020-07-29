@@ -41,6 +41,11 @@ int Game::init() {
 	//Init scene
 	loadScene(currentScene, textures, current_dir(), "TestScene.tmx");
 
+	//Init ui
+	uiManager = UIManager(&gameState);
+	uiManager.addMainMenu(UIElement(0, 0, []() { }, uiTextures[0]));
+	uiManager.addMainMenu(UIElement(0, 200, [this]() { gameState = GameState::InGame; }, uiTextures[1]));
+
 	while (window.isOpen()) {
 		//Update clock
 		sf::Time elapsedTime = clock.restart();
@@ -54,6 +59,7 @@ int Game::init() {
 				if (event.type == sf::Event::Closed) {
 					window.close();
 				}
+
 				if (event.type == sf::Event::KeyPressed) {
 					if (event.key.code == sf::Keyboard::RBracket) {
 						//Toggle debugging
@@ -63,6 +69,14 @@ int Game::init() {
 						} else {
 							std::cout << "Debugging disabled" << std::endl;
 						}
+					}
+				}
+
+				if (event.type == sf::Event::MouseButtonPressed) {
+					if (event.mouseButton.button == sf::Mouse::Left) {
+						sf::Vector2f coords = window.mapPixelToCoords(
+							sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+						uiManager.recieveClick(coords.x, coords.y);
 					}
 				}
 			}
@@ -107,6 +121,8 @@ void Game::draw() {
 		currentScene.draw(window);
 		break;
 	}
+
+	uiManager.draw(window);
 
 	window.display();
 }
