@@ -132,7 +132,7 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 	}
 
 	//Recreate the scene
-	scene = Scene(width, height);
+	scene = Scene(width, height, GameSettings::WindowSettings{});
 
 	for (int i = 0; i < (int)tileNodes.size(); i++) {
 		if (tileNodes[i].attribute("gid")) {

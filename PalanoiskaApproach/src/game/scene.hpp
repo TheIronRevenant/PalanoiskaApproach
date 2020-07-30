@@ -7,6 +7,7 @@
 #include "../globals.hpp"
 #include "player.hpp"
 #include "playerattack.hpp"
+#include "../engine/settings.hpp"
 
 #pragma warning(disable : 26812 ) //Disable warning about sfml
 
@@ -19,7 +20,7 @@ namespace sf {
 class Scene {
 public:
 	Scene() { gridWidth = 0; gridHeight = 0; }
-	Scene(int gridw, int gridh);
+	Scene(int gridw, int gridh, GameSettings::WindowSettings windowSettings);
 	//= is removed because of RenderTexture
 	Scene& operator=(const Scene& other) {
 		this->staticObjects = other.staticObjects;
@@ -28,13 +29,16 @@ public:
 		this->gridWidth = other.gridWidth;
 		this->gridHeight = other.gridHeight;
 		this->playerAttacks = other.playerAttacks;
+		this->gameView = other.gameView;
+		this->bgView = other.bgView;
 		//Redraws it rather than copying it
 		this->staticTextures.create(this->gridWidth * Globals::TileSize, this->gridHeight * Globals::TileSize);
 		redrawTexture();
 		return *this;
 	}
-	void update(sf::View& view);
+	void update();
 	void draw(sf::RenderWindow& window);
+	void setBackground(sf::Texture& texture);
 	void addStatic(const StaticObject& staticobject);
 	void addPlayer(const Player& player);
 	void addPlayerAttack(const PlayerAttack& attack);
@@ -45,6 +49,9 @@ private:
 	std::vector<PlayerAttack> playerAttacks;
 	sf::RenderTexture staticTextures;
 	std::vector<Mesh> meshes;
+	sf::View gameView;
+	sf::View bgView;
+	sf::Sprite background;
 	Player player;
 	int gridWidth;
 	int gridHeight;

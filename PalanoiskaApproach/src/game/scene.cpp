@@ -4,22 +4,27 @@
 #include "scene.hpp"
 #include <iostream>
 
-Scene::Scene(int gridw, int gridh) {
+Scene::Scene(int gridw, int gridh, GameSettings::WindowSettings windowSettings) {
 	gridWidth = gridw;
 	gridHeight = gridh;
 	staticTextures.create(gridw * Globals::TileSize, gridh * Globals::TileSize);
 	staticTextures.clear(sf::Color::Transparent);
+
+	gameView.setSize(windowSettings.resw * 36.f, windowSettings.resh * 36.f);
+	gameView.setCenter(0, 0);
+
+	bgView.reset(sf::FloatRect(-1000.f, 1000.f, (float)windowSettings.resw * 36.f, (float)windowSettings.resh * 36.f));
+	background.setPosition(-1000.f, 1000.f);
 }
 
-void Scene::update(sf::View& view) {
+void Scene::update() {
 	player.update(meshes, *this);
 
 	sf::Vector2f pos = player.getPosition();
 	sf::Vector2f size = player.getSize();
 	float vx = pos.x + (size.x / 2);
 	float vy = pos.y + (size.y / 2);
-	view.setCenter(vx, vy);
-	//View is updated at the end of Game::update
+	gameView.setCenter(vx, vy);
 
 	for (PlayerAttack& p : playerAttacks) {
 		p.update();
@@ -37,6 +42,11 @@ void Scene::update(sf::View& view) {
 }
 
 void Scene::draw(sf::RenderWindow& window) {
+	//Draw background
+	window.setView(bgView);
+	window.draw(background);
+	window.setView(gameView);
+
 	//Draws static objects from the render texture
 	window.draw(sf::Sprite(staticTextures.getTexture()));
 
@@ -51,6 +61,11 @@ void Scene::draw(sf::RenderWindow& window) {
 			meshes[i].draw(window);
 		}
 	}
+}
+
+void Scene::setBackground(sf::Texture& texture) {
+	background.setTexture(texture);
+	background.setPosition(-1000.f, 1000.f);
 }
 
 void Scene::addStatic(const StaticObject& staticobject) {

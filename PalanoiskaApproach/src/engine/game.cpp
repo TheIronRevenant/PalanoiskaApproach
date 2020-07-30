@@ -24,15 +24,10 @@ int Game::init() {
 	windowSettings.screenh = screenheight / 2;
 	window.create(sf::VideoMode(windowSettings.screenw, windowSettings.screenh), "Palanoiska Approach");
 
-	//Init views
-	uiView.setSize(window.getSize().x / 2, window.getSize().y / 2);
-	uiView.setCenter(uiView.getSize().x / 2, uiView.getSize().y / 2);
-
-	gameView.setSize(windowSettings.resw * 36, windowSettings.resh * 36);
-	gameView.setCenter(0, 0);
-	window.setView(gameView);
-
-	gameUiView.reset(sf::FloatRect(-1000, 0, windowSettings.resw * 36, windowSettings.resh * 36));
+	//Init view
+	menuView.setSize(window.getSize().x / 2, window.getSize().y / 2);
+	menuView.setCenter(menuView.getSize().x / 2, menuView.getSize().y / 2);
+	window.setView(menuView);
 
 	//Init clock
 	sf::Clock clock;
@@ -46,6 +41,7 @@ int Game::init() {
 
 	//Init scene
 	changeScene("TestScene.tmx");
+	currentScene.setBackground(backgroundTextures[0]);
 
 	//Init ui
 	uiManager = UIManager(&gameState);
@@ -122,18 +118,8 @@ int Game::init() {
 }
 
 void Game::update() {
-	switch (gameState) {
-	case GameState::MainMenu:
-		window.setView(uiView);
-		break;
-	case GameState::InGame:
-		currentScene.update(gameView);
-
-		window.setView(gameView);
-		break;
-	case GameState::Paused:
-		window.setView(uiView);
-		break;
+	if (gameState == GameState::InGame) {
+		currentScene.update();
 	}
 }
 
@@ -142,18 +128,14 @@ void Game::draw() {
 
 	switch (gameState) {
 	case GameState::MainMenu:
+		window.setView(menuView);
 		uiManager.draw(window);
 		break;
 	case GameState::InGame:
-		//Draw scene
 		currentScene.draw(window);
-		//Change to the ui view
-		window.setView(gameUiView);
-		//Draw ui
-		uiManager.draw(window);
-		//Game view gets reset on the next update
 		break;
 	case GameState::Paused:
+		window.setView(menuView);
 		uiManager.draw(window);
 		break;
 	}
