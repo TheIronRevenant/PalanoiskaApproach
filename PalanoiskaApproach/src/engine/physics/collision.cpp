@@ -1,6 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include "collision.hpp"
-#include <iostream>
+
+/*
+Very inefficiently checks collisions between two rects
+*/
 
 bool isColliding(const sf::RectangleShape& rect1, const sf::RectangleShape& rect2) {
 	sf::Rect<float> r1(rect1.getPosition(), rect1.getSize());

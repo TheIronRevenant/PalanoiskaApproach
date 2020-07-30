@@ -52,6 +52,7 @@ int Game::init() {
 	uiManager.addPaused(UIElement(0, 0, [this]() { gameState = GameState::InGame; }, uiTextures[3]));
 	uiManager.addPaused(UIElement(0, 100, [this]() { gameState = GameState::MainMenu; }, uiTextures[2]));
 	//Game ui
+	//None yet
 
 	while (window.isOpen()) {
 		//Update clock

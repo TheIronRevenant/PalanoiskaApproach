@@ -4,6 +4,7 @@
 #pragma warning(disable : 26812 ) //Disable warning about sfml
 
 Mesh::Mesh(int gridx, int gridy, int gridw, int gridh) {
+	//Bounding box also used for debugging
 	boundingBox = sf::RectangleShape(sf::Vector2f((float)gridw * Globals::TileSize, (float)gridh * Globals::TileSize));
 	boundingBox.setPosition((float)gridx * Globals::TileSize, (float)gridy * Globals::TileSize);
 	boundingBox.setOutlineThickness(0.5f);

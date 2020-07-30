@@ -8,9 +8,6 @@
 #include "playerattack.hpp"
 #include <iostream>
 
-/*
-Player
-*/
 Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator animator) 
 		: GameObject(gridx, gridy, *(animator.getCurrentFrame())) {
 	this->animator = animator;

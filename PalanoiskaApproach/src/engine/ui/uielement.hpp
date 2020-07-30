@@ -8,7 +8,7 @@ class UIElement {
 public:
 	UIElement() {}
 	UIElement(float x, float y, std::function<void()> onClick, sf::Texture& texture);
-	std::function<void()> onClick;
+	std::function<void()> onClick; //Lambda function to determine on click behavior
 	void draw(sf::RenderWindow& window);
 	const sf::FloatRect& getRect() const { return clickBox; }
 private:
