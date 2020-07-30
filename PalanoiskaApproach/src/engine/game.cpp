@@ -32,6 +32,8 @@ int Game::init() {
 	gameView.setCenter(0, 0);
 	window.setView(gameView);
 
+	gameUiView.reset(sf::FloatRect(-1000, 0, windowSettings.resw * 36, windowSettings.resh * 36));
+
 	//Init clock
 	sf::Clock clock;
 	sf::Time timeSinceUpdate = sf::Time::Zero;
@@ -40,6 +42,7 @@ int Game::init() {
 	//Load resources
 	loadTextures(textures, current_dir());
 	loadUI(uiTextures, current_dir() + "\\resources\\ui\\");
+	loadBackgrounds(backgroundTextures, current_dir() + "\\resources\\");
 
 	//Init scene
 	changeScene("TestScene.tmx");
@@ -52,6 +55,7 @@ int Game::init() {
 	//Paused menu
 	uiManager.addPaused(UIElement(0, 0, [this]() { gameState = GameState::InGame; }, uiTextures[3]));
 	uiManager.addPaused(UIElement(0, 100, [this]() { gameState = GameState::MainMenu; }, uiTextures[2]));
+	//Game ui
 
 	while (window.isOpen()) {
 		//Update clock
@@ -138,15 +142,21 @@ void Game::draw() {
 
 	switch (gameState) {
 	case GameState::MainMenu:
+		uiManager.draw(window);
 		break;
 	case GameState::InGame:
+		//Draw scene
 		currentScene.draw(window);
+		//Change to the ui view
+		window.setView(gameUiView);
+		//Draw ui
+		uiManager.draw(window);
+		//Game view gets reset on the next update
 		break;
 	case GameState::Paused:
+		uiManager.draw(window);
 		break;
 	}
-
-	uiManager.draw(window);
 
 	window.display();
 }

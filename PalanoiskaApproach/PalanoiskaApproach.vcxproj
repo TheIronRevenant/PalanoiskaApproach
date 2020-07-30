@@ -217,10 +217,13 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     <ClInclude Include="src\game\player.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\background.png" />
     <Image Include="resources\effects.png" />
     <Image Include="resources\player.png" />
     <Image Include="resources\tiles.png" />
+    <Image Include="resources\ui\mainmenu.png" />
     <Image Include="resources\ui\play.png" />
+    <Image Include="resources\ui\resume.png" />
     <Image Include="resources\ui\title.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

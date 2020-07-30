@@ -21,8 +21,10 @@ private:
 	sf::Event event;
 	std::vector<sf::Texture> textures;
 	std::vector<sf::Texture> uiTextures;
+	std::vector<sf::Texture> backgroundTextures;
 	sf::View gameView;
 	sf::View uiView;
+	sf::View gameUiView;
 	Scene currentScene;
 	GameSettings::WindowSettings windowSettings;
 	GameState gameState;

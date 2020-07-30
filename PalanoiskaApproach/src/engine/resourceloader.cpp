@@ -89,6 +89,21 @@ void loadUI(std::vector<sf::Texture>& textures, std::string folder) {
 	}
 }
 
+void loadBackgrounds(std::vector<sf::Texture>& textures, std::string folder) {
+	std::string files[1] = { "background.png" };
+
+	for (std::string& s : files) {
+		std::string file = folder + s;
+		sf::Texture texture;
+
+		if (!texture.loadFromFile(file)) {
+			//Texture failed to load
+		}
+
+		textures.push_back(texture);
+	}
+}
+
 void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string folder, std::string file) {
 	//String to wchar_t
 	std::string sceneFile = folder + file;
