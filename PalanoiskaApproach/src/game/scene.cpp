@@ -24,7 +24,11 @@ void Scene::update() {
 	sf::Vector2f size = player.getSize();
 	float vx = pos.x + (size.x / 2);
 	float vy = pos.y + (size.y / 2);
-	gameView.setCenter(vx, vy);
+	float hw = gameView.getSize().x / 2;
+	float hh = gameView.getSize().y / 2;
+	gameView.setCenter(
+		std::clamp(vx, hw, (gridWidth * Globals::TileSize) - hw),
+		std::clamp(vy, hh, (gridHeight * Globals::TileSize) - hh));
 
 	for (PlayerAttack& p : playerAttacks) {
 		p.update();
