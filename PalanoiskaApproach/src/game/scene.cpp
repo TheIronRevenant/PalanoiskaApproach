@@ -13,8 +13,8 @@ Scene::Scene(int gridw, int gridh, GameSettings::WindowSettings windowSettings) 
 	gameView.setSize(windowSettings.resw * 36.f, windowSettings.resh * 36.f);
 	gameView.setCenter(0, 0);
 
-	bgView.reset(sf::FloatRect(-1000.f, 1000.f, (float)windowSettings.resw * 36.f, (float)windowSettings.resh * 36.f));
-	background.setPosition(-1000.f, 1000.f);
+	bgView.reset(sf::FloatRect(-1000.f, 0.f, (float)windowSettings.resw * 36.f, (float)windowSettings.resh * 36.f));
+	background.setPosition(-1000.f, 0.f);
 }
 
 void Scene::update() {
@@ -65,7 +65,7 @@ void Scene::draw(sf::RenderWindow& window) {
 
 void Scene::setBackground(sf::Texture& texture) {
 	background.setTexture(texture);
-	background.setPosition(-1000.f, 1000.f);
+	background.setPosition(-1000.f, 0.f);
 }
 
 void Scene::addStatic(const StaticObject& staticobject) {

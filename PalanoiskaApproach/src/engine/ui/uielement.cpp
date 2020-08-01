@@ -1,11 +1,10 @@
 #include "uielement.hpp"
 #include "../../globals.hpp"
-#include <iostream>
 
 UIElement::UIElement(float x, float y, std::function<void()> onClick, sf::Texture& texture) {
 	this->onClick = onClick;
 
-	clickBox = sf::FloatRect(x, y, texture.getSize().x, texture.getSize().y);
+	clickBox = sf::FloatRect(x, y, (float)texture.getSize().x, (float)texture.getSize().y);
 
 	sprite = sf::Sprite();
 	sprite.setPosition(x, y);
@@ -23,4 +22,10 @@ void UIElement::draw(sf::RenderWindow& window) {
 		rect.setOutlineThickness(0.5f);
 		window.draw(rect);
 	}
+}
+
+void UIElement::setWidth(float w) {
+	sf::IntRect rect = sprite.getTextureRect();
+	rect.width = (int)w;
+	sprite.setTextureRect(rect);
 }

@@ -144,6 +144,7 @@ xcopy /y $(ProjectDir)sfml-graphics-2.dll $(OutDir)
 xcopy /y $(ProjectDir)sfml-system-2.dll $(OutDir)
 xcopy /y $(ProjectDir)sfml-window-2.dll $(OutDir)
 xcopy /y $(ProjectDir)resources\*.png $(OutDir)resources\
+xcopy /y $(ProjectDir)resources\ui\*.png $(OutDir)resources\ui\
 xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

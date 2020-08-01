@@ -1,7 +1,8 @@
 #include "uimanager.hpp"
 
-UIManager::UIManager(GameState* gameState) {
+UIManager::UIManager(GameState* gameState, const GameSettings::WindowSettings& windowSettings) {
 	this->gameState = gameState;
+	uiView.reset(sf::FloatRect(-1000.f, 0.f, (float)windowSettings.resw * 36.f, (float)windowSettings.resh * 36.f));
 }
 
 void UIManager::recieveClick(float x, float y) {
@@ -30,6 +31,13 @@ void UIManager::recieveClick(float x, float y) {
 	}
 }
 
+void UIManager::update(const Player& player) {
+	//Hp bar is 2nd element
+	float percentHp = (float)player.getCurrentHp() / (float)player.getMaxHp();
+	float width = inGame[1].getRect().width * percentHp;
+	inGame[1].setWidth(width);
+}
+
 void UIManager::draw(sf::RenderWindow& window) {
 	switch (*gameState) {
 	case GameState::MainMenu:
@@ -38,6 +46,7 @@ void UIManager::draw(sf::RenderWindow& window) {
 		}
 		break;
 	case GameState::InGame:
+		window.setView(uiView);
 		for (UIElement& e : inGame) {
 			e.draw(window);
 		}

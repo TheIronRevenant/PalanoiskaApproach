@@ -10,6 +10,9 @@
 
 Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator animator) 
 		: GameObject(gridx, gridy, *(animator.getCurrentFrame())) {
+	maxHp = 100;
+	currentHp = 100;
+
 	this->animator = animator;
 
 	hVelocity = 0.f;

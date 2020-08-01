@@ -25,7 +25,7 @@ int Game::init() {
 	window.create(sf::VideoMode(windowSettings.screenw, windowSettings.screenh), "Palanoiska Approach");
 
 	//Init view
-	menuView.setSize(window.getSize().x / 2, window.getSize().y / 2);
+	menuView.setSize((float)window.getSize().x / 2, (float)window.getSize().y / 2);
 	menuView.setCenter(menuView.getSize().x / 2, menuView.getSize().y / 2);
 	window.setView(menuView);
 
@@ -44,15 +44,17 @@ int Game::init() {
 	currentScene.setBackground(backgroundTextures[0]);
 
 	//Init ui
-	uiManager = UIManager(&gameState);
+	uiManager = UIManager(&gameState, windowSettings);
 	//Main menu
-	uiManager.addMainMenu(UIElement(0, 0, []() { }, uiTextures[0]));
-	uiManager.addMainMenu(UIElement(0, 150, [this]() { gameState = GameState::InGame; changeScene("TestScene.tmx"); }, uiTextures[1]));
+	uiManager.addMainMenu(UIElement(0, 0, []() {}, uiTextures[0])); //Title
+	uiManager.addMainMenu(UIElement(0, 150, [this]() { gameState = GameState::InGame; changeScene("TestScene.tmx"); }, uiTextures[1])); //Play
 	//Paused menu
-	uiManager.addPaused(UIElement(0, 0, [this]() { gameState = GameState::InGame; }, uiTextures[3]));
-	uiManager.addPaused(UIElement(0, 100, [this]() { gameState = GameState::MainMenu; }, uiTextures[2]));
+	uiManager.addPaused(UIElement(0, 0, [this]() { gameState = GameState::InGame; }, uiTextures[3])); //Resume
+	uiManager.addPaused(UIElement(0, 100, [this]() { gameState = GameState::MainMenu; }, uiTextures[2])); //Main menu
 	//Game ui
-	//None yet
+	uiManager.addInGame(UIElement(-800.f, 295.f, []() {}, uiTextures[5])); //Hp background
+	uiManager.addInGame(UIElement(-800.f, 295.f, []() {}, uiTextures[6])); //Hp bar
+	uiManager.addInGame(UIElement(-1000.f, 284.f, []() {}, uiTextures[4])); //Main overlay
 
 	while (window.isOpen()) {
 		//Update clock
@@ -121,6 +123,7 @@ int Game::init() {
 void Game::update() {
 	if (gameState == GameState::InGame) {
 		currentScene.update();
+		uiManager.update(currentScene.getPlayer());
 	}
 }
 
@@ -134,6 +137,7 @@ void Game::draw() {
 		break;
 	case GameState::InGame:
 		currentScene.draw(window);
+		uiManager.draw(window);
 		break;
 	case GameState::Paused:
 		window.setView(menuView);

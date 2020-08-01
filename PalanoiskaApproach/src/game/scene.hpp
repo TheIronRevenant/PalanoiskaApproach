@@ -43,6 +43,7 @@ public:
 	void addPlayer(const Player& player);
 	void addPlayerAttack(const PlayerAttack& attack);
 	void generateMeshes();
+	const Player& getPlayer() const { return player;  }
 private:
 	void redrawTexture();
 	std::vector<StaticObject> staticObjects;
