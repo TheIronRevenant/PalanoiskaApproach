@@ -6,7 +6,12 @@ Enemy::Enemy(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : Gam
 }
 
 void Enemy::update() {
-
+	/*
+	Make enemies move
+	Deal damage
+	Take damage
+	Player iframes
+	*/
 }
 
 void Enemy::draw(sf::RenderWindow& window) {
