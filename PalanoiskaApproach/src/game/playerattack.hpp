@@ -11,7 +11,7 @@ namespace sf {
 class PlayerAttack : public GameObject {
 public:
 	PlayerAttack() { terminated = false; }
-	PlayerAttack(AttackAnimator animator);
+	PlayerAttack(AttackAnimator&& animator);
 	void create(float x, float y, bool rightFacing);
 	void update();
 	void draw(sf::RenderWindow& window);

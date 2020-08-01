@@ -51,6 +51,25 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	}
 
 	/*
+	Load enemies
+	*/
+	total = 1;
+	file = folder + "\\resources\\enemies.png";
+	for (int i = 0; i < total; i++) {
+		sf::Texture texture;
+		sf::IntRect rect;
+		rect.width = tilesize * 2;
+		rect.height = tilesize;
+		rect.left = ((tilesize * 2) + spacing) * i;
+
+		if (!texture.loadFromFile(file, rect)) {
+			//Texture failed to load
+		}
+
+		textures.push_back(texture);
+	}
+
+	/*
 	Load effects
 	*/
 	total = 2;
@@ -146,15 +165,18 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 
 			//If this is the player
 			if (id == 10) {
-				PlayerAnimator animator(Animation{ std::vector<sf::Texture*>{ &textures[0], &textures[1] }, 10 });
-				Player p(x, y, animator);
-				PlayerAttack slash( Animation{ std::vector<sf::Texture*>{ &textures[11], &textures[12] }, 7 });
+				Player p(x, y, PlayerAnimator(Animation{ std::vector<sf::Texture*>{ &textures[0],& textures[1] }, 10 }));
+				PlayerAttack slash( Animation{ std::vector<sf::Texture*>{ &textures[12], &textures[13] }, 7 });
 				p.addAttack("slash", slash);
 
 				scene.addPlayer(p);
 			} else {
 				if (id < 10) {
 					scene.addStatic(StaticObject(x, y, textures[id + 1]));
+				}
+				if (id == 12) {
+					//Enemy
+					scene.addEnemy(Enemy(x, y, textures[11]));
 				}
 			}
 		}

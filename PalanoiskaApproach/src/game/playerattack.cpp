@@ -2,7 +2,7 @@
 #include "../globals.hpp"
 #include "playerattack.hpp"
 
-PlayerAttack::PlayerAttack(AttackAnimator animator) {
+PlayerAttack::PlayerAttack(AttackAnimator&& animator) {
 	this->animator = animator;
 	terminated = false;
 }

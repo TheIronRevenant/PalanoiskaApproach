@@ -43,6 +43,10 @@ void Scene::update() {
 				[](PlayerAttack const& p) { return p.isTerminated(); }), 
 			playerAttacks.end());
 	}
+
+	for (Enemy& e : enemies) {
+		e.update();
+	}
 }
 
 void Scene::draw(sf::RenderWindow& window) {
@@ -53,6 +57,10 @@ void Scene::draw(sf::RenderWindow& window) {
 
 	//Draws static objects from the render texture
 	window.draw(sf::Sprite(staticTextures.getTexture()));
+
+	for (Enemy& e : enemies) {
+		e.draw(window);
+	}
 
 	player.draw(window);
 
@@ -70,6 +78,10 @@ void Scene::draw(sf::RenderWindow& window) {
 void Scene::setBackground(sf::Texture& texture) {
 	background.setTexture(texture);
 	background.setPosition(-1000.f, 0.f);
+}
+
+void Scene::addEnemy(const Enemy& enemy) {
+	enemies.emplace_back(enemy);
 }
 
 void Scene::addStatic(const StaticObject& staticobject) {

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
- <tileset firstgid="1" source="PalanoiskaTiles.tsx"/>
- <tileset firstgid="10" source="PalanoiskaPlayer.tsx"/>
+<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="Tiles.tsx"/>
+ <tileset firstgid="10" source="Player.tsx"/>
+ <tileset firstgid="12" source="Enemies.tsx"/>
  <layer id="1" name="Tiles" width="100" height="100">
   <data>
    <tile/>
@@ -5920,11 +5921,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="11"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -6524,7 +6525,6 @@
    <tile/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -6552,6 +6552,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="12"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6643,7 +6644,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="12"/>
    <tile/>
    <tile/>
    <tile/>

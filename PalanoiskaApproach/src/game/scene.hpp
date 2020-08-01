@@ -8,6 +8,7 @@
 #include "player.hpp"
 #include "playerattack.hpp"
 #include "../engine/settings.hpp"
+#include "enemy.hpp"
 
 #pragma warning(disable : 26812 ) //Disable warning about sfml
 
@@ -24,6 +25,7 @@ public:
 	//= is removed because of RenderTexture
 	Scene& operator=(const Scene& other) {
 		this->staticObjects = other.staticObjects;
+		this->enemies = other.enemies;
 		this->meshes = other.meshes;
 		this->player = other.player;
 		this->gridWidth = other.gridWidth;
@@ -39,6 +41,7 @@ public:
 	void update();
 	void draw(sf::RenderWindow& window);
 	void setBackground(sf::Texture& texture);
+	void addEnemy(const Enemy& enemy);
 	void addStatic(const StaticObject& staticobject);
 	void addPlayer(const Player& player);
 	void addPlayerAttack(const PlayerAttack& attack);
@@ -48,6 +51,7 @@ private:
 	void redrawTexture();
 	std::vector<StaticObject> staticObjects;
 	std::vector<PlayerAttack> playerAttacks;
+	std::vector<Enemy> enemies;
 	sf::RenderTexture staticTextures;
 	std::vector<Mesh> meshes;
 	sf::View gameView;

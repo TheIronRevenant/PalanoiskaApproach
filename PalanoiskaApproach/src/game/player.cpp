@@ -8,7 +8,7 @@
 #include "playerattack.hpp"
 #include <iostream>
 
-Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator animator) 
+Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator&& animator) 
 		: GameObject(gridx, gridy, *(animator.getCurrentFrame())) {
 	maxHp = 100;
 	currentHp = 100;
