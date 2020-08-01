@@ -47,6 +47,15 @@ void Scene::update() {
 	for (Enemy& e : enemies) {
 		e.update();
 	}
+
+	if (enemies.size() != 0) {
+		enemies.erase(
+			std::remove_if(
+				enemies.begin(),
+				enemies.end(),
+				[](Enemy const& e) { return e.isDead(); }),
+			enemies.end());
+	}
 }
 
 void Scene::draw(sf::RenderWindow& window) {

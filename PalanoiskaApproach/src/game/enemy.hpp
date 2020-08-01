@@ -10,6 +10,7 @@ public:
 	Enemy(unsigned int gridx, unsigned int gridy, sf::Texture& texture);
 	void update();
 	void draw(sf::RenderWindow& window);
+	bool isDead() const { return currentHp <= 0; }
 private:
 	int currentHp;
 };
