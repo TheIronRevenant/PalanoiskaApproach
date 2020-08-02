@@ -166,7 +166,7 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 			//If this is the player
 			if (id == 10) {
 				Player p(x, y, PlayerAnimator(Animation{ std::vector<sf::Texture*>{ &textures[0],& textures[1] }, 10 }));
-				PlayerAttack slash( Animation{ std::vector<sf::Texture*>{ &textures[12], &textures[13] }, 7 });
+				PlayerAttack slash( Animation{ std::vector<sf::Texture*>{ &textures[12], &textures[13] }, 7 }, 1);
 				p.addAttack("slash", slash);
 
 				scene.addPlayer(p);

@@ -10,16 +10,18 @@ namespace sf {
 
 class PlayerAttack : public GameObject {
 public:
-	PlayerAttack() { terminated = false; }
-	PlayerAttack(AttackAnimator&& animator);
+	PlayerAttack() { terminated = false; damage = 0; }
+	PlayerAttack(AttackAnimator&& animator, int damage);
 	void create(float x, float y, bool rightFacing);
 	void update();
 	void draw(sf::RenderWindow& window);
 	bool isTerminated() const { return terminated; }
-	AttackAnimator getAnimator() const { return animator; }
+	const AttackAnimator& getAnimator() const { return animator; }
+	const int& getDamage() const { return damage; }
 private:
 	bool terminated;
 	AttackAnimator animator;
+	int damage;
 };
 
 #endif

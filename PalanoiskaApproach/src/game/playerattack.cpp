@@ -2,9 +2,10 @@
 #include "../globals.hpp"
 #include "playerattack.hpp"
 
-PlayerAttack::PlayerAttack(AttackAnimator&& animator) {
+PlayerAttack::PlayerAttack(AttackAnimator&& animator, int damage) {
 	this->animator = animator;
 	terminated = false;
+	this->damage = damage;
 }
 
 #pragma warning(disable : 26812 ) //Disable warning about sfml

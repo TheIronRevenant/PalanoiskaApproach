@@ -1,17 +1,25 @@
 #include "enemy.hpp"
 #include "../globals.hpp"
+#include "playerattack.hpp"
+#include "../engine/physics/collision.hpp"
+#include <iostream>
 
 Enemy::Enemy(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : GameObject(gridx, gridy, texture) {
-	currentHp = 10;
+	currentHp = 30;
 }
 
-void Enemy::update() {
-	/*
-	Make enemies move
-	Deal damage
-	Take damage
-	Player iframes
-	*/
+/*
+Make enemies move
+Deal damage
+Player iframes
+*/
+
+void Enemy::update(std::vector<PlayerAttack>& attacks) {
+	for (PlayerAttack& a : attacks) {
+		if (isColliding(boundingBox, a.getBoundingBox())) {
+			currentHp -= a.getDamage();
+		}
+	}
 }
 
 void Enemy::draw(sf::RenderWindow& window) {

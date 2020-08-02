@@ -45,7 +45,7 @@ void Scene::update() {
 	}
 
 	for (Enemy& e : enemies) {
-		e.update();
+		e.update(playerAttacks);
 	}
 
 	if (enemies.size() != 0) {
