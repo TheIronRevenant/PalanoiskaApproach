@@ -58,8 +58,7 @@ void PlayerAnimator::swapAnimation(AnimationStates state, sf::Sprite& sprite) {
 	if (currentAnimation == AnimationStates::left) {
 		sf::Vector2u size = sprite.getTexture()->getSize();
 		sprite.setTextureRect(sf::IntRect((int)size.x, 0, -(int)size.x, (int)size.y));
-	}
-	else {
+	} else {
 		sf::Vector2u size = sprite.getTexture()->getSize();
 		sprite.setTextureRect(sf::IntRect(0, 0, (int)size.x, (int)size.y));
 	}

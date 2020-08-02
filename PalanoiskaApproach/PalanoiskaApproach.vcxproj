@@ -222,10 +222,14 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
   <ItemGroup>
     <Image Include="resources\background.png" />
     <Image Include="resources\effects.png" />
+    <Image Include="resources\enemies.png" />
     <Image Include="resources\player.png" />
     <Image Include="resources\tiles.png" />
+    <Image Include="resources\ui\hpbackground.png" />
+    <Image Include="resources\ui\hpbar.png" />
     <Image Include="resources\ui\mainmenu.png" />
     <Image Include="resources\ui\play.png" />
+    <Image Include="resources\ui\playerui.png" />
     <Image Include="resources\ui\resume.png" />
     <Image Include="resources\ui\title.png" />
   </ItemGroup>

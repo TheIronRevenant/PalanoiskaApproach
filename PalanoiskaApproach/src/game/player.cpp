@@ -40,19 +40,16 @@ void Player::update(const std::vector<Mesh>& meshes, Scene& parentScene) {
 		if (moveLeft ^ moveRight) {
 			if (moveRight) {
 				hVelocity = std::clamp(hVelocity + hAcceleration, -2.f, 2.f);
-			}
-			else {
+			} else {
 				hVelocity = std::clamp(hVelocity - hAcceleration, -2.f, 2.f);
 			}
-		}
-		else {
+		} else {
 			if (hVelocity > 0.f) {
 				hVelocity = std::clamp(hVelocity - hAcceleration, 0.f, 2.f);
+			} else
+			if (hVelocity < 0.f) {
+				hVelocity = std::clamp(hVelocity + hAcceleration, -2.f, 0.f);
 			}
-			else
-				if (hVelocity < 0.f) {
-					hVelocity = std::clamp(hVelocity + hAcceleration, -2.f, 0.f);
-				}
 		}
 	}
 	else {
@@ -83,8 +80,8 @@ void Player::update(const std::vector<Mesh>& meshes, Scene& parentScene) {
 			//Lock position to the right
 			float lockedx = std::ceilf(getPosition().x / 16) * 16;
 			setPosition(lockedx, getPosition().y);
-		}
-		else if (hVelocity < 0.f) {
+		} else 
+		if (hVelocity < 0.f) {
 			hVelocity = 0.f;
 
 			//Lock position to the left
