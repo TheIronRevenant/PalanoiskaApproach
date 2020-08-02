@@ -12,6 +12,9 @@ Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator&& animator
 		: GameObject(gridx, gridy, *(animator.getCurrentFrame())) {
 	maxHp = 100;
 	currentHp = 100;
+	invincible = false;
+	iframes = 20;
+	iframeTimer = 0;
 
 	this->animator = animator;
 
@@ -28,7 +31,7 @@ Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator&& animator
 	prevAttack = false;
 }
 
-void Player::update(const std::vector<Mesh>& meshes, Scene& parentScene) {
+void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, Scene& parentScene) {
 	//Movement
 	bool moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
 	bool moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
@@ -172,6 +175,22 @@ void Player::update(const std::vector<Mesh>& meshes, Scene& parentScene) {
 	}
 
 	prevAttack = attack;
+
+	//Enemy collision
+	if (!invincible) {
+		for (const Enemy& e : enemies) {
+			if (isColliding(boundingBox, e.getBoundingBox())) {
+				currentHp -= e.getDamage();
+				invincible = true;
+				iframeTimer = 0;
+			}
+		}
+	} else {
+		iframeTimer++;
+		if (iframeTimer >= iframes) {
+			invincible = false;
+		}
+	}
 
 	animator.update(hVelocity, sprite);
 }

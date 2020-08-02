@@ -124,6 +124,9 @@ void Game::update() {
 	if (gameState == GameState::InGame) {
 		currentScene.update();
 		uiManager.update(currentScene.getPlayer());
+		if (currentScene.getPlayer().isDead()) {
+			changeScene("TestScene.tmx");
+		}
 	}
 }
 

@@ -18,7 +18,7 @@ Scene::Scene(int gridw, int gridh, GameSettings::WindowSettings windowSettings) 
 }
 
 void Scene::update() {
-	player.update(meshes, *this);
+	player.update(meshes, enemies, *this);
 
 	sf::Vector2f pos = player.getPosition();
 	sf::Vector2f size = player.getSize();

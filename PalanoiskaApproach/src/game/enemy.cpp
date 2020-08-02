@@ -6,12 +6,12 @@
 
 Enemy::Enemy(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : GameObject(gridx, gridy, texture) {
 	currentHp = 30;
+	damage = 5;
 }
 
 /*
 Make enemies move
-Deal damage
-Player iframes
+Damage text
 */
 
 void Enemy::update(std::vector<PlayerAttack>& attacks) {
