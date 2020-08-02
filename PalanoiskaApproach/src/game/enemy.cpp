@@ -9,11 +9,6 @@ Enemy::Enemy(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : Gam
 	damage = 5;
 }
 
-/*
-Make enemies move
-Damage text
-*/
-
 void Enemy::update(std::vector<PlayerAttack>& attacks) {
 	for (PlayerAttack& a : attacks) {
 		if (isColliding(boundingBox, a.getBoundingBox())) {
