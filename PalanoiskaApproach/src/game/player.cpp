@@ -76,8 +76,7 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 
 	if (canMove) {
 		setPosition(nextPos.getPosition());
-	}
-	else {
+	} else {
 		if (hVelocity > 0.f) {
 			hVelocity = 0.f;
 
@@ -99,15 +98,13 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 		//If the player jumps
 		if (jump && !prevJump) {
 			vVelocity = vJumpAcceleration;
-		}
-		else {
+		} else {
 			//Pushes the player in the air when hit
 			if (!invincible) {
 				vVelocity = vAcceleration;
 			}
 		}
-	}
-	else {
+	} else {
 		vVelocity = std::clamp(vVelocity + vAcceleration, vVelocity - vTerminalVelocity, vTerminalVelocity);
 	}
 

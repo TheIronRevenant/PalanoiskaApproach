@@ -9,14 +9,16 @@ class PlayerAttack;
 
 class Enemy : public GameObject {
 public:
-	Enemy() { currentHp = 10; damage = 5; }
+	Enemy() { moveRight = true; speed = 0.5f; currentHp = 10; damage = 5; }
 	Enemy(unsigned int gridx, unsigned int gridy, sf::Texture& texture);
 	void update() {} //Override abstract
-	void update(std::vector<PlayerAttack>& attacks);
+	void update(const std::vector<Mesh>& meshes, std::vector<PlayerAttack>& attacks);
 	void draw(sf::RenderWindow& window);
 	bool isDead() const { return currentHp <= 0; }
 	const int& getDamage() const { return damage; }
 private:
+	bool moveRight;
+	float speed;
 	int currentHp;
 	int damage;
 };
