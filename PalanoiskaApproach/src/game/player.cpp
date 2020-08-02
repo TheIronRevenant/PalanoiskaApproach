@@ -40,22 +40,23 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 
 	//Horizontal movement
 	if (!attacking) {
-		if (moveLeft ^ moveRight) {
-			if (moveRight) {
-				hVelocity = std::clamp(hVelocity + hAcceleration, -2.f, 2.f);
+		if (!invincible) {
+			if ((moveLeft ^ moveRight)) {
+				if (moveRight) {
+					hVelocity = std::clamp(hVelocity + hAcceleration, -hMax, hMax);
+				} else {
+					hVelocity = std::clamp(hVelocity - hAcceleration, -hMax, hMax);
+				}
 			} else {
-				hVelocity = std::clamp(hVelocity - hAcceleration, -2.f, 2.f);
-			}
-		} else {
-			if (hVelocity > 0.f) {
-				hVelocity = std::clamp(hVelocity - hAcceleration, 0.f, 2.f);
-			} else
-			if (hVelocity < 0.f) {
-				hVelocity = std::clamp(hVelocity + hAcceleration, -2.f, 0.f);
+				if (hVelocity > 0.f) {
+					hVelocity = std::clamp(hVelocity - hAcceleration, 0.f, hMax);
+				} else
+				if (hVelocity < 0.f) {
+					hVelocity = std::clamp(hVelocity + hAcceleration, -hMax, 0.f);
+				}
 			}
 		}
-	}
-	else {
+	} else {
 		if (onGround) {
 			hVelocity = 0.f;
 		}
@@ -100,7 +101,10 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 			vVelocity = vJumpAcceleration;
 		}
 		else {
-			vVelocity = vAcceleration;
+			//Pushes the player in the air when hit
+			if (!invincible) {
+				vVelocity = vAcceleration;
+			}
 		}
 	}
 	else {
@@ -122,8 +126,7 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 		setPosition(fallPos.getPosition());
 		//Object can fall so is no longer on ground
 		onGround = false;
-	}
-	else {
+	} else {
 		//If going upwards
 		if (vVelocity < 0.f) {
 			vVelocity = 0.f;
@@ -131,8 +134,7 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 			//Lock position to ceiling
 			float lockedy = std::floorf(getPosition().y / 16) * 16;
 			setPosition(getPosition().x, lockedy);
-		}
-		else {
+		} else {
 			//If going downwards
 			vVelocity = 0.f;
 			onGround = true;
@@ -183,6 +185,14 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 				currentHp -= e.getDamage();
 				invincible = true;
 				iframeTimer = 0;
+
+				//Knockback
+				if (animator.getState() == AnimationStates::right) {
+					hVelocity = -hMax;
+				} else {
+					hVelocity = hMax;
+				}
+				vVelocity = -2.f;
 			}
 		}
 	} else {
