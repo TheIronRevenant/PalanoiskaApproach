@@ -199,10 +199,13 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 		iframeTimer++;
 		if (iframeTimer >= iframes) {
 			invincible = false;
+			hVelocity = 0.f;
 		}
 	}
 
-	animator.update(hVelocity, sprite);
+	if (!invincible) {
+		animator.update(hVelocity, sprite);
+	}
 }
 
 void Player::draw(sf::RenderWindow& window) {
