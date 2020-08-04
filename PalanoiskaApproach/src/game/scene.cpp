@@ -57,7 +57,7 @@ void Scene::update() {
 
 	if (enemies.size() != 0) {
 		for (Enemy& e : enemies) {
-			e.update(meshes, playerAttacks, dealDamage);
+			e.update(meshes, playerAttacks, floatText, dealDamage);
 		}
 
 		enemies.erase(
@@ -66,6 +66,19 @@ void Scene::update() {
 				enemies.end(),
 				[](Enemy const& e) { return e.isDead(); }),
 			enemies.end());
+	}
+
+	if (floatText.size() != 0) {
+		for (FloatingText& f : floatText) {
+			f.update();
+		}
+
+		floatText.erase(
+			std::remove_if(
+				floatText.begin(),
+				floatText.end(),
+				[](FloatingText const& f) { return f.isTerminated();  }),
+			floatText.end());
 	}
 }
 
@@ -92,6 +105,10 @@ void Scene::draw(sf::RenderWindow& window) {
 		for (unsigned int i = 0; i < meshes.size(); i++) {
 			meshes[i].draw(window);
 		}
+	}
+
+	for (FloatingText& f : floatText) {
+		f.draw(window);
 	}
 }
 

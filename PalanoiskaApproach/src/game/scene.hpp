@@ -9,6 +9,7 @@
 #include "playerattack.hpp"
 #include "../engine/settings.hpp"
 #include "enemy.hpp"
+#include "../engine/floatingtext.hpp"
 
 #pragma warning(disable : 26812 ) //Disable warning about sfml
 
@@ -37,6 +38,7 @@ public:
 		this->bgView = other.bgView;
 		this->playerAttackSpeed = other.playerAttackSpeed;
 		this->playerAttackTimer = other.playerAttackTimer;
+		this->floatText = other.floatText;
 		//Redraws it rather than copying it
 		this->staticTextures.create(this->gridWidth * Globals::TileSize, this->gridHeight * Globals::TileSize);
 		redrawTexture();
@@ -56,6 +58,7 @@ private:
 	std::vector<StaticObject> staticObjects;
 	std::vector<PlayerAttack> playerAttacks;
 	std::vector<Enemy> enemies;
+	std::vector<FloatingText> floatText;
 	sf::RenderTexture staticTextures;
 	std::vector<Mesh> meshes;
 	sf::View gameView;

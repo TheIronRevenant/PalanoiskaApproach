@@ -4,6 +4,7 @@
 #include "../engine/physics/collision.hpp"
 #include "../engine/mesh.hpp"
 #include <iostream>
+#include "../engine/settings.hpp"
 
 Enemy::Enemy(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : GameObject(gridx, gridy, texture) {
 	moveRight = true;
@@ -14,12 +15,13 @@ Enemy::Enemy(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : Gam
 
 #pragma warning(disable : 26812 ) //Disable warning about sfml
 
-void Enemy::update(const std::vector<Mesh>& meshes, std::vector<PlayerAttack>& attacks, bool takeDamage) {
+void Enemy::update(const std::vector<Mesh>& meshes, std::vector<PlayerAttack>& attacks, std::vector<FloatingText>& floatText, bool takeDamage) {
 	if (takeDamage) {
 		for (PlayerAttack& a : attacks) {
 			if (isColliding(boundingBox, a.getBoundingBox())) {
-				currentHp -= a.getDamage();
-				std::cout << "hit" << std::endl;
+				int damage = a.getDamage();
+				currentHp -= damage;
+				floatText.emplace_back(getPosition().x, getPosition().y - 8, std::to_string(damage), *settings.font);
 			}
 		}
 	}

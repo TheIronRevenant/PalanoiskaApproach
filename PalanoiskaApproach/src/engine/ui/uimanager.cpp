@@ -1,6 +1,7 @@
 #include "uimanager.hpp"
+#include "../settings.hpp"
 
-UIManager::UIManager(GameState* gameState, const GameSettings::WindowSettings& windowSettings) {
+UIManager::UIManager(GameState* gameState) {
 	this->gameState = gameState;
 	uiView.reset(sf::FloatRect(-1000.f, 0.f, (float)windowSettings.resw * 36.f, (float)windowSettings.resh * 36.f));
 }

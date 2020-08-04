@@ -9,6 +9,9 @@
 #include "gameobject.hpp"
 #include <iostream>
 
+GameSettings::Settings settings{};
+GameSettings::WindowSettings windowSettings{};
+
 //Get current directory
 std::string current_dir() {
 	char buffer[FILENAME_MAX];
@@ -39,13 +42,14 @@ int Game::init() {
 	loadUI(uiTextures, current_dir() + "\\resources\\ui\\");
 	loadBackgrounds(backgroundTextures, current_dir() + "\\resources\\");
 	loadFont(font, current_dir() + "\\resources\\");
+	settings.font = &font;
 
 	//Init scene
 	changeScene("TestScene.tmx");
 	currentScene.setBackground(backgroundTextures[0]);
 
 	//Init ui
-	uiManager = UIManager(&gameState, windowSettings);
+	uiManager = UIManager(&gameState);
 	//Main menu
 	uiManager.addMainMenu(UIElement(0, 0, []() {}, uiTextures[0])); //Title
 	uiManager.addMainMenu(UIElement(0, 150, [this]() { gameState = GameState::InGame; changeScene("TestScene.tmx"); }, uiTextures[1])); //Play

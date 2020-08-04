@@ -25,7 +25,6 @@ private:
 	sf::Font font;
 	sf::View menuView;
 	Scene currentScene;
-	GameSettings::WindowSettings windowSettings;
 	GameState gameState;
 	UIManager uiManager;
 };

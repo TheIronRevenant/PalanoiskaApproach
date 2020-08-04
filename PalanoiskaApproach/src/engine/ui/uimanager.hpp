@@ -11,7 +11,7 @@
 class UIManager {
 public:
 	UIManager() { gameState = nullptr; uiView.reset(sf::FloatRect(-1000.f, 0.f, 100.f, 100.f)); }
-	UIManager(GameState* gameState, const GameSettings::WindowSettings& windowSettings);
+	UIManager(GameState* gameState);
 	void recieveClick(float x, float y);
 	void update(const Player& player);
 	void draw(sf::RenderWindow& window);
