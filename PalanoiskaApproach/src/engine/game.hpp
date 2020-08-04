@@ -22,6 +22,7 @@ private:
 	std::vector<sf::Texture> textures;
 	std::vector<sf::Texture> uiTextures;
 	std::vector<sf::Texture> backgroundTextures;
+	sf::Font font;
 	sf::View menuView;
 	Scene currentScene;
 	GameSettings::WindowSettings windowSettings;

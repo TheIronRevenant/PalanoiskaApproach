@@ -184,3 +184,10 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 
 	scene.generateMeshes();
 }
+
+void loadFont(sf::Font& font, std::string folder) {
+	std::string fontFile = folder + "font.ttf";
+	if (!font.loadFromFile(fontFile)) {
+		//Failed to load font
+	}
+}

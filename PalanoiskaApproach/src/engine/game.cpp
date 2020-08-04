@@ -38,6 +38,7 @@ int Game::init() {
 	loadTextures(textures, current_dir());
 	loadUI(uiTextures, current_dir() + "\\resources\\ui\\");
 	loadBackgrounds(backgroundTextures, current_dir() + "\\resources\\");
+	loadFont(font, current_dir() + "\\resources\\");
 
 	//Init scene
 	changeScene("TestScene.tmx");
