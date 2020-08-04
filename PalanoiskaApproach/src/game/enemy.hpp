@@ -12,7 +12,7 @@ public:
 	Enemy() { moveRight = true; speed = 0.5f; currentHp = 10; damage = 5; }
 	Enemy(unsigned int gridx, unsigned int gridy, sf::Texture& texture);
 	void update() {} //Override abstract
-	void update(const std::vector<Mesh>& meshes, std::vector<PlayerAttack>& attacks);
+	void update(const std::vector<Mesh>& meshes, std::vector<PlayerAttack>& attacks, bool takeDamage);
 	void draw(sf::RenderWindow& window);
 	bool isDead() const { return currentHp <= 0; }
 	const int& getDamage() const { return damage; }

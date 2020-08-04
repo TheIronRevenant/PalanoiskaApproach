@@ -8,16 +8,19 @@
 Enemy::Enemy(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : GameObject(gridx, gridy, texture) {
 	moveRight = true;
 	speed = 0.5f;
-	currentHp = 30;
+	currentHp = 10;
 	damage = 5;
 }
 
 #pragma warning(disable : 26812 ) //Disable warning about sfml
 
-void Enemy::update(const std::vector<Mesh>& meshes, std::vector<PlayerAttack>& attacks) {
-	for (PlayerAttack& a : attacks) {
-		if (isColliding(boundingBox, a.getBoundingBox())) {
-			currentHp -= a.getDamage();
+void Enemy::update(const std::vector<Mesh>& meshes, std::vector<PlayerAttack>& attacks, bool takeDamage) {
+	if (takeDamage) {
+		for (PlayerAttack& a : attacks) {
+			if (isColliding(boundingBox, a.getBoundingBox())) {
+				currentHp -= a.getDamage();
+				std::cout << "hit" << std::endl;
+			}
 		}
 	}
 

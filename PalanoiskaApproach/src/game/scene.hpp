@@ -20,7 +20,9 @@ namespace sf {
 
 class Scene {
 public:
-	Scene() { gridWidth = 0; gridHeight = 0; }
+	Scene() {
+		gridWidth = 0; gridHeight = 0;
+		playerAttackSpeed = 7; playerAttackTimer = 0; }
 	Scene(int gridw, int gridh, GameSettings::WindowSettings windowSettings);
 	//= is removed because of RenderTexture
 	Scene& operator=(const Scene& other) {
@@ -33,6 +35,8 @@ public:
 		this->playerAttacks = other.playerAttacks;
 		this->gameView = other.gameView;
 		this->bgView = other.bgView;
+		this->playerAttackSpeed = other.playerAttackSpeed;
+		this->playerAttackTimer = other.playerAttackTimer;
 		//Redraws it rather than copying it
 		this->staticTextures.create(this->gridWidth * Globals::TileSize, this->gridHeight * Globals::TileSize);
 		redrawTexture();
@@ -60,6 +64,8 @@ private:
 	Player player;
 	int gridWidth;
 	int gridHeight;
+	int playerAttackSpeed;
+	int playerAttackTimer;
 };
 
 #pragma warning(default : 26812 )

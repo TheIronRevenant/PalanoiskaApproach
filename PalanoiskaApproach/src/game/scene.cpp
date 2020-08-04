@@ -15,6 +15,9 @@ Scene::Scene(int gridw, int gridh, GameSettings::WindowSettings windowSettings) 
 
 	bgView.reset(sf::FloatRect(-1000.f, 0.f, (float)windowSettings.resw * 36.f, (float)windowSettings.resh * 36.f));
 	background.setPosition(-1000.f, 0.f);
+
+	playerAttackSpeed = 7;
+	playerAttackTimer = 0;
 }
 
 void Scene::update() {
@@ -30,25 +33,33 @@ void Scene::update() {
 		std::clamp(vx, hw, (gridWidth * Globals::TileSize) - hw),
 		std::clamp(vy, hh, (gridHeight * Globals::TileSize) - hh));
 
-	for (PlayerAttack& p : playerAttacks) {
-		p.update();
-	}
-
-	//Checks if the attack is finished
+	bool dealDamage = false;
 	if (playerAttacks.size() != 0) {
+		playerAttackTimer++;
+		if (playerAttackTimer >= playerAttackSpeed) {
+			playerAttackTimer = 0;
+			dealDamage = true;
+		}
+
+		for (PlayerAttack& p : playerAttacks) {
+			p.update();
+		}
+
 		playerAttacks.erase(
 			std::remove_if(
 				playerAttacks.begin(), 
 				playerAttacks.end(), 
 				[](PlayerAttack const& p) { return p.isTerminated(); }), 
 			playerAttacks.end());
-	}
-
-	for (Enemy& e : enemies) {
-		e.update(meshes, playerAttacks);
+	} else {
+		playerAttackTimer = playerAttackSpeed;
 	}
 
 	if (enemies.size() != 0) {
+		for (Enemy& e : enemies) {
+			e.update(meshes, playerAttacks, dealDamage);
+		}
+
 		enemies.erase(
 			std::remove_if(
 				enemies.begin(),
