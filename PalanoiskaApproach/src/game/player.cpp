@@ -31,12 +31,21 @@ Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator&& animator
 	prevAttack = false;
 }
 
-void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, Scene& parentScene) {
+void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, std::vector<Interactable>& interactables, Scene& parentScene) {
 	//Movement
 	bool moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
 	bool moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
 	bool jump = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
 	bool attack = sf::Keyboard::isKeyPressed(sf::Keyboard::Z);
+	bool interact = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+
+	for (Interactable& i : interactables) {
+		if (isColliding(boundingBox, i.getBoundingBox())) {
+			if (interact) {
+				std::cout << "interact" << std::endl;
+			}
+		}
+	}
 
 	//Horizontal movement
 	if (!attacking) {

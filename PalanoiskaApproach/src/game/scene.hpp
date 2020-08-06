@@ -10,6 +10,7 @@
 #include "../engine/settings.hpp"
 #include "enemy.hpp"
 #include "../engine/floatingtext.hpp"
+#include "interactable.hpp"
 
 #pragma warning(disable : 26812 ) //Disable warning about sfml
 
@@ -49,13 +50,16 @@ public:
 	void setBackground(sf::Texture& texture);
 	void addEnemy(const Enemy& enemy);
 	void addStatic(const StaticObject& staticobject);
+	void addInteractable(const Interactable& interactable);
 	void addPlayer(const Player& player);
 	void addPlayerAttack(const PlayerAttack& attack);
 	void generateMeshes();
 	const Player& getPlayer() const { return player; }
+	std::vector<Interactable>& getInteractables() { return interactableObjects; }
 private:
 	void redrawTexture();
 	std::vector<StaticObject> staticObjects;
+	std::vector<Interactable> interactableObjects;
 	std::vector<PlayerAttack> playerAttacks;
 	std::vector<Enemy> enemies;
 	std::vector<FloatingText> floatText;

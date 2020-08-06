@@ -4,6 +4,7 @@
 #include "../game/scene.hpp"
 #include "../game/player.hpp"
 #include "../game/playerattack.hpp"
+#include "../game/interactable.hpp"
 
 void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	textures.clear();
@@ -33,7 +34,7 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	/*
 	Load tileset
 	*/
-	total = 9;
+	total = 10;
 	file = folder + "\\resources\\tiles.png";
 
 	for (int i = 0; i < total; i++) {
@@ -143,6 +144,7 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 
 	pugi::xml_node map = doc.child("map");
 	pugi::xml_node tileLayer = map.child("layer").child("data");
+	pugi::xml_node interactLayer = tileLayer.parent().next_sibling().child("data");
 
 	int width = std::stoi(map.attribute("width").value());
 	int height = std::stoi(map.attribute("height").value());
@@ -151,6 +153,11 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 	std::vector<pugi::xml_node> tileNodes;
 	for (pugi::xml_node_iterator it = tileLayer.begin(); it != tileLayer.end(); ++it) {
 		tileNodes.push_back(*it);
+	}
+
+	std::vector<pugi::xml_node> interactNodes;
+	for (pugi::xml_node_iterator it = interactLayer.begin(); it != interactLayer.end(); ++it) {
+		interactNodes.push_back(*it);
 	}
 
 	//Recreate the scene
@@ -164,21 +171,35 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 			int id = std::stoi(tileNodes[i].attribute("gid").value());
 
 			//If this is the player
-			if (id == 10) {
+			if (id == 11) {
 				Player p(x, y, PlayerAnimator(Animation{ std::vector<sf::Texture*>{ &textures[0],& textures[1] }, 10 }));
-				PlayerAttack slash(Animation{ std::vector<sf::Texture*>{ &textures[12], &textures[13] }, 7 }, 2);
+				PlayerAttack slash(Animation{ std::vector<sf::Texture*>{ &textures[13], &textures[14] }, 7 }, 2);
 				p.addAttack("slash", slash);
 
 				scene.addPlayer(p);
 			} else {
-				if (id < 10) {
+				if (id < 11) {
 					scene.addStatic(StaticObject(x, y, textures[id + 1]));
-				}
-				if (id == 12) {
+				} else
+				if (id < 13) {
+
+				} else
+				if (id == 13) {
 					//Enemy
-					scene.addEnemy(Enemy(x, y, textures[11]));
+					scene.addEnemy(Enemy(x, y, textures[12]));
 				}
 			}
+		}
+	}
+
+	for (int i = 0; i < (int)interactNodes.size(); i++) {
+		if (interactNodes[i].attribute("gid")) {
+			//Get grid x and y from i
+			int x = i % width;
+			int y = i / width;
+			int id = std::stoi(interactNodes[i].attribute("gid").value());
+
+			scene.addInteractable(Interactable(x, y, textures[id + 1]));
 		}
 	}
 

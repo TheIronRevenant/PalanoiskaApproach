@@ -21,7 +21,13 @@ Scene::Scene(int gridw, int gridh, GameSettings::WindowSettings windowSettings) 
 }
 
 void Scene::update() {
-	player.update(meshes, enemies, *this);
+	if (interactableObjects.size() != 0) {
+		for (Interactable& i : interactableObjects) {
+			i.update();
+		}
+	}
+
+	player.update(meshes, enemies, interactableObjects, *this);
 
 	sf::Vector2f pos = player.getPosition();
 	sf::Vector2f size = player.getSize();
@@ -91,6 +97,10 @@ void Scene::draw(sf::RenderWindow& window) {
 	//Draws static objects from the render texture
 	window.draw(sf::Sprite(staticTextures.getTexture()));
 
+	for (Interactable& i : interactableObjects) {
+		i.draw(window);
+	}
+
 	for (Enemy& e : enemies) {
 		e.draw(window);
 	}
@@ -133,6 +143,10 @@ void Scene::addStatic(const StaticObject& staticobject) {
 	staticObjects.emplace_back(staticobject);
 }
 
+void Scene::addInteractable(const Interactable& interactable) {
+	interactableObjects.emplace_back(interactable);
+}
+
 void Scene::addPlayer(const Player& player) {
 	this->player = player;
 }
@@ -163,7 +177,7 @@ void Scene::generateMeshes() {
 	}
 
 	//Add objects to matrix
-	for (StaticObject s : staticObjects) {
+	for (StaticObject& s : staticObjects) {
 		int x = (int)(s.getPosition().x / 16);
 		int y = (int)(s.getPosition().y / 16);
 		matrix[x][y] = new std::pair<StaticObject, bool>(s, false);

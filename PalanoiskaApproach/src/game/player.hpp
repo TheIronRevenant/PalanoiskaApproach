@@ -7,6 +7,7 @@
 #include "../engine/animator.hpp"
 #include "playerattack.hpp"
 #include "enemy.hpp"
+#include "interactable.hpp"
 
 class Scene;
 
@@ -19,7 +20,7 @@ public:
 		attacking = false; attackSpeed = 0; attackTimer = 0; prevAttack = false; }
 	Player(unsigned int gridx, unsigned int gridy, PlayerAnimator&& animator);
 	void update() {} //Override the abstract functions
-	void update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, Scene& parentScene);
+	void update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, std::vector<Interactable>& interactables, Scene& parentScene);
 	void draw(sf::RenderWindow& window);
 	void addAttack(std::string name, PlayerAttack& attack);
 	const int& getMaxHp() const { return maxHp; }
