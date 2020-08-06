@@ -40,6 +40,7 @@ public:
 		this->playerAttackSpeed = other.playerAttackSpeed;
 		this->playerAttackTimer = other.playerAttackTimer;
 		this->floatText = other.floatText;
+		this->interactableObjects = other.interactableObjects;
 		//Redraws it rather than copying it
 		this->staticTextures.create(this->gridWidth * Globals::TileSize, this->gridHeight * Globals::TileSize);
 		redrawTexture();

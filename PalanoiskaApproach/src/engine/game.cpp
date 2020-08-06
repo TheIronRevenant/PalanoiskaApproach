@@ -158,4 +158,11 @@ void Game::draw() {
 
 void Game::changeScene(std::string name) {
 	loadScene(currentScene, textures, current_dir() + "\\resources\\scenes\\", name);
+	std::vector<Interactable>& interactables = currentScene.getInteractables();
+	if (name == "TestScene.tmx") {
+		interactables[0].interact = [this]() { changeScene("TestScene2.tmx"); };
+	} else 
+	if (name == "TestScene2.tmx") {
+		interactables[0].interact = [this]() { changeScene("TestScene.tmx"); };
+	}
 }

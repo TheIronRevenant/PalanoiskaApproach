@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "engine/game.hpp"
+#include "globals.hpp"
 
 //Set debugging value
 bool Globals::Debugging = false;

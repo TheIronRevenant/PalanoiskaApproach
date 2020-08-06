@@ -9,6 +9,8 @@ public:
 	Interactable() {}
 	Interactable(unsigned int gridx, unsigned int y, sf::Texture& texture);
 	void update() {}
+	void draw(sf::RenderWindow& window);
+	std::function<void()> interact;
 };
 
 #endif

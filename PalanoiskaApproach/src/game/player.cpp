@@ -42,7 +42,7 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 	for (Interactable& i : interactables) {
 		if (isColliding(boundingBox, i.getBoundingBox())) {
 			if (interact) {
-				std::cout << "interact" << std::endl;
+				i.interact();
 			}
 		}
 	}
