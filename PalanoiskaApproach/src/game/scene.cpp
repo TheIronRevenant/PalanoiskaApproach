@@ -18,6 +18,8 @@ Scene::Scene(int gridw, int gridh, GameSettings::WindowSettings windowSettings) 
 
 	playerAttackSpeed = 7;
 	playerAttackTimer = 0;
+
+	player = nullptr;
 }
 
 void Scene::update() {
@@ -27,10 +29,10 @@ void Scene::update() {
 		}
 	}
 
-	player.update(meshes, enemies, interactableObjects, *this);
+	player->update(meshes, enemies, interactableObjects, *this);
 
-	sf::Vector2f pos = player.getPosition();
-	sf::Vector2f size = player.getSize();
+	sf::Vector2f pos = player->getPosition();
+	sf::Vector2f size = player->getSize();
 	float vx = pos.x + (size.x / 2);
 	float vy = pos.y + (size.y / 2);
 	float hw = gameView.getSize().x / 2;
@@ -105,7 +107,7 @@ void Scene::draw(sf::RenderWindow& window) {
 		e.draw(window);
 	}
 
-	player.draw(window);
+	player->draw(window);
 
 	for (PlayerAttack& p : playerAttacks) {
 		p.draw(window);
@@ -147,13 +149,15 @@ void Scene::addInteractable(const Interactable& interactable) {
 	interactableObjects.emplace_back(interactable);
 }
 
-void Scene::addPlayer(const Player& player) {
-	this->player = player;
+void Scene::addPlayer(Player& player) {
+	this->player = &player;
 }
 
 void Scene::addPlayerAttack(const PlayerAttack& attack) {
 	playerAttacks.emplace_back(attack);
 }
+
+#pragma warning(disable : 26812 ) //Disable warning about sfml
 
 //Redraws texture for when copying scene
 void Scene::redrawTexture() {
@@ -165,6 +169,8 @@ void Scene::redrawTexture() {
 
 	staticTextures.display();
 }
+
+#pragma warning(default : 26812 )
 
 void Scene::generateMeshes() {
 	sf::Clock timer;

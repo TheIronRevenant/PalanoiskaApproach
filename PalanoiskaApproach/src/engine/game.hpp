@@ -27,6 +27,7 @@ private:
 	Scene currentScene;
 	GameState gameState;
 	UIManager uiManager;
+	Player player;
 };
 
 #endif

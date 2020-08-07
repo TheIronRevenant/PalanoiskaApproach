@@ -23,24 +23,28 @@ namespace sf {
 class Scene {
 public:
 	Scene() {
+		player = nullptr;
 		gridWidth = 0; gridHeight = 0;
 		playerAttackSpeed = 7; playerAttackTimer = 0; }
 	Scene(int gridw, int gridh, GameSettings::WindowSettings windowSettings);
 	//= is removed because of RenderTexture
 	Scene& operator=(const Scene& other) {
-		this->staticObjects = other.staticObjects;
-		this->enemies = other.enemies;
-		this->meshes = other.meshes;
-		this->player = other.player;
+		//Clear vectors
+		this->staticObjects.clear();
+		this->interactableObjects.clear();
+		this->playerAttacks.clear();
+		this->enemies.clear();
+		this->floatText.clear();
+		this->meshes.clear();
+
+		this->player = nullptr;
 		this->gridWidth = other.gridWidth;
 		this->gridHeight = other.gridHeight;
-		this->playerAttacks = other.playerAttacks;
 		this->gameView = other.gameView;
 		this->bgView = other.bgView;
 		this->playerAttackSpeed = other.playerAttackSpeed;
 		this->playerAttackTimer = other.playerAttackTimer;
-		this->floatText = other.floatText;
-		this->interactableObjects = other.interactableObjects;
+
 		//Redraws it rather than copying it
 		this->staticTextures.create(this->gridWidth * Globals::TileSize, this->gridHeight * Globals::TileSize);
 		redrawTexture();
@@ -52,10 +56,10 @@ public:
 	void addEnemy(const Enemy& enemy);
 	void addStatic(const StaticObject& staticobject);
 	void addInteractable(const Interactable& interactable);
-	void addPlayer(const Player& player);
+	void addPlayer(Player& player);
 	void addPlayerAttack(const PlayerAttack& attack);
 	void generateMeshes();
-	const Player& getPlayer() const { return player; }
+	const Player& getPlayer() const { return *player; }
 	std::vector<Interactable>& getInteractables() { return interactableObjects; }
 private:
 	void redrawTexture();
@@ -64,14 +68,15 @@ private:
 	std::vector<PlayerAttack> playerAttacks;
 	std::vector<Enemy> enemies;
 	std::vector<FloatingText> floatText;
-	sf::RenderTexture staticTextures;
 	std::vector<Mesh> meshes;
+	sf::RenderTexture staticTextures;
 	sf::View gameView;
 	sf::View bgView;
 	sf::Sprite background;
-	Player player;
+	Player* player;
 	int gridWidth;
 	int gridHeight;
+	//Used to time when attacks should do damage
 	int playerAttackSpeed;
 	int playerAttackTimer;
 };

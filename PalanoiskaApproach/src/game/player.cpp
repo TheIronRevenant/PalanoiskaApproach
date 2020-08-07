@@ -27,9 +27,13 @@ Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator&& animator
 	vTerminalVelocity = 6.f;
 	vAcceleration = 0.2f;
 	onGround = false;
+
 	prevJump = false;
 	prevAttack = false;
+	prevInteract = false;
 }
+
+#pragma warning(disable : 26812 ) //Disable warning about sfml
 
 void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, std::vector<Interactable>& interactables, Scene& parentScene) {
 	//Movement
@@ -41,11 +45,13 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 
 	for (Interactable& i : interactables) {
 		if (isColliding(boundingBox, i.getBoundingBox())) {
-			if (interact) {
+			if (interact && !prevInteract) {
 				i.interact();
 			}
 		}
 	}
+
+	prevInteract = interact;
 
 	//Horizontal movement
 	if (!attacking) {
@@ -213,6 +219,8 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 		animator.update(hVelocity, sprite);
 	}
 }
+
+#pragma warning(default : 26812 )
 
 void Player::draw(sf::RenderWindow& window) {
 	window.draw(sprite);

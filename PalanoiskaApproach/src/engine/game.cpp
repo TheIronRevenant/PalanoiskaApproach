@@ -19,6 +19,8 @@ std::string current_dir() {
 	return std::string(buffer);
 }	
 
+#pragma warning(disable : 26812 ) //Disable warning about sfml
+
 int Game::init() {
 	//Init window
 	int screenwidth = sf::VideoMode::getDesktopMode().width;
@@ -44,8 +46,14 @@ int Game::init() {
 	loadFont(font, current_dir() + "\\resources\\");
 	settings.font = &font;
 
+	//Init player
+	player = Player(0, 0, PlayerAnimator(Animation{ std::vector<sf::Texture*>{ &textures[0],& textures[1] }, 10 }));
+	PlayerAttack slash(Animation{ std::vector<sf::Texture*>{ &textures[13],& textures[14] }, 7 }, 2);
+	player.addAttack("slash", slash);
+
 	//Init scene
 	changeScene("TestScene.tmx");
+	player.setPosition(23 * Globals::TileSize, 73 * Globals::TileSize);
 	currentScene.setBackground(backgroundTextures[0]);
 
 	//Init ui
@@ -125,6 +133,8 @@ int Game::init() {
 	return 0;
 }
 
+#pragma warning(default : 26812 )
+
 void Game::update() {
 	if (gameState == GameState::InGame) {
 		currentScene.update();
@@ -158,11 +168,12 @@ void Game::draw() {
 
 void Game::changeScene(std::string name) {
 	loadScene(currentScene, textures, current_dir() + "\\resources\\scenes\\", name);
+	currentScene.addPlayer(player);
 	std::vector<Interactable>& interactables = currentScene.getInteractables();
 	if (name == "TestScene.tmx") {
-		interactables[0].interact = [this]() { changeScene("TestScene2.tmx"); };
+		interactables[0].interact = [this]() { changeScene("TestScene2.tmx"); player.setPosition(33 * Globals::TileSize, 52 * Globals::TileSize); };
 	} else 
 	if (name == "TestScene2.tmx") {
-		interactables[0].interact = [this]() { changeScene("TestScene.tmx"); };
+		interactables[0].interact = [this]() { changeScene("TestScene.tmx"); player.setPosition(23 * Globals::TileSize, 73 * Globals::TileSize); };
 	}
 }
