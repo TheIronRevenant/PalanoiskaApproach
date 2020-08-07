@@ -172,11 +172,7 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 
 			//If this is the player
 			if (id == 11) {
-				Player p(x, y, PlayerAnimator(Animation{ std::vector<sf::Texture*>{ &textures[0],& textures[1] }, 10 }));
-				PlayerAttack slash(Animation{ std::vector<sf::Texture*>{ &textures[13], &textures[14] }, 7 }, 2);
-				p.addAttack("slash", slash);
 
-				scene.addPlayer(p);
 			} else {
 				if (id < 11) {
 					scene.addStatic(StaticObject(x, y, textures[id + 1]));
