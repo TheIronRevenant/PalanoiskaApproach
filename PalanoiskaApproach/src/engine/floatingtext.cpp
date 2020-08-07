@@ -6,6 +6,7 @@ FloatingText::FloatingText(float x, float y, std::string text, const sf::Font& f
 	this->text.setCharacterSize(16);
 	this->text.setFillColor(sf::Color::Black);
 	this->text.setOutlineColor(sf::Color::Red);
+	this->text.setOutlineThickness(0.5f);
 	this->text.setPosition(x, y);
 
 	riseSpeed = 0.5f;
