@@ -8,6 +8,7 @@
 #include "playerattack.hpp"
 #include "enemy.hpp"
 #include "interactable.hpp"
+#include "../engine/floatingtext.hpp"
 
 class Scene;
 
@@ -21,7 +22,7 @@ public:
 		prevInteract = false; }
 	Player(unsigned int gridx, unsigned int gridy, PlayerAnimator&& animator);
 	void update() {} //Override the abstract functions
-	void update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, std::vector<Interactable>& interactables, Scene& parentScene);
+	void update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, std::vector<FloatingText>& floatText, std::vector<Interactable>& interactables, Scene& parentScene);
 	void draw(sf::RenderWindow& window);
 	void addAttack(std::string name, PlayerAttack& attack);
 	void reset(); //Reset when dead

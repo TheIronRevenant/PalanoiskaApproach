@@ -35,7 +35,7 @@ Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator&& animator
 
 #pragma warning(disable : 26812 ) //Disable warning about sfml
 
-void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, std::vector<Interactable>& interactables, Scene& parentScene) {
+void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, std::vector<FloatingText>& floatText, std::vector<Interactable>& interactables, Scene& parentScene) {
 	//Movement
 	bool moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
 	bool moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
@@ -194,6 +194,7 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 	if (!invincible) {
 		for (const Enemy& e : enemies) {
 			if (isColliding(boundingBox, e.getBoundingBox())) {
+				floatText.emplace_back(getPosition().x, getPosition().y - 8, std::to_string(e.getDamage()), *settings.font);
 				currentHp -= e.getDamage();
 				invincible = true;
 				iframeTimer = 0;

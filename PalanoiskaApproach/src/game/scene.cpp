@@ -29,7 +29,7 @@ void Scene::update() {
 		}
 	}
 
-	player->update(meshes, enemies, interactableObjects, *this);
+	player->update(meshes, enemies, floatText, interactableObjects, *this);
 
 	sf::Vector2f pos = player->getPosition();
 	sf::Vector2f size = player->getSize();
