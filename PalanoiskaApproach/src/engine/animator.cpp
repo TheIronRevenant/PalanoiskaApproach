@@ -1,4 +1,5 @@
 #include "animator.hpp"
+#include <iostream>
 
 /*
 Player Animator
@@ -87,4 +88,52 @@ void AttackAnimator::update(sf::Sprite& sprite, bool& terminated) {
 
 sf::Texture* AttackAnimator::getCurrentFrame() {
 	return animation.frames[animation.frame];
+}
+
+/*
+Enemy Animator
+*/
+
+EnemyAnimator::EnemyAnimator(Animation animation) {
+	this->animation = animation;
+	currentAnimation = AnimationStates::right;
+}
+
+void EnemyAnimator::update(bool moveRight, sf::Sprite& sprite) {
+	if ((moveRight && currentAnimation == AnimationStates::right) || (!moveRight && currentAnimation == AnimationStates::left)) {
+		animation.timer++;
+		if (animation.timer >= animation.speed) {
+			animation.timer = 0;
+			animation.frame++;
+			if (animation.frame >= animation.frames.size()) {
+				animation.frame = 0;
+			}
+			sprite.setTexture(*(getCurrentFrame()));
+		}
+	} else {
+		if (moveRight) {
+			swapAnimation(AnimationStates::right, sprite);
+		} else {
+			swapAnimation(AnimationStates::left, sprite);
+		}
+	}
+}
+
+sf::Texture* EnemyAnimator::getCurrentFrame() {
+	return animation.frames[animation.frame];
+}
+
+void EnemyAnimator::swapAnimation(AnimationStates state, sf::Sprite& sprite) {
+	currentAnimation = state;
+
+	animation.timer = 0;
+	animation.frame = 0;
+
+	if (currentAnimation == AnimationStates::left) {
+		sf::Vector2u size = sprite.getTexture()->getSize();
+		sprite.setTextureRect(sf::IntRect((int)size.x, 0, -(int)size.x, (int)size.y));
+	} else {
+		sf::Vector2u size = sprite.getTexture()->getSize();
+		sprite.setTextureRect(sf::IntRect(0, 0, (int)size.x, (int)size.y));
+	}
 }

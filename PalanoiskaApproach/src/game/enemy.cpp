@@ -6,7 +6,8 @@
 #include <iostream>
 #include "../engine/settings.hpp"
 
-Enemy::Enemy(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : GameObject(gridx, gridy, texture) {
+Enemy::Enemy(unsigned int gridx, unsigned int gridy, EnemyAnimator&& animator) : GameObject(gridx, gridy, *(animator.getCurrentFrame())) {
+	this->animator = animator;
 	moveRight = true;
 	speed = 0.5f;
 	currentHp = 10;
@@ -61,6 +62,8 @@ void Enemy::update(const std::vector<Mesh>& meshes, std::vector<PlayerAttack>& a
 
 		moveRight = !moveRight;
 	}
+
+	animator.update(moveRight, sprite);
 }
 
 void Enemy::draw(sf::RenderWindow& window) {

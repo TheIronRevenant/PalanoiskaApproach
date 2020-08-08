@@ -39,4 +39,19 @@ private:
 	Animation animation;
 };
 
+class EnemyAnimator {
+public:
+	EnemyAnimator() { currentAnimation = AnimationStates::right; }
+	EnemyAnimator(Animation animation);
+	void update(bool moveRight, sf::Sprite& sprite);
+	sf::Texture* getCurrentFrame();
+	int getSpeed() const { return animation.speed; }
+	int getFrameCount() const { return animation.frames.size(); }
+	AnimationStates getState() { return currentAnimation; }
+private:
+	void swapAnimation(AnimationStates state, sf::Sprite& sprite);
+	Animation animation;
+	AnimationStates currentAnimation;
+};
+
 #endif

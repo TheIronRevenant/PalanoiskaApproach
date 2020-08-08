@@ -54,14 +54,14 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	/*
 	Load enemies
 	*/
-	total = 1;
+	total = 2;
 	file = folder + "\\resources\\enemies.png";
 	for (int i = 0; i < total; i++) {
 		sf::Texture texture;
 		sf::IntRect rect;
-		rect.width = tilesize * 2;
+		rect.width = tilesize;
 		rect.height = tilesize;
-		rect.left = ((tilesize * 2) + spacing) * i;
+		rect.left = (tilesize + spacing) * i;
 
 		if (!texture.loadFromFile(file, rect)) {
 			//Texture failed to load
@@ -182,7 +182,7 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 				} else
 				if (id == 13) {
 					//Enemy
-					scene.addEnemy(Enemy(x, y, textures[12]));
+					scene.addEnemy(Enemy(x, y, EnemyAnimator(Animation{ std::vector<sf::Texture*>{ &textures[12], &textures[13] }, 40})));
 				}
 			}
 		}

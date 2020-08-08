@@ -46,7 +46,7 @@ int Game::init() {
 
 	//Init player
 	player = Player(0, 0, PlayerAnimator(Animation{ std::vector<sf::Texture*>{ &textures[0],& textures[1] }, 10 }));
-	PlayerAttack slash(Animation{ std::vector<sf::Texture*>{ &textures[13],& textures[14] }, 7 }, 2);
+	PlayerAttack slash(Animation{ std::vector<sf::Texture*>{ &textures[14],& textures[15] }, 7 }, 2);
 	player.addAttack("slash", slash);
 
 	//Init scene
