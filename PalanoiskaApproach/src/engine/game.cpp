@@ -19,8 +19,6 @@ std::string current_dir() {
 	return std::string(buffer);
 }	
 
-#pragma warning(disable : 26812 ) //Disable warning about sfml
-
 int Game::init() {
 	//Init window
 	int screenwidth = sf::VideoMode::getDesktopMode().width;
@@ -141,8 +139,6 @@ int Game::init() {
 
 	return 0;
 }
-
-#pragma warning(default : 26812 )
 
 void Game::update() {
 	if (gameState == GameState::InGame) {

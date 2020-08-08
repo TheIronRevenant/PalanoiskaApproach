@@ -33,8 +33,6 @@ Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator&& animator
 	prevInteract = false;
 }
 
-#pragma warning(disable : 26812 ) //Disable warning about sfml
-
 void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, std::vector<FloatingText>& floatText, std::vector<Interactable>& interactables, Scene& parentScene) {
 	//Movement
 	bool moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
@@ -220,8 +218,6 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 		animator.update(hVelocity, sprite);
 	}
 }
-
-#pragma warning(default : 26812 )
 
 void Player::draw(sf::RenderWindow& window) {
 	window.draw(sprite);

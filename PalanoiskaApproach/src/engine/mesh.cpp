@@ -1,8 +1,6 @@
 #include "../globals.hpp"
 #include "mesh.hpp"
 
-#pragma warning(disable : 26812 ) //Disable warning about sfml
-
 Mesh::Mesh(int gridx, int gridy, int gridw, int gridh) {
 	//Bounding box also used for debugging
 	boundingBox = sf::RectangleShape(sf::Vector2f((float)gridw * Globals::TileSize, (float)gridh * Globals::TileSize));
@@ -11,8 +9,6 @@ Mesh::Mesh(int gridx, int gridy, int gridw, int gridh) {
 	boundingBox.setOutlineColor(sf::Color::Red);
 	boundingBox.setFillColor(sf::Color::Transparent);
 }
-
-#pragma warning(default : 26812 )
 
 void Mesh::draw(sf::RenderWindow& window) {
 	window.draw(boundingBox);

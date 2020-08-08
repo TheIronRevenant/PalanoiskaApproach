@@ -43,8 +43,6 @@ void UIManager::update(const Player& player) {
 	gameText[0].setString(std::to_string(hp) + " / " + std::to_string(max));
 }
 
-#pragma warning(disable : 26812 ) //Disable warning about sfml
-
 void UIManager::draw(sf::RenderWindow& window) {
 	switch (*gameState) {
 	case GameState::MainMenu:
@@ -69,8 +67,6 @@ void UIManager::draw(sf::RenderWindow& window) {
 		break;
 	}
 }
-
-#pragma warning(default : 26812 )
 
 void UIManager::addMainMenu(UIElement&& element) {
 	mainMenu.emplace_back(element);

@@ -12,8 +12,6 @@
 #include "../engine/floatingtext.hpp"
 #include "interactable.hpp"
 
-#pragma warning(disable : 26812 ) //Disable warning about sfml
-
 //Forward declarations
 namespace sf {
 	class RenderWindow;
@@ -80,7 +78,5 @@ private:
 	int playerAttackSpeed;
 	int playerAttackTimer;
 };
-
-#pragma warning(default : 26812 )
 
 #endif

@@ -8,8 +8,6 @@ PlayerAttack::PlayerAttack(AttackAnimator&& animator, int damage) {
 	this->damage = damage;
 }
 
-#pragma warning(disable : 26812 ) //Disable warning about sfml
-
 void PlayerAttack::create(float x, float y, bool rightFacing) {
 	boundingBox = sf::RectangleShape(sf::Vector2f(animator.getCurrentFrame()->getSize()));
 
@@ -33,8 +31,6 @@ void PlayerAttack::create(float x, float y, bool rightFacing) {
 		sprite.setTextureRect(sf::IntRect((int)size.x, 0, (int)-size.x, (int)size.y));
 	}
 }
-
-#pragma warning(default : 26812 )
 
 void PlayerAttack::update() {
 	if (!terminated) {

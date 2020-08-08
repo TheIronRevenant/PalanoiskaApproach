@@ -13,8 +13,6 @@ Enemy::Enemy(unsigned int gridx, unsigned int gridy, sf::Texture& texture) : Gam
 	damage = 5;
 }
 
-#pragma warning(disable : 26812 ) //Disable warning about sfml
-
 void Enemy::update(const std::vector<Mesh>& meshes, std::vector<PlayerAttack>& attacks, std::vector<FloatingText>& floatText, bool takeDamage) {
 	if (takeDamage) {
 		for (PlayerAttack& a : attacks) {
@@ -64,8 +62,6 @@ void Enemy::update(const std::vector<Mesh>& meshes, std::vector<PlayerAttack>& a
 		moveRight = !moveRight;
 	}
 }
-
-#pragma warning(default : 26812 )
 
 void Enemy::draw(sf::RenderWindow& window) {
 	window.draw(sprite);

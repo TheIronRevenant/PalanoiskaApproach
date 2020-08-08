@@ -157,8 +157,6 @@ void Scene::addPlayerAttack(const PlayerAttack& attack) {
 	playerAttacks.emplace_back(attack);
 }
 
-#pragma warning(disable : 26812 ) //Disable warning about sfml
-
 //Redraws texture for when copying scene
 void Scene::redrawTexture() {
 	staticTextures.clear(sf::Color::Transparent);
@@ -169,8 +167,6 @@ void Scene::redrawTexture() {
 
 	staticTextures.display();
 }
-
-#pragma warning(default : 26812 )
 
 void Scene::generateMeshes() {
 	sf::Clock timer;
