@@ -1,5 +1,6 @@
 #include "uimanager.hpp"
 #include "../settings.hpp"
+#include <string>
 
 UIManager::UIManager(GameState* gameState) {
 	this->gameState = gameState;
@@ -34,9 +35,12 @@ void UIManager::recieveClick(float x, float y) {
 
 void UIManager::update(const Player& player) {
 	//Hp bar is 2nd element
-	float percentHp = (float)player.getCurrentHp() / (float)player.getMaxHp();
+	int hp = player.getCurrentHp();
+	int max = player.getMaxHp();
+	float percentHp = (float)hp / (float)max;
 	float width = inGame[1].getRect().width * percentHp;
 	inGame[1].setWidth(width);
+	gameText[0].setString(std::to_string(hp) + " / " + std::to_string(max));
 }
 
 void UIManager::draw(sf::RenderWindow& window) {
@@ -50,6 +54,10 @@ void UIManager::draw(sf::RenderWindow& window) {
 		window.setView(uiView);
 		for (UIElement& e : inGame) {
 			e.draw(window);
+		}
+
+		for (sf::Text& t : gameText) {
+			window.draw(t);
 		}
 		break;
 	case GameState::Paused:
@@ -66,6 +74,10 @@ void UIManager::addMainMenu(UIElement&& element) {
 
 void UIManager::addInGame(UIElement&& element) {
 	inGame.emplace_back(element);
+}
+
+void UIManager::addInGame(sf::Text& text) {
+	gameText.emplace_back(text);
 }
 
 void UIManager::addPaused(UIElement&& element) {

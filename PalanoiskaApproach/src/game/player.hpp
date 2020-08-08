@@ -24,6 +24,7 @@ public:
 	void update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, std::vector<Interactable>& interactables, Scene& parentScene);
 	void draw(sf::RenderWindow& window);
 	void addAttack(std::string name, PlayerAttack& attack);
+	void reset(); //Reset when dead
 	const int& getMaxHp() const { return maxHp; }
 	const int& getCurrentHp() const { return currentHp; }
 	bool isDead() const { return currentHp <= 0; }

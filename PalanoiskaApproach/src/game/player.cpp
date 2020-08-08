@@ -233,3 +233,19 @@ void Player::draw(sf::RenderWindow& window) {
 void Player::addAttack(std::string name, PlayerAttack& attack) {
 	attacks[name] = attack;
 }
+
+void Player::reset() {
+	currentHp = 100;
+	invincible = false;
+	iframes = 20;
+	iframeTimer = 0;
+
+	hVelocity = 0.f;
+
+	vVelocity = 0.f;
+	onGround = false;
+
+	prevJump = false;
+	prevAttack = false;
+	prevInteract = false;
+}

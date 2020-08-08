@@ -7,6 +7,7 @@
 #include "../../globals.hpp"
 #include "../settings.hpp"
 #include "../../game/player.hpp"
+#include <SFML/Graphics.hpp>
 
 class UIManager {
 public:
@@ -17,10 +18,12 @@ public:
 	void draw(sf::RenderWindow& window);
 	void addMainMenu(UIElement&& element);
 	void addInGame(UIElement&& element);
+	void addInGame(sf::Text& text);
 	void addPaused(UIElement&& element);
 private:
 	std::vector<UIElement> mainMenu;
 	std::vector<UIElement> inGame;
+	std::vector<sf::Text> gameText;
 	std::vector<UIElement> paused;
 	GameState* gameState;
 	sf::View uiView;

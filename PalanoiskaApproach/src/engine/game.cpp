@@ -60,7 +60,11 @@ int Game::init() {
 	uiManager = UIManager(&gameState);
 	//Main menu
 	uiManager.addMainMenu(UIElement(0, 0, []() {}, uiTextures[0])); //Title
-	uiManager.addMainMenu(UIElement(0, 150, [this]() { gameState = GameState::InGame; changeScene("TestScene.tmx"); }, uiTextures[1])); //Play
+	uiManager.addMainMenu(UIElement(0, 150, [this]() { 
+			gameState = GameState::InGame; changeScene("TestScene.tmx"); 
+			player.setPosition(22 * Globals::TileSize, 66 * Globals::TileSize);
+			player.reset();
+		}, uiTextures[1])); //Play
 	//Paused menu
 	uiManager.addPaused(UIElement(0, 0, [this]() { gameState = GameState::InGame; }, uiTextures[3])); //Resume
 	uiManager.addPaused(UIElement(0, 100, [this]() { gameState = GameState::MainMenu; }, uiTextures[2])); //Main menu
@@ -68,6 +72,11 @@ int Game::init() {
 	uiManager.addInGame(UIElement(-800.f, 295.f, []() {}, uiTextures[5])); //Hp background
 	uiManager.addInGame(UIElement(-800.f, 295.f, []() {}, uiTextures[6])); //Hp bar
 	uiManager.addInGame(UIElement(-1000.f, 284.f, []() {}, uiTextures[4])); //Main overlay
+	sf::Text hpText;
+	hpText.setPosition(-795.f, 292.5f);
+	hpText.setFont(font);
+	hpText.setCharacterSize(20);
+	uiManager.addInGame(hpText);
 
 	while (window.isOpen()) {
 		//Update clock
@@ -140,7 +149,8 @@ void Game::update() {
 		currentScene.update();
 		uiManager.update(currentScene.getPlayer());
 		if (currentScene.getPlayer().isDead()) {
-			changeScene("TestScene.tmx");
+			gameState = GameState::MainMenu;
+			player.reset();
 		}
 	}
 }
@@ -171,9 +181,15 @@ void Game::changeScene(std::string name) {
 	currentScene.addPlayer(player);
 	std::vector<Interactable>& interactables = currentScene.getInteractables();
 	if (name == "TestScene.tmx") {
-		interactables[0].interact = [this]() { changeScene("TestScene2.tmx"); player.setPosition(33 * Globals::TileSize, 52 * Globals::TileSize); };
+		interactables[0].interact = [this]() { 
+			changeScene("TestScene2.tmx"); 
+			player.setPosition(33 * Globals::TileSize, 52 * Globals::TileSize); 
+		};
 	} else 
 	if (name == "TestScene2.tmx") {
-		interactables[0].interact = [this]() { changeScene("TestScene.tmx"); player.setPosition(23 * Globals::TileSize, 73 * Globals::TileSize); };
+		interactables[0].interact = [this]() { 
+			changeScene("TestScene.tmx"); 
+			player.setPosition(23 * Globals::TileSize, 73 * Globals::TileSize); 
+		};
 	}
 }
