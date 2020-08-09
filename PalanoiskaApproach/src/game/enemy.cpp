@@ -6,12 +6,22 @@
 #include <iostream>
 #include "../engine/settings.hpp"
 
-Enemy::Enemy(unsigned int gridx, unsigned int gridy, EnemyAnimator&& animator) : GameObject(gridx, gridy, *(animator.getCurrentFrame())) {
+Enemy::Enemy(unsigned int gridx, unsigned int gridy, EnemyAnimator&& animator, EnemyType type) : GameObject(gridx, gridy, *(animator.getCurrentFrame())) {
 	this->animator = animator;
+	this->type = type;
 	moveRight = true;
-	speed = 0.5f;
-	currentHp = 10;
-	damage = 5;
+	switch (type) {
+	case EnemyType::OrangeTest:
+		speed = 0.5f;
+		currentHp = 10;
+		damage = 5;
+		break;
+	case EnemyType::PinkTest:
+		speed = 0.8f;
+		currentHp = 8;
+		damage = 3;
+		break;
+	}
 }
 
 void Enemy::update(const std::vector<Mesh>& meshes, std::vector<PlayerAttack>& attacks, std::vector<FloatingText>& floatText, bool takeDamage) {

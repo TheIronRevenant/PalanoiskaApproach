@@ -54,7 +54,7 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	/*
 	Load enemies
 	*/
-	total = 2;
+	total = 4;
 	file = folder + "\\resources\\enemies.png";
 	for (int i = 0; i < total; i++) {
 		sf::Texture texture;
@@ -179,10 +179,19 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 				} else
 				if (id < 13) {
 
-				} else
-				if (id == 13) {
-					//Enemy
-					scene.addEnemy(Enemy(x, y, EnemyAnimator(Animation{ std::vector<sf::Texture*>{ &textures[12], &textures[13] }, 40})));
+				} else {
+					switch (id) {
+					case 13:
+						scene.addEnemy(Enemy(x, y, 
+							EnemyAnimator(Animation{ std::vector<sf::Texture*>{ &textures[12],& textures[13] }, 40 }), 
+							EnemyType::OrangeTest));
+						break;
+					case 15:
+						scene.addEnemy(Enemy(x, y, 
+							EnemyAnimator(Animation{ std::vector<sf::Texture*>{ &textures[14],& textures[15] }, 25 }), 
+							EnemyType::PinkTest));
+						break;
+					}
 				}
 			}
 		}
