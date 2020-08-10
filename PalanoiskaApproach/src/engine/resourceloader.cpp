@@ -34,7 +34,7 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	/*
 	Load tileset
 	*/
-	total = 10;
+	total = 11;
 	file = folder + "\\resources\\tiles.png";
 
 	for (int i = 0; i < total; i++) {
@@ -170,28 +170,29 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 			int y = i / width;
 			int id = std::stoi(tileNodes[i].attribute("gid").value());
 
-			//If this is the player
-			if (id == 11) {
-
+			if (id >= 1 && id < 12) {
+				//Tile
+				scene.addStatic(StaticObject(x, y, textures[id + 1]));
 			} else {
-				if (id < 11) {
-					scene.addStatic(StaticObject(x, y, textures[id + 1]));
-				} else
-				if (id < 13) {
-
-				} else {
-					switch (id) {
-					case 13:
-						scene.addEnemy(Enemy(x, y, 
-							EnemyAnimator(Animation{ std::vector<sf::Texture*>{ &textures[12],& textures[13] }, 40 }), 
+				//Enemy
+				switch (id) {
+				case 12:
+					scene.addEnemy(Enemy(x, y,
+						EnemyAnimator(Animation{
+							std::vector<sf::Texture*>{ &textures[Globals::EnemyOffset],& textures[Globals::EnemyOffset + 1] },
+							40 }),
 							EnemyType::OrangeTest));
-						break;
-					case 15:
-						scene.addEnemy(Enemy(x, y, 
-							EnemyAnimator(Animation{ std::vector<sf::Texture*>{ &textures[14],& textures[15] }, 25 }), 
+					break;
+				case 14:
+					scene.addEnemy(Enemy(x, y,
+						EnemyAnimator(Animation{
+							std::vector<sf::Texture*>{ &textures[Globals::EnemyOffset + 2],& textures[Globals::EnemyOffset + 3] },
+							25 }),
 							EnemyType::PinkTest));
-						break;
-					}
+					break;
+				default:
+					std::cout << "Id " << id << " not found" << std::endl;
+					break;
 				}
 			}
 		}

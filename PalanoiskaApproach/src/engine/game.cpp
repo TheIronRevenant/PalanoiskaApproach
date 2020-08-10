@@ -45,8 +45,13 @@ int Game::init() {
 	settings.font = &font;
 
 	//Init player
-	player = Player(0, 0, PlayerAnimator(Animation{ std::vector<sf::Texture*>{ &textures[0],& textures[1] }, 10 }));
-	PlayerAttack slash(Animation{ std::vector<sf::Texture*>{ &textures[16],& textures[17] }, 7 }, 2);
+	player = Player(0, 0, 
+		PlayerAnimator(Animation{ 
+			std::vector<sf::Texture*>{ &textures[Globals::PlayerOffset],& textures[Globals::PlayerOffset + 1] },
+			10 }));
+	PlayerAttack slash(Animation{ 
+		std::vector<sf::Texture*>{ &textures[Globals::EffectOffset],& textures[Globals::EffectOffset + 1] },
+		7 }, 2);
 	player.addAttack("slash", slash);
 
 	//Init scene
