@@ -143,7 +143,8 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 	}
 
 	pugi::xml_node map = doc.child("map");
-	pugi::xml_node tileLayer = map.child("layer").child("data");
+	pugi::xml_node bgLayer = map.child("layer").child("data");
+	pugi::xml_node tileLayer = bgLayer.parent().next_sibling().child("data");
 	pugi::xml_node interactLayer = tileLayer.parent().next_sibling().child("data");
 
 	int width = std::stoi(map.attribute("width").value());
@@ -155,6 +156,12 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 		tileNodes.push_back(*it);
 	}
 
+	//Create vector of bg tiles
+	std::vector<pugi::xml_node> bgNodes;
+	for (pugi::xml_node_iterator it = bgLayer.begin(); it != bgLayer.end(); ++it) {
+		bgNodes.push_back(*it);
+	}
+
 	std::vector<pugi::xml_node> interactNodes;
 	for (pugi::xml_node_iterator it = interactLayer.begin(); it != interactLayer.end(); ++it) {
 		interactNodes.push_back(*it);
@@ -162,6 +169,17 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 
 	//Recreate the scene
 	scene = Scene(width, height, GameSettings::WindowSettings{});
+
+	for (int i = 0; i < (int)bgNodes.size(); i++) {
+		if (bgNodes[i].attribute("gid")) {
+			//Get grid x and y from i
+			int x = i % width;
+			int y = i / width;
+			int id = std::stoi(bgNodes[i].attribute("gid").value());
+
+			scene.addBgStatic(StaticObject(x, y, textures[id + 1]));
+		}
+	}
 
 	for (int i = 0; i < (int)tileNodes.size(); i++) {
 		if (tileNodes[i].attribute("gid")) {

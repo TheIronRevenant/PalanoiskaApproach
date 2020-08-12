@@ -28,6 +28,7 @@ public:
 	//= is removed because of RenderTexture
 	Scene& operator=(const Scene& other) {
 		//Clear vectors
+		this->bgObjects.clear();
 		this->staticObjects.clear();
 		this->interactableObjects.clear();
 		this->playerAttacks.clear();
@@ -46,12 +47,17 @@ public:
 		//Redraws it rather than copying it
 		this->staticTextures.create(this->gridWidth * Globals::TileSize, this->gridHeight * Globals::TileSize);
 		redrawTexture();
+
+		this->backgroundTextures.create(this->gridWidth * Globals::TileSize, this->gridHeight * Globals::TileSize);
+		redrawBackground();
+
 		return *this;
 	}
 	void update();
 	void draw(sf::RenderWindow& window);
 	void setBackground(sf::Texture& texture);
 	void addEnemy(const Enemy& enemy);
+	void addBgStatic(StaticObject&& staticobject);
 	void addStatic(const StaticObject& staticobject);
 	void addInteractable(const Interactable& interactable);
 	void addPlayer(Player& player);
@@ -61,12 +67,15 @@ public:
 	std::vector<Interactable>& getInteractables() { return interactableObjects; }
 private:
 	void redrawTexture();
+	void redrawBackground();
+	std::vector<StaticObject> bgObjects;
 	std::vector<StaticObject> staticObjects;
 	std::vector<Interactable> interactableObjects;
 	std::vector<PlayerAttack> playerAttacks;
 	std::vector<Enemy> enemies;
 	std::vector<FloatingText> floatText;
 	std::vector<Mesh> meshes;
+	sf::RenderTexture backgroundTextures;
 	sf::RenderTexture staticTextures;
 	sf::View gameView;
 	sf::View bgView;

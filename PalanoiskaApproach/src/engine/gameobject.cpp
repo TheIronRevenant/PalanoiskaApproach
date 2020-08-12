@@ -49,3 +49,7 @@ void GameObject::setPosition(float x, float y) {
 	boundingBox.setPosition(x, y);
 	sprite.setPosition(getPosition());
 }
+
+void GameObject::setColor(sf::Color color) {
+	sprite.setColor(color);
+}

@@ -15,7 +15,9 @@ GameSettings::WindowSettings windowSettings{};
 //Get current directory
 std::string current_dir() {
 	char buffer[FILENAME_MAX];
-	GetCurrentDir(buffer, FILENAME_MAX);
+	if (!GetCurrentDir(buffer, FILENAME_MAX)) {
+		//_getcwd failed
+	}
 	return std::string(buffer);
 }	
 

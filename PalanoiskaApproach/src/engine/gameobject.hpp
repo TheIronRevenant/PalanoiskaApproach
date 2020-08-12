@@ -18,6 +18,7 @@ public:
 	virtual void move(float x, float y);
 	virtual void setPosition(sf::Vector2f vector);
 	virtual void setPosition(float x, float y);
+	virtual void setColor(sf::Color color);
 	const sf::Vector2f& getPosition() const { return boundingBox.getPosition(); }
 	const sf::Vector2f& getSize() const { return boundingBox.getSize(); }
 	const sf::RectangleShape& getBoundingBox() const { return boundingBox; }

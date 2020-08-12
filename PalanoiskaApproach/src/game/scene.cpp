@@ -96,6 +96,8 @@ void Scene::draw(sf::RenderWindow& window) {
 	window.draw(background);
 	window.setView(gameView);
 
+	window.draw(sf::Sprite(backgroundTextures.getTexture()));
+
 	//Draws static objects from the render texture
 	window.draw(sf::Sprite(staticTextures.getTexture()));
 
@@ -133,6 +135,20 @@ void Scene::addEnemy(const Enemy& enemy) {
 	enemies.emplace_back(enemy);
 }
 
+void Scene::addBgStatic(StaticObject&& staticobject) {
+	if ((staticobject.getPosition().x / 16) > gridWidth || (staticobject.getPosition().y / 16) > gridHeight) {
+		std::cout << "Object at " << staticobject.getPosition().x << " " << staticobject.getPosition().y << " is out of scene bounds, not added" << std::endl;
+		return;
+	}
+
+	staticobject.setColor(sf::Color(200, 200, 200, 255));
+
+	staticobject.draw(backgroundTextures);
+	backgroundTextures.display();
+
+	bgObjects.emplace_back(staticobject);
+}
+
 void Scene::addStatic(const StaticObject& staticobject) {
 	if ((staticobject.getPosition().x / 16) > gridWidth || (staticobject.getPosition().y / 16) > gridHeight) {
 		std::cout << "Object at " << staticobject.getPosition().x << " " << staticobject.getPosition().y << " is out of scene bounds, not added" << std::endl;
@@ -161,11 +177,21 @@ void Scene::addPlayerAttack(const PlayerAttack& attack) {
 void Scene::redrawTexture() {
 	staticTextures.clear(sf::Color::Transparent);
 
-	for (StaticObject s : staticObjects) {
+	for (StaticObject& s : staticObjects) {
 		s.draw(staticTextures);
 	}
 
 	staticTextures.display();
+}
+
+void Scene::redrawBackground() {
+	backgroundTextures.clear(sf::Color::Transparent);
+
+	for (StaticObject& s : bgObjects) {
+		s.draw(backgroundTextures);
+	}
+
+	backgroundTextures.display();
 }
 
 void Scene::generateMeshes() {
