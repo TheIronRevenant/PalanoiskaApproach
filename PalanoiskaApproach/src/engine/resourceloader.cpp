@@ -5,6 +5,7 @@
 #include "../game/player.hpp"
 #include "../game/playerattack.hpp"
 #include "../game/interactable.hpp"
+#include "../game/dialogue.hpp"
 
 void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	textures.clear();
@@ -222,8 +223,7 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 			int x = i % width;
 			int y = i / width;
 			int id = std::stoi(interactNodes[i].attribute("gid").value());
-
-			scene.addInteractable(Interactable(x, y, textures[id + 1]));
+			scene.addInteractable(Interactable(x, y, textures[id + 1], DialogueInfo{}));
 		}
 	}
 
