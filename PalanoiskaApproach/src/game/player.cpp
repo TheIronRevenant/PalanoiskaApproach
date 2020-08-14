@@ -10,6 +10,8 @@
 
 Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator&& animator) 
 		: GameObject(gridx, gridy, *(animator.getCurrentFrame())) {
+	controlled = true;
+
 	maxHp = 100;
 	currentHp = 100;
 	invincible = false;
@@ -35,16 +37,30 @@ Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator&& animator
 
 void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, std::vector<FloatingText>& floatText, std::vector<Interactable>& interactables, Scene& parentScene) {
 	//Movement
-	bool moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
-	bool moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
-	bool jump = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
-	bool attack = sf::Keyboard::isKeyPressed(sf::Keyboard::Z);
+	bool moveLeft = false;
+	bool moveRight = false;
+	bool jump = false;
+	bool attack = false;
+	if (controlled) {
+		moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+		moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+		jump = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+		attack = sf::Keyboard::isKeyPressed(sf::Keyboard::Z);
+	}
 	bool interact = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
 
 	for (Interactable& i : interactables) {
 		if (isColliding(boundingBox, i.getBoundingBox())) {
 			if (interact && !prevInteract) {
 				i.interact();
+				if (i.dialogueInfo.hasDialogue) {
+					if (i.dialogueInfo.visible && i.dialogueInfo.pauseGame) {
+						controlled = false;
+					}
+					if (!i.dialogueInfo.visible && i.dialogueInfo.pauseGame) {
+						controlled = true;
+					}
+				}
 			}
 		}
 	}

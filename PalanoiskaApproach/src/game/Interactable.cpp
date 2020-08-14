@@ -11,7 +11,7 @@ Interactable::Interactable(unsigned int gridx, unsigned int gridy, sf::Texture& 
 }
 
 void Interactable::update() {
-	if (dialogueInfo.hasDialogue && dialogueInfo.visible) {
+	if (dialogueInfo.hasDialogue && dialogueInfo.visible && !dialogueInfo.pauseGame) {
 		dialogueInfo.showCount++;
 		if (dialogueInfo.showCount >= dialogueInfo.showTime) {
 			dialogueInfo.visible = false;
@@ -20,7 +20,14 @@ void Interactable::update() {
 }
 
 void Interactable::interact() {
-	interactfunc(dialogueInfo);
+	if (!dialogueInfo.visible) {
+		interactfunc(dialogueInfo);
+	}
+	else {
+		if (dialogueInfo.pauseGame) {
+			dialogueInfo.visible = false;
+		}
+	}
 }
 
 void Interactable::draw(sf::RenderWindow& window) {

@@ -15,6 +15,7 @@ class Scene;
 class Player : public GameObject {
 public:
 	Player() {
+		controlled = true;
 		maxHp = 100; currentHp = 100; invincible = false; iframes = 20; iframeTimer = 0;
 		hAcceleration = 0.f; hMax = 0.f; hVelocity = 0.f;
 		onGround = true; prevJump = false; vAcceleration = 0.f; vJumpAcceleration = 0.f; vTerminalVelocity = 0.f; vVelocity = 0.f;
@@ -30,6 +31,8 @@ public:
 	const int& getCurrentHp() const { return currentHp; }
 	bool isDead() const { return currentHp <= 0; }
 private:
+	bool controlled;
+
 	int maxHp;
 	int currentHp;
 	bool invincible;

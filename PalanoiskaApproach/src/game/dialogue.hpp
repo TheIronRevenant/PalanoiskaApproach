@@ -17,6 +17,7 @@ struct DialogueInfo {
 	Dialogue dialogue;
 	bool hasDialogue = false;
 	bool visible = false;
+	bool pauseGame = false;
 	int showTime = 0;
 	int showCount = 0;
 };
