@@ -56,6 +56,7 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 				if (i.dialogueInfo.hasDialogue) {
 					if (i.dialogueInfo.visible && i.dialogueInfo.pauseGame) {
 						controlled = false;
+						hVelocity = 0.f;
 					}
 					if (!i.dialogueInfo.visible && i.dialogueInfo.pauseGame) {
 						controlled = true;
@@ -205,7 +206,7 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 	prevAttack = attack;
 
 	//Enemy collision
-	if (!invincible) {
+	if (!invincible && controlled) {
 		for (const Enemy& e : enemies) {
 			if (isColliding(boundingBox, e.getBoundingBox())) {
 				floatText.emplace_back(getPosition().x, getPosition().y - 8, std::to_string(e.getDamage()), *settings.font);
@@ -222,7 +223,8 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 				vVelocity = -2.f;
 			}
 		}
-	} else {
+	} else 
+	if (invincible) {
 		iframeTimer++;
 		if (iframeTimer >= iframes) {
 			invincible = false;
