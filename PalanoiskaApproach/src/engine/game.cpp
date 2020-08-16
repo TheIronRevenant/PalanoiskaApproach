@@ -185,8 +185,11 @@ void Game::changeScene(std::string name) {
 	std::vector<Interactable>& interactables = currentScene.getInteractables();
 	if (name == "TestScene.tmx") {
 		interactables[0].dialogueInfo = DialogueInfo{ 
-			Dialogue(interactables[0].getPosition().x - (2 * Globals::TileSize), interactables[0].getPosition().y - (2 * Globals::TileSize), "Test dialogue", 20, font),
-			true, false, true, 60, 0 };
+			{
+				Dialogue(interactables[0].getPosition().x - (2 * Globals::TileSize), interactables[0].getPosition().y - (2 * Globals::TileSize), "Test dialogue", 20, font),
+				Dialogue(interactables[0].getPosition().x - (2 * Globals::TileSize), interactables[0].getPosition().y - (2 * Globals::TileSize), "More dialogue", 20, font)
+			},
+			true, false, true, 2, 0, 60, 0 };
 		interactables[0].interactfunc = [](DialogueInfo& diag) {
 			if (diag.hasDialogue && !diag.visible) {
 				diag.visible = true;

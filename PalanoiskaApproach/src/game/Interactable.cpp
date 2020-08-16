@@ -25,7 +25,11 @@ void Interactable::interact() {
 	}
 	else {
 		if (dialogueInfo.pauseGame) {
-			dialogueInfo.visible = false;
+			dialogueInfo.diagIndex++;
+			if (dialogueInfo.diagIndex >= dialogueInfo.diagCount) {
+				dialogueInfo.diagIndex = 0;
+				dialogueInfo.visible = false;
+			}
 		}
 	}
 }
@@ -34,7 +38,7 @@ void Interactable::draw(sf::RenderWindow& window) {
 	window.draw(sprite);
 
 	if (dialogueInfo.hasDialogue && dialogueInfo.visible) {
-		dialogueInfo.dialogue.draw(window);
+		dialogueInfo.dialogue[dialogueInfo.diagIndex].draw(window);
 	}
 
 	if (Globals::Debugging) {

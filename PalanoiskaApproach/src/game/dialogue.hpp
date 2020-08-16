@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <vector>
 
 class Dialogue {
 public:
@@ -14,10 +15,12 @@ private:
 };
 
 struct DialogueInfo {
-	Dialogue dialogue;
+	std::vector<Dialogue> dialogue;
 	bool hasDialogue = false;
 	bool visible = false;
 	bool pauseGame = false;
+	int diagCount = 0;
+	int diagIndex = 0;
 	int showTime = 0;
 	int showCount = 0;
 };
