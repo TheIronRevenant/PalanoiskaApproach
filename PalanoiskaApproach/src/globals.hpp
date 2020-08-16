@@ -9,8 +9,8 @@ namespace Globals {
 	const unsigned int TileSize = 16;
 	const unsigned int PlayerOffset = 0;
 	const unsigned int TileOffset = 2;
-	const unsigned int EnemyOffset = 13;
-	const unsigned int EffectOffset = 17;
+	const unsigned int EnemyOffset = 15;
+	const unsigned int EffectOffset = 19;
 	extern bool Debugging;
 };
 

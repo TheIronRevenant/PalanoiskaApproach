@@ -35,7 +35,7 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	/*
 	Load tileset
 	*/
-	total = 11;
+	total = 13;
 	file = folder + "\\resources\\tiles.png";
 
 	for (int i = 0; i < total; i++) {
@@ -189,20 +189,20 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 			int y = i / width;
 			int id = std::stoi(tileNodes[i].attribute("gid").value());
 
-			if (id >= 1 && id < 12) {
+			if (id >= 1 && id < 14) {
 				//Tile
 				scene.addStatic(StaticObject(x, y, textures[id + 1]));
 			} else {
 				//Enemy
 				switch (id) {
-				case 12:
+				case 14:
 					scene.addEnemy(Enemy(x, y,
 						EnemyAnimator(Animation{
 							std::vector<sf::Texture*>{ &textures[Globals::EnemyOffset],& textures[Globals::EnemyOffset + 1] },
 							40 }),
 							EnemyType::OrangeTest));
 					break;
-				case 14:
+				case 16:
 					scene.addEnemy(Enemy(x, y,
 						EnemyAnimator(Animation{
 							std::vector<sf::Texture*>{ &textures[Globals::EnemyOffset + 2],& textures[Globals::EnemyOffset + 3] },
@@ -236,3 +236,14 @@ void loadFont(sf::Font& font, std::string folder) {
 		//Failed to load font
 	}
 }
+
+/*
+---------------------------------------------
+Adding a tile
+1. Add tile to tilesheet
+2. Add to offsets in Globals
+3. Add to total tiles to load in loadTextures
+4. Add to values for adding tiles to scene
+5. Update scenes in tiled
+----------------------------------------------
+*/
