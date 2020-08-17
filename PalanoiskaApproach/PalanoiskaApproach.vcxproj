@@ -191,7 +191,7 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     <ClCompile Include="src\engine\ui\uimanager.cpp" />
     <ClCompile Include="src\game\dialogue.cpp" />
     <ClCompile Include="src\game\enemy.cpp" />
-    <ClCompile Include="src\game\Interactable.cpp" />
+    <ClCompile Include="src\game\interactable.cpp" />
     <ClCompile Include="src\game\playerattack.cpp" />
     <ClCompile Include="src\game\scene.cpp" />
     <ClCompile Include="src\main.cpp" />
