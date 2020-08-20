@@ -57,8 +57,8 @@ int Game::init() {
 	player.addAttack("slash", slash);
 
 	//Init scene
-	changeScene("TestScene.tmx");
-	player.setPosition(23 * Globals::TileSize, 73 * Globals::TileSize);
+	changeScene("Thisehn.tmx");
+	player.setPosition(0 * Globals::TileSize, 0 * Globals::TileSize);
 	currentScene.setBackground(backgroundTextures[0]);
 
 	//Init ui
@@ -66,8 +66,8 @@ int Game::init() {
 	//Main menu
 	uiManager.addMainMenu(UIElement(0, 0, []() {}, uiTextures[0])); //Title
 	uiManager.addMainMenu(UIElement(0, 150, [this]() { 
-			gameState = GameState::InGame; changeScene("TestScene.tmx"); 
-			player.setPosition(22 * Globals::TileSize, 66 * Globals::TileSize);
+			gameState = GameState::InGame; changeScene("Thisehn.tmx"); 
+			player.setPosition(17 * Globals::TileSize, 32 * Globals::TileSize);
 			player.reset();
 		}, uiTextures[1])); //Play
 	//Paused menu
@@ -206,5 +206,8 @@ void Game::changeScene(std::string name) {
 			changeScene("TestScene.tmx"); 
 			player.setPosition(23 * Globals::TileSize, 73 * Globals::TileSize); 
 		};
+	} else
+	if (name == "Thisehn.tmx") {
+
 	}
 }

@@ -35,7 +35,7 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	/*
 	Load tileset
 	*/
-	total = 17;
+	total = 31;
 	file = folder + "\\resources\\tiles.png";
 
 	for (int i = 0; i < total; i++) {
@@ -149,7 +149,7 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 	pugi::xml_node interactLayer = tileLayer.parent().next_sibling().child("data");
 
 	int width = std::stoi(map.attribute("width").value());
-	int height = std::stoi(map.attribute("height").value());
+	int height = std::stoi(map.attribute("height").value()) + 1;
 
 	//Create vector of all tiles
 	std::vector<pugi::xml_node> tileNodes;
@@ -181,7 +181,7 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 			scene.addBgStatic(StaticObject(x, y, textures[id + 1]));
 		}
 	}
-
+	
 	for (int i = 0; i < (int)tileNodes.size(); i++) {
 		if (tileNodes[i].attribute("gid")) {
 			//Get grid x and y from i
@@ -195,14 +195,14 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 			} else {
 				//Enemy
 				switch (id) { //Update this to add tile ------------------------
-				case 18:
+				case 32:
 					scene.addEnemy(Enemy(x, y,
 						EnemyAnimator(Animation{
 							std::vector<sf::Texture*>{ &textures[Globals::EnemyOffset],& textures[Globals::EnemyOffset + 1] },
 							40 }),
 							EnemyType::OrangeTest));
 					break;
-				case 20:
+				case 34:
 					scene.addEnemy(Enemy(x, y,
 						EnemyAnimator(Animation{
 							std::vector<sf::Texture*>{ &textures[Globals::EnemyOffset + 2],& textures[Globals::EnemyOffset + 3] },
