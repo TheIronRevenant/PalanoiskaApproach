@@ -10,7 +10,8 @@ namespace Globals {
 	const unsigned int PlayerOffset = 0;
 	const unsigned int TileOffset = 2;
 	const unsigned int EnemyOffset = 33;
-	const unsigned int EffectOffset = 37;
+	const unsigned int NpcOffset = 37;
+	const unsigned int EffectOffset = 38;
 	extern bool Debugging;
 };
 

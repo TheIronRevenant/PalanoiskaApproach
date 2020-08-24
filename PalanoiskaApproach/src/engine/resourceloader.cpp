@@ -72,6 +72,25 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	}
 
 	/*
+	Load npcs
+	*/
+	total = 1;
+	file = folder + "\\resources\\npcs.png";
+	for (int i = 0; i < total; i++) {
+		sf::Texture texture;
+		sf::IntRect rect;
+		rect.width = tilesize;
+		rect.height = tilesize;
+		rect.left = (tilesize + spacing) * i;
+
+		if (!texture.loadFromFile(file, rect)) {
+			//Texture failed to load
+		}
+
+		textures.push_back(texture);
+	}
+
+	/*
 	Load effects
 	*/
 	total = 2;

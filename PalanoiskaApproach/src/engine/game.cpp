@@ -208,6 +208,21 @@ void Game::changeScene(std::string name) {
 		};
 	} else
 	if (name == "Thisehn.tmx") {
-
+		interactables[0].dialogueInfo = DialogueInfo{
+			{
+				Dialogue(interactables[0].getPosition().x - (3 * Globals::TileSize), interactables[0].getPosition().y - (3 * Globals::TileSize), "Welcome to Thisehn paladin,\nI am Kral Hierophant Siv", 16, font),
+				Dialogue(interactables[0].getPosition().x - (4 * Globals::TileSize), interactables[0].getPosition().y - (3 * Globals::TileSize), "I run the Hierophant enclave in this town,\nHowever I need an important favor from you", 16, font),
+				Dialogue(interactables[0].getPosition().x - (3 * Globals::TileSize), interactables[0].getPosition().y - (3 * Globals::TileSize), "I need you to deliever a message to\nSul Hierophant Onsmaikus herself!", 16, font),
+				Dialogue(interactables[0].getPosition().x - (4 * Globals::TileSize), interactables[0].getPosition().y - (3 * Globals::TileSize), "Sorry theres not much time for introductions but\nits important that you get this package to her", 16, font),
+				Dialogue(interactables[0].getPosition().x - (3 * Globals::TileSize), interactables[0].getPosition().y - (3 * Globals::TileSize), "Travel south to Ruynth, the capital\nAnd find Onsmaikus in the cathedral", 16, font),
+				Dialogue(interactables[0].getPosition().x - (3 * Globals::TileSize), interactables[0].getPosition().y - (2 * Globals::TileSize), "*You recieve a package*", 16, font)
+			},
+			true, false, true, 6, 0, 60, 0 };
+		interactables[0].interactfunc = [](DialogueInfo& diag) {
+			if (diag.hasDialogue && !diag.visible) {
+				diag.visible = true;
+				diag.showCount = 0;
+			}
+		};
 	}
 }

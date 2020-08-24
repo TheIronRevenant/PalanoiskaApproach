@@ -5,7 +5,9 @@ Dialogue::Dialogue(float x, float y, std::string text, unsigned int fontSize, co
 	this->text.setString(text);
 	this->text.setCharacterSize(fontSize);
 	this->text.setFillColor(sf::Color::Black);
-	this->text.setPosition(x, y);
+	this->text.setPosition((int)x, (int)y);
+	this->text.setOutlineColor(sf::Color::White);
+	this->text.setOutlineThickness(0.4f);
 }
 
 void Dialogue::draw(sf::RenderWindow& window) {
