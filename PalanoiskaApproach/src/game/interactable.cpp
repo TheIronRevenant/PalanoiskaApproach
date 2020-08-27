@@ -8,6 +8,7 @@ Interactable::Interactable(unsigned int gridx, unsigned int gridy, sf::Texture& 
 	boundingBox.setOutlineColor(sf::Color::Green);
 	boundingBox.setFillColor(sf::Color::Transparent);
 	dialogueInfo = diagInfo;
+	enabled = true;
 }
 
 void Interactable::update() {

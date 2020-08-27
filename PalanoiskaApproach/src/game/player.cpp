@@ -51,7 +51,7 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 
 	for (Interactable& i : interactables) {
 		if (isColliding(boundingBox, i.getBoundingBox())) {
-			if (interact && !prevInteract) {
+			if (interact && !prevInteract && i.isEnabled()) {
 				i.interact();
 				if (i.dialogueInfo.hasDialogue) {
 					if (i.dialogueInfo.visible && i.dialogueInfo.pauseGame) {

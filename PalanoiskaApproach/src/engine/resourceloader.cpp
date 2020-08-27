@@ -35,7 +35,7 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	/*
 	Load tileset
 	*/
-	total = 31;
+	total = 32;
 	file = folder + "\\resources\\tiles.png";
 
 	for (int i = 0; i < total; i++) {
@@ -74,7 +74,7 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 	/*
 	Load npcs
 	*/
-	total = 1;
+	total = 2;
 	file = folder + "\\resources\\npcs.png";
 	for (int i = 0; i < total; i++) {
 		sf::Texture texture;
@@ -214,14 +214,14 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 			} else {
 				//Enemy
 				switch (id) { //Update this to add tile ------------------------
-				case 32:
+				case 33:
 					scene.addEnemy(Enemy(x, y,
 						EnemyAnimator(Animation{
 							std::vector<sf::Texture*>{ &textures[Globals::EnemyOffset],& textures[Globals::EnemyOffset + 1] },
 							40 }),
 							EnemyType::OrangeTest));
 					break;
-				case 34:
+				case 35:
 					scene.addEnemy(Enemy(x, y,
 						EnemyAnimator(Animation{
 							std::vector<sf::Texture*>{ &textures[Globals::EnemyOffset + 2],& textures[Globals::EnemyOffset + 3] },

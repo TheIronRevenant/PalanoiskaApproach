@@ -204,21 +204,40 @@ void Game::changeScene(std::string name) {
 	if (name == "TestScene2.tmx") {
 		interactables[0].interactfunc = [this](DialogueInfo& diag) {
 			changeScene("TestScene.tmx"); 
-			player.setPosition(23 * Globals::TileSize, 73 * Globals::TileSize); 
+			player.setPosition(23 * Globals::TileSize, 73 * Globals::TileSize);
 		};
 	} else
 	if (name == "Thisehn.tmx") {
 		interactables[0].dialogueInfo = DialogueInfo{
 			{
-				Dialogue(interactables[0].getPosition().x - (3 * Globals::TileSize), interactables[0].getPosition().y - (3 * Globals::TileSize), "Welcome to Thisehn paladin,\nI am Kral Hierophant Siv", 16, font),
-				Dialogue(interactables[0].getPosition().x - (4 * Globals::TileSize), interactables[0].getPosition().y - (3 * Globals::TileSize), "I run the Hierophant enclave in this town,\nHowever I need an important favor from you", 16, font),
-				Dialogue(interactables[0].getPosition().x - (3 * Globals::TileSize), interactables[0].getPosition().y - (3 * Globals::TileSize), "I need you to deliever a message to\nSul Hierophant Onsmaikus herself!", 16, font),
-				Dialogue(interactables[0].getPosition().x - (4 * Globals::TileSize), interactables[0].getPosition().y - (3 * Globals::TileSize), "Sorry theres not much time for introductions but\nits important that you get this package to her", 16, font),
-				Dialogue(interactables[0].getPosition().x - (3 * Globals::TileSize), interactables[0].getPosition().y - (3 * Globals::TileSize), "Travel south to Ruynth, the capital\nAnd find Onsmaikus in the cathedral", 16, font),
-				Dialogue(interactables[0].getPosition().x - (3 * Globals::TileSize), interactables[0].getPosition().y - (2 * Globals::TileSize), "*You recieve a package*", 16, font)
+				Dialogue(interactables[0].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "Hey there! Im the one in charge of\ntransporting paladins who've arrived", 16, font),
+				Dialogue(interactables[0].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "If you need to get to Ruynth I can take you,\njust hop in the cart", 16, font)
+			},
+			true, false, true, 2, 0, 60, 0 };
+		interactables[0].interactfunc = [](DialogueInfo& diag) {
+			if (diag.hasDialogue && !diag.visible) {
+				diag.visible = true;
+				diag.showCount = 0;
+			}
+		};
+
+		interactables[1].dialogueInfo = DialogueInfo{};
+		interactables[1].interactfunc = [this](DialogueInfo& diag) {
+			changeScene("TestScene.tmx");
+			player.setPosition(23 * Globals::TileSize, 73 * Globals::TileSize);
+		};
+
+		interactables[2].dialogueInfo = DialogueInfo{
+			{
+				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "Welcome to Thisehn paladin,\nI am Kral Hierophant Siv", 16, font),
+				Dialogue(interactables[2].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "I run the Hierophant enclave in this town,\nhowever I need an important favor from you", 16, font),
+				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "I need you to deliever a message to\nSul Hierophant Onsmaikus herself!", 16, font),
+				Dialogue(interactables[2].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "Sorry theres not much time for introductions but\nits important that you get this package to her", 16, font),
+				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "Travel south to Ruynth, the capital\nand find Onsmaikus in the cathedral", 16, font),
+				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (2 * Globals::TileSize), "*You recieve a package*", 16, font)
 			},
 			true, false, true, 6, 0, 60, 0 };
-		interactables[0].interactfunc = [](DialogueInfo& diag) {
+		interactables[2].interactfunc = [](DialogueInfo& diag) {
 			if (diag.hasDialogue && !diag.visible) {
 				diag.visible = true;
 				diag.showCount = 0;
