@@ -208,25 +208,34 @@ void Game::changeScene(std::string name) {
 		};
 	} else
 	if (name == "Thisehn.tmx") {
+		Interactable& cartGuy = interactables[0];
+		Interactable& cart = interactables[1];
+
+		//Cart Guy
+		interactables[0].disable();
 		interactables[0].dialogueInfo = DialogueInfo{
 			{
 				Dialogue(interactables[0].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "Hey there! Im the one in charge of\ntransporting paladins who've arrived", 16, font),
 				Dialogue(interactables[0].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "If you need to get to Ruynth I can take you,\njust hop in the cart", 16, font)
 			},
 			true, false, true, 2, 0, 60, 0 };
-		interactables[0].interactfunc = [](DialogueInfo& diag) {
+		interactables[0].interactfunc = [&cart](DialogueInfo& diag) mutable {
 			if (diag.hasDialogue && !diag.visible) {
 				diag.visible = true;
 				diag.showCount = 0;
+				cart.enable();
 			}
 		};
 
+		//Cart
+		interactables[1].disable();
 		interactables[1].dialogueInfo = DialogueInfo{};
 		interactables[1].interactfunc = [this](DialogueInfo& diag) {
 			changeScene("TestScene.tmx");
 			player.setPosition(23 * Globals::TileSize, 73 * Globals::TileSize);
 		};
 
+		//Kral Hierophant
 		interactables[2].dialogueInfo = DialogueInfo{
 			{
 				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "Welcome to Thisehn paladin,\nI am Kral Hierophant Siv", 16, font),
@@ -237,10 +246,11 @@ void Game::changeScene(std::string name) {
 				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (2 * Globals::TileSize), "*You recieve a package*", 16, font)
 			},
 			true, false, true, 6, 0, 60, 0 };
-		interactables[2].interactfunc = [](DialogueInfo& diag) {
+		interactables[2].interactfunc = [&cartGuy](DialogueInfo& diag) mutable {
 			if (diag.hasDialogue && !diag.visible) {
 				diag.visible = true;
 				diag.showCount = 0;
+				cartGuy.enable();
 			}
 		};
 	}
