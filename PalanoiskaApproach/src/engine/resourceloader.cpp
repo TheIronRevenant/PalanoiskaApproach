@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <pugixml.hpp>
 #include "resourceloader.hpp"
 #include "../game/scene.hpp"
@@ -171,42 +172,56 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 	int height = std::stoi(map.attribute("height").value()) + 1;
 
 	//Create vector of all tiles
-	std::vector<pugi::xml_node> tileNodes;
-	for (pugi::xml_node_iterator it = tileLayer.begin(); it != tileLayer.end(); ++it) {
-		tileNodes.push_back(*it);
+	std::vector<int> bgIds;
+	std::string bgData(bgLayer.text().as_string());
+	std::stringstream bgStream(bgData);
+	while(bgStream.good()) {
+		std::string sub;
+		std::getline(bgStream, sub, ',');
+		int val = std::stoi(sub);
+		bgIds.push_back(val);
 	}
 
-	//Create vector of bg tiles
-	std::vector<pugi::xml_node> bgNodes;
-	for (pugi::xml_node_iterator it = bgLayer.begin(); it != bgLayer.end(); ++it) {
-		bgNodes.push_back(*it);
+	std::vector<int> tileIds;
+	std::string tileData(tileLayer.text().as_string());
+	std::stringstream tileStream(tileData);
+	while(tileStream.good()) {
+		std::string sub;
+		std::getline(tileStream, sub, ',');
+		int val = std::stoi(sub);
+		tileIds.push_back(val);
 	}
 
-	std::vector<pugi::xml_node> interactNodes;
-	for (pugi::xml_node_iterator it = interactLayer.begin(); it != interactLayer.end(); ++it) {
-		interactNodes.push_back(*it);
+	std::vector<int> interactIds;
+	std::string interactData(interactLayer.text().as_string());
+	std::stringstream interactStream(interactData);
+	while(interactStream.good()) {
+		std::string sub;
+		std::getline(interactStream, sub, ',');
+		int val = std::stoi(sub);
+		interactIds.push_back(val);
 	}
 
 	//Recreate the scene
 	scene = Scene(width, height, GameSettings::WindowSettings{});
 
-	for (int i = 0; i < (int)bgNodes.size(); i++) {
-		if (bgNodes[i].attribute("gid")) {
+	for (int i = 0; i < (int)bgIds.size(); i++) {
+		if (bgIds[i] != 0) {
 			//Get grid x and y from i
 			int x = i % width;
 			int y = i / width;
-			int id = std::stoi(bgNodes[i].attribute("gid").value());
+			int id = bgIds[i];
 
 			scene.addBgStatic(StaticObject(x, y, textures[id + 1]));
 		}
 	}
 	
-	for (int i = 0; i < (int)tileNodes.size(); i++) {
-		if (tileNodes[i].attribute("gid")) {
+	for (int i = 0; i < (int)tileIds.size(); i++) {
+		if (tileIds[i] != 0) {
 			//Get grid x and y from i
 			int x = i % width;
 			int y = i / width;
-			int id = std::stoi(tileNodes[i].attribute("gid").value());
+			int id = tileIds[i];
 
 			if (id >= 1 && id < 18) { //Update this to add tile ----------------
 				//Tile
@@ -236,12 +251,12 @@ void loadScene(Scene& scene, std::vector<sf::Texture>& textures, std::string fol
 		}
 	}
 
-	for (int i = 0; i < (int)interactNodes.size(); i++) {
-		if (interactNodes[i].attribute("gid")) {
+	for (int i = 0; i < (int)interactIds.size(); i++) {
+		if (interactIds[i] != 0) {
 			//Get grid x and y from i
 			int x = i % width;
 			int y = i / width;
-			int id = std::stoi(interactNodes[i].attribute("gid").value());
+			int id = interactIds[i];
 			scene.addInteractable(Interactable(x, y, textures[id + 1], DialogueInfo{}));
 		}
 	}
