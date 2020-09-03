@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <string>
+#include <unordered_map>
 #include "../game/scene.hpp"
 #include "ui/uimanager.hpp"
 #include "settings.hpp"
@@ -19,6 +21,7 @@ public:
 private:
 	sf::RenderWindow window;
 	sf::Event event;
+	std::unordered_map<std::string, std::string> dialogueText;
 	std::vector<sf::Texture> textures;
 	std::vector<sf::Texture> uiTextures;
 	std::vector<sf::Texture> backgroundTextures;

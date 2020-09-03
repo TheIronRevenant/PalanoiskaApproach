@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <pugixml.hpp>
 #include "resourceloader.hpp"
 #include "../game/scene.hpp"
@@ -270,6 +271,27 @@ void loadFont(sf::Font& font, std::string folder) {
 		//Failed to load font
 	}
 }
+
+void loadDialogue(std::unordered_map<std::string, std::string>& dialogueText, std::string file) {
+	dialogueText.clear();
+	std::fstream fs(file);
+	while (fs.good()) {
+		std::string key;
+		std::string value;
+		std::getline(fs, key, '{');
+		std::getline(fs, value, '}');
+		fs.ignore();
+		
+		size_t pos = value.find("\\n");
+		while (pos != std::string::npos) {
+			value.replace(pos, 2, "\n");
+			pos = value.find("\\n");
+		}
+		
+		dialogueText[key] = value;
+	}
+}
+
 
 /*
 ---------------------------------------------

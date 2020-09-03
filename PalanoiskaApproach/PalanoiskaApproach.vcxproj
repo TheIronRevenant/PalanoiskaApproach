@@ -94,7 +94,8 @@ xcopy /y $(ProjectDir)sfml-window-d-2.dll $(OutDir)
 xcopy /y $(ProjectDir)resources\*.png $(OutDir)resources\
 xcopy /y $(ProjectDir)resources\*.ttf $(OutDir)resources\
 xcopy /y $(ProjectDir)resources\ui\*.png $(OutDir)resources\ui\
-xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command>
+xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\
+xcopy /y $(ProjectDir)resources\localization\*.pnl $(OutDir)resources\localization\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -148,7 +149,8 @@ xcopy /y $(ProjectDir)sfml-window-2.dll $(OutDir)
 xcopy /y $(ProjectDir)resources\*.png $(OutDir)resources\
 xcopy /y $(ProjectDir)resources\*.ttf $(OutDir)resources\
 xcopy /y $(ProjectDir)resources\ui\*.png $(OutDir)resources\ui\
-xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command>
+xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\
+xcopy /y $(ProjectDir)resources\localization\*.pnl $(OutDir)resources\localization\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -199,7 +201,11 @@ xcopy /y $(ProjectDir)resources\scenes\*.tmx $(OutDir)resources\scenes\</Command
     <ClCompile Include="src\pugixml\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\localization\pn_en.pnl" />
+    <None Include="resources\scenes\Kyul.tmx" />
     <None Include="resources\scenes\TestScene.tmx" />
+    <None Include="resources\scenes\TestScene2.tmx" />
+    <None Include="resources\scenes\Thisehn.tmx" />
     <None Include="sfml-audio-2.dll" />
     <None Include="sfml-audio-d-2.dll" />
     <None Include="sfml-graphics-2.dll" />

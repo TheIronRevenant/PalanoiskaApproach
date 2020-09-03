@@ -45,6 +45,7 @@ int Game::init() {
 	loadBackgrounds(backgroundTextures, current_dir() + "\\resources\\");
 	loadFont(font, current_dir() + "\\resources\\");
 	settings.font = &font;
+	loadDialogue(dialogueText, "resources\\localization\\pn_en.pnl");
 
 	//Init player
 	player = Player(0, 0, 
@@ -186,8 +187,8 @@ void Game::changeScene(std::string name) {
 	if (name == "TestScene.tmx") {
 		interactables[0].dialogueInfo = DialogueInfo{ 
 			{
-				Dialogue(interactables[0].getPosition().x - (2 * Globals::TileSize), interactables[0].getPosition().y - (2 * Globals::TileSize), "Test dialogue", 20, font),
-				Dialogue(interactables[0].getPosition().x - (2 * Globals::TileSize), interactables[0].getPosition().y - (2 * Globals::TileSize), "More dialogue", 20, font)
+				Dialogue(interactables[0].getPosition().x - (2 * Globals::TileSize), interactables[0].getPosition().y - (2 * Globals::TileSize), dialogueText["testscene_test1"], 20, font),
+				Dialogue(interactables[0].getPosition().x - (2 * Globals::TileSize), interactables[0].getPosition().y - (2 * Globals::TileSize), dialogueText["testscene_test2"], 20, font)
 			},
 			true, false, true, 2, 0, 60, 0 };
 		interactables[0].interactfunc = [](DialogueInfo& diag) {
@@ -215,8 +216,8 @@ void Game::changeScene(std::string name) {
 		interactables[0].disable();
 		interactables[0].dialogueInfo = DialogueInfo{
 			{
-				Dialogue(interactables[0].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "Hey there! Im the one in charge of\ntransporting paladins who've arrived", 16, font),
-				Dialogue(interactables[0].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "If you need to get to Ruynth I can take you,\njust hop in the cart", 16, font)
+				Dialogue(interactables[0].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), dialogueText["thisehn_cartguy1"], 16, font),
+				Dialogue(interactables[0].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), dialogueText["thisehn_cartguy2"], 16, font)
 			},
 			true, false, true, 2, 0, 60, 0 };
 		interactables[0].interactfunc = [&cart](DialogueInfo& diag) mutable {
@@ -238,12 +239,12 @@ void Game::changeScene(std::string name) {
 		//Kral Hierophant
 		interactables[2].dialogueInfo = DialogueInfo{
 			{
-				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "Welcome to Thisehn paladin,\nI am Kral Hierophant Siv", 16, font),
-				Dialogue(interactables[2].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "I run the Hierophant enclave in this town,\nhowever I need an important favor from you", 16, font),
-				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "I need you to deliever a message to\nSul Hierophant Onsmaikus herself!", 16, font),
-				Dialogue(interactables[2].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "Sorry theres not much time for introductions but\nits important that you get this package to her", 16, font),
-				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), "Travel south to Ruynth, the capital\nand find Onsmaikus in the cathedral", 16, font),
-				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (2 * Globals::TileSize), "*You recieve a package*", 16, font)
+				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), dialogueText["thisehn_kral1"], 16, font),
+				Dialogue(interactables[2].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), dialogueText["thisehn_kral2"], 16, font),
+				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), dialogueText["thisehn_kral3"], 16, font),
+				Dialogue(interactables[2].getPosition().x - (4 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), dialogueText["thisehn_kral4"], 16, font),
+				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (3 * Globals::TileSize), dialogueText["thisehn_kral5"], 16, font),
+				Dialogue(interactables[2].getPosition().x - (3 * Globals::TileSize), interactables[2].getPosition().y - (2 * Globals::TileSize), dialogueText["thisehn_kral6"], 16, font)
 			},
 			true, false, true, 6, 0, 60, 0 };
 		interactables[2].interactfunc = [&cartGuy](DialogueInfo& diag) mutable {
