@@ -31,7 +31,7 @@ class AttackAnimator {
 public:
 	AttackAnimator() {}
 	AttackAnimator(Animation animation);
-	void update(sf::Sprite& sprite, bool& terminated);
+	bool update(sf::Sprite& sprite, bool& terminated);
 	sf::Texture* getCurrentFrame();
 	int getSpeed() const { return animation.speed;  }
 	int getFrameCount() const { return animation.frames.size(); }

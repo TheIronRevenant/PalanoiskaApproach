@@ -54,8 +54,9 @@ int Game::init() {
 			10 }));
 	PlayerAttack slash(Animation{ 
 		std::vector<sf::Texture*>{ &textures[Globals::EffectOffset],& textures[Globals::EffectOffset + 1] },
-		7 }, 2);
+		7 }, 2, AttackType::Slash);
 	player.addAttack("slash", slash);
+	player.setAttack("slash");
 
 	//Init scene
 	changeScene("Thisehn.tmx");

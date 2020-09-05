@@ -2,13 +2,16 @@
 #include "../globals.hpp"
 #include "playerattack.hpp"
 
-PlayerAttack::PlayerAttack(AttackAnimator&& animator, int damage) {
+PlayerAttack::PlayerAttack(AttackAnimator&& animator, int damage, AttackType type) {
 	this->animator = animator;
 	terminated = false;
 	this->damage = damage;
+	this->type = type;
+	rightFacing = false;
 }
 
 void PlayerAttack::create(float x, float y, bool rightFacing) {
+	this->rightFacing = rightFacing;
 	boundingBox = sf::RectangleShape(sf::Vector2f(animator.getCurrentFrame()->getSize()));
 
 	float posx;
@@ -34,7 +37,12 @@ void PlayerAttack::create(float x, float y, bool rightFacing) {
 
 void PlayerAttack::update() {
 	if (!terminated) {
-		animator.update(sprite, terminated);
+		if (animator.update(sprite, terminated)) {
+			//Attack updated
+			if (type == AttackType::Overhead) {
+				//Overhead logic
+			}
+		}
 	}
 }
 

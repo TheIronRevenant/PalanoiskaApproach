@@ -33,6 +33,8 @@ Player::Player(unsigned int gridx, unsigned int gridy, PlayerAnimator&& animator
 	prevJump = false;
 	prevAttack = false;
 	prevInteract = false;
+
+	currentAttack = nullptr;
 }
 
 void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& enemies, std::vector<FloatingText>& floatText, std::vector<Interactable>& interactables, Scene& parentScene) {
@@ -180,7 +182,7 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 			attacking = true;
 			attackTimer = 0;
 
-			PlayerAttack a = attacks["slash"];
+			PlayerAttack a = *currentAttack;
 
 			attackSpeed = a.getAnimator().getSpeed() * a.getAnimator().getFrameCount();
 
@@ -247,6 +249,10 @@ void Player::draw(sf::RenderWindow& window) {
 
 void Player::addAttack(std::string name, PlayerAttack& attack) {
 	attacks[name] = attack;
+}
+
+void Player::setAttack(std::string name) {
+	currentAttack = &attacks[name];
 }
 
 void Player::reset() {

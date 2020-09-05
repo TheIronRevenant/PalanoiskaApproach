@@ -8,10 +8,15 @@ namespace sf {
 	class RenderWindow;
 };
 
+enum class AttackType {
+	Slash,
+	Overhead
+};
+
 class PlayerAttack : public GameObject {
 public:
-	PlayerAttack() { terminated = false; damage = 0; }
-	PlayerAttack(AttackAnimator&& animator, int damage);
+	PlayerAttack() { terminated = false; damage = 0; type = AttackType::Slash; rightFacing = false; }
+	PlayerAttack(AttackAnimator&& animator, int damage, AttackType type);
 	void create(float x, float y, bool rightFacing);
 	void update();
 	void draw(sf::RenderWindow& window);
@@ -20,7 +25,9 @@ public:
 	const int& getDamage() const { return damage; }
 private:
 	bool terminated;
+	bool rightFacing;
 	AttackAnimator animator;
+	AttackType type;
 	int damage;
 };
 
