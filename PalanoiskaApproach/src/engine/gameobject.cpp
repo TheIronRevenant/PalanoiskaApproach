@@ -1,6 +1,7 @@
 #include <algorithm>
 #include "../globals.hpp"
 #include "gameobject.hpp"
+#include <iostream>
 
 /*
 Game Object Abstract Class
@@ -9,7 +10,7 @@ Game Object Abstract Class
 GameObject::GameObject(unsigned int gridx, unsigned int gridy, sf::Texture& texture) {
 	boundingBox = sf::RectangleShape(sf::Vector2f(texture.getSize()));
 	boundingBox.setPosition((float)gridx * Globals::TileSize, (float)gridy * Globals::TileSize);
-	boundingBox.setOutlineThickness(0.5f);
+	boundingBox.setOutlineThickness(1.f);
 	boundingBox.setOutlineColor(sf::Color::Red);
 	boundingBox.setFillColor(sf::Color::Transparent);
 

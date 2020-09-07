@@ -83,6 +83,7 @@ bool AttackAnimator::update(sf::Sprite& sprite, bool& terminated) {
 		updated = true;
 		if (animation.frame >= animation.frames.size()) {
 			terminated = true;
+			updated = false;
 		} else {
 			sprite.setTexture(*(getCurrentFrame()));
 		}

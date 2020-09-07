@@ -52,11 +52,17 @@ int Game::init() {
 		PlayerAnimator(Animation{ 
 			std::vector<sf::Texture*>{ &textures[Globals::PlayerOffset],& textures[Globals::PlayerOffset + 1] },
 			10 }));
+
 	PlayerAttack slash(Animation{ 
-		std::vector<sf::Texture*>{ &textures[Globals::EffectOffset],& textures[Globals::EffectOffset + 1] },
+		std::vector<sf::Texture*>{ &textures[Globals::EffectOffset], &textures[Globals::EffectOffset + 1] },
 		7 }, 2, AttackType::Slash);
 	player.addAttack("slash", slash);
-	player.setAttack("slash");
+
+	PlayerAttack hammer(Animation{
+		std::vector<sf::Texture*>{ &textures[Globals::EffectOffset + 2], &textures[Globals::EffectOffset + 3] },
+		35 }, 2, AttackType::Overhead);
+	player.addAttack("hammer", hammer);
+	player.setAttack("hammer");
 
 	//Init scene
 	changeScene("Thisehn.tmx");

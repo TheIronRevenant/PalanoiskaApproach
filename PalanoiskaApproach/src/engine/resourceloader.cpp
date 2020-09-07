@@ -111,6 +111,27 @@ void loadTextures(std::vector<sf::Texture>& textures, std::string folder) {
 
 		textures.push_back(texture);
 	}
+
+	{
+		//Uniquely sized sprites
+		sf::Texture texture;
+		sf::IntRect rect;
+		rect.width = tilesize;
+		rect.height = tilesize * 2;
+		rect.left = ((tilesize * 2) + spacing) * total;
+		if (!texture.loadFromFile(file, rect)) {
+			//Texture failed to load
+		}
+		textures.push_back(texture);
+
+		rect.width = tilesize * 2;
+		rect.height = tilesize * 3;
+		rect.left = ((tilesize * 2) + spacing) * total + (tilesize + spacing);
+		if (!texture.loadFromFile(file, rect)) {
+			//Texture failed to load
+		}
+		textures.push_back(texture);
+	}
 }
 
 void loadUI(std::vector<sf::Texture>& textures, std::string folder) {

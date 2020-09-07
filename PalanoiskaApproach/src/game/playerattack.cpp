@@ -14,15 +14,20 @@ void PlayerAttack::create(float x, float y, bool rightFacing) {
 	this->rightFacing = rightFacing;
 	boundingBox = sf::RectangleShape(sf::Vector2f(animator.getCurrentFrame()->getSize()));
 
-	float posx;
-	if (rightFacing) {
-		posx = x;
-	} else {
-		posx = x - Globals::TileSize;
+	float posx = x;
+	if (type == AttackType::Slash) {
+		if (!rightFacing) {
+			posx = x - Globals::TileSize;
+		}
 	}
-
-	boundingBox.setPosition(posx, y);
-	boundingBox.setOutlineThickness(0.5f);
+	
+	if (type == AttackType::Slash) {
+		boundingBox.setPosition(posx, y);
+	} else
+	if (type == AttackType::Overhead) {
+		boundingBox.setPosition(posx, y - (Globals::TileSize * 2));
+	}
+	boundingBox.setOutlineThickness(1.f);
 	boundingBox.setOutlineColor(sf::Color::Green);
 	boundingBox.setFillColor(sf::Color::Transparent);
 
@@ -41,6 +46,16 @@ void PlayerAttack::update() {
 			//Attack updated
 			if (type == AttackType::Overhead) {
 				//Overhead logic
+				boundingBox.setSize(sf::Vector2f(animator.getCurrentFrame()->getSize()));
+				sf::Vector2f size = boundingBox.getSize();
+				if (rightFacing) {
+					boundingBox.move((float)Globals::TileSize, 0);
+					sprite.setTextureRect(sf::IntRect(0, 0, (int)size.x, (int)size.y));
+				} else {
+					boundingBox.move(-((float)Globals::TileSize * 2), 0);
+					sprite.setTextureRect(sf::IntRect((int)size.x, 0, (int)-size.x, (int)size.y));
+				}
+				sprite.setPosition(getPosition());
 			}
 		}
 	}

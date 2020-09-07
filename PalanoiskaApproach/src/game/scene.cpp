@@ -196,6 +196,7 @@ void Scene::redrawBackground() {
 
 void Scene::generateMeshes() {
 	sf::Clock timer;
+	meshes.clear();
 
 	//Init matrix
 	std::vector<std::vector<std::pair<StaticObject, bool>*>> matrix;
