@@ -106,22 +106,26 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 		}
 	}
 
-	if (canMove) {
+	if (canMove && !attacking) {
 		setPosition(nextPos.getPosition());
 	} else {
 		if (hVelocity > 0.f) {
 			hVelocity = 0.f;
 
-			//Lock position to the right
-			float lockedx = std::ceilf(getPosition().x / 16) * 16;
-			setPosition(lockedx, getPosition().y);
+			if (!attacking) {
+				//Lock position to the right
+				float lockedx = std::ceilf(getPosition().x / 16) * 16;
+				setPosition(lockedx, getPosition().y);
+			}
 		} else 
 		if (hVelocity < 0.f) {
 			hVelocity = 0.f;
 
-			//Lock position to the left
-			float lockedx = std::floorf(getPosition().x / 16) * 16;
-			setPosition(lockedx, getPosition().y);
+			if (!attacking) {
+				//Lock position to the left
+				float lockedx = std::floorf(getPosition().x / 16) * 16;
+				setPosition(lockedx, getPosition().y);
+			}
 		}
 	}
 
@@ -152,25 +156,30 @@ void Player::update(const std::vector<Mesh>& meshes, const std::vector<Enemy>& e
 	}
 
 	if (canFall) {
-		setPosition(fallPos.getPosition());
+		if (!attacking) {
+			setPosition(fallPos.getPosition());
+		}
 		//Object can fall so is no longer on ground
 		onGround = false;
 	} else {
 		//If going upwards
-		if (vVelocity < 0.f) {
-			vVelocity = 0.f;
+		if (!attacking) {
+			if (vVelocity < 0.f) {
+				vVelocity = 0.f;
 
-			//Lock position to ceiling
-			float lockedy = std::floorf(getPosition().y / 16) * 16;
-			setPosition(getPosition().x, lockedy);
-		} else {
-			//If going downwards
-			vVelocity = 0.f;
-			onGround = true;
+				//Lock position to ceiling
+				float lockedy = std::floorf(getPosition().y / 16) * 16;
+				setPosition(getPosition().x, lockedy);
+			}
+			else {
+				//If going downwards
+				vVelocity = 0.f;
+				onGround = true;
 
-			//Lock position to the ground
-			float lockedy = std::ceilf(getPosition().y / 16) * 16;
-			setPosition(getPosition().x, lockedy);
+				//Lock position to the ground
+				float lockedy = std::ceilf(getPosition().y / 16) * 16;
+				setPosition(getPosition().x, lockedy);
+			}
 		}
 	}
 
