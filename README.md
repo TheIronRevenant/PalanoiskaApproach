@@ -1,2 +1,2 @@
 # PalanoiskaApproach
-Full refactor soon maybe
+Full rewrite soon maybe
